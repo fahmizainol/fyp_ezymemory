@@ -1,5 +1,5 @@
 class AuthService {
   bool userLoggedIn() {
-    return true;
+    return false;
   }
 }
