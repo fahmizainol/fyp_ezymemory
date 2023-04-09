@@ -8,9 +8,11 @@ class StartupViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _authService = locator<AuthService>();
 
-  // Place anything here that needs to happen before we get into the application
+  bool temp = false;
+
+  // TODO: implement startup logic for if the user logged in dy
   Future runStartupLogic() async {
-    if (_authService.userLoggedIn()) {
+    if (temp) {
       _navigationService.replaceWith(Routes.homeView);
     } else {
       _navigationService.replaceWith(Routes.loginView);

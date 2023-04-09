@@ -8,7 +8,11 @@ import 'login_view.form.dart';
 
 @FormView(fields: [
   FormTextField(
-    name: 'userName',
+    name: 'email',
+    validator: LoginValidators.validateReverseText,
+  ),
+  FormTextField(
+    name: 'password',
     validator: LoginValidators.validateReverseText,
   ),
 ])
@@ -31,30 +35,60 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
             children: [
               verticalSpaceMedium,
               const Text(
-                'Text to Reverse',
+                'Login',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
               ),
-              verticalSpaceSmall,
-              TextFormField(controller: userNameController),
-              if (viewModel.hasUserNameValidationMessage) ...[
-                verticalSpaceTiny,
-                Text(
-                  viewModel.userNameValidationMessage!,
-                  style: const TextStyle(
-                    color: Colors.red,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ],
               verticalSpaceMedium,
-              Text(
-                viewModel.reversedText,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
+              TextFormField(
+                controller: emailController,
+                decoration: const InputDecoration(
+                  labelText: 'Email',
+                  border: OutlineInputBorder(),
                 ),
               ),
+              // if (viewModel.hasemailValidationMessage) ...[
+              //   verticalSpaceTiny,
+              //   Text(
+              //     viewModel.emailValidationMessage!,
+              //     style: const TextStyle(
+              //       color: Colors.red,
+              //       fontSize: 12,
+              //       fontWeight: FontWeight.w700,
+              //     ),
+              //   ),
+              // ],
+              verticalSpaceMedium,
+              // Text(
+              //   viewModel.reversedText,
+              //   style: const TextStyle(
+              //     fontSize: 18,
+              //     fontWeight: FontWeight.w700,
+              //   ),
+              // ),
+              TextFormField(
+                controller: passwordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  labelText: 'Password',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              verticalSpaceMedium,
+              ElevatedButton(
+                onPressed: () {
+                  // Implement login functionality here
+                  viewModel.logInWithEmail(
+                      emailController.text, passwordController.text);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  textStyle: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                ),
+                child: const Text('Login'),
+              )
             ],
           ),
         ),

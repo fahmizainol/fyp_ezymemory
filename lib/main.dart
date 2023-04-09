@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fyp_ezymemory/app/app.bottomsheets.dart';
 import 'package:fyp_ezymemory/app/app.dialogs.dart';
@@ -6,10 +7,12 @@ import 'package:fyp_ezymemory/app/app.router.dart';
 import 'package:fyp_ezymemory/ui/common/app_colors.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-void main() {
+Future<void> main() async {
   setupLocator();
   setupDialogUi();
   setupBottomSheetUi();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
 
   runApp(const MyApp());
 }

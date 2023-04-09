@@ -7,6 +7,7 @@ import 'dart:async' as _i4;
 import 'dart:ui' as _i5;
 
 import 'package:flutter/material.dart' as _i3;
+import 'package:fyp_ezymemory/services/api_service.dart' as _i7;
 import 'package:fyp_ezymemory/services/auth_service.dart' as _i6;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:stacked_services/stacked_services.dart' as _i2;
@@ -628,12 +629,48 @@ class MockDialogService extends _i1.Mock implements _i2.DialogService {
 /// See the documentation for Mockito's code generation for more information.
 class MockAuthService extends _i1.Mock implements _i6.AuthService {
   @override
-  bool userLoggedIn() => (super.noSuchMethod(
-        Invocation.method(
-          #userLoggedIn,
-          [],
-        ),
+  bool get userLoggedIn => (super.noSuchMethod(
+        Invocation.getter(#userLoggedIn),
         returnValue: false,
         returnValueForMissingStub: false,
       ) as bool);
+  @override
+  _i4.Future<dynamic> loginWithEmail({
+    required String? email,
+    required String? password,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #loginWithEmail,
+          [],
+          {
+            #email: email,
+            #password: password,
+          },
+        ),
+        returnValue: _i4.Future<dynamic>.value(),
+        returnValueForMissingStub: _i4.Future<dynamic>.value(),
+      ) as _i4.Future<dynamic>);
+  @override
+  _i4.Future<dynamic> signUpWithEmail({
+    required String? email,
+    required String? password,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #signUpWithEmail,
+          [],
+          {
+            #email: email,
+            #password: password,
+          },
+        ),
+        returnValue: _i4.Future<dynamic>.value(),
+        returnValueForMissingStub: _i4.Future<dynamic>.value(),
+      ) as _i4.Future<dynamic>);
 }
+
+/// A class which mocks [ApiService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockApiService extends _i1.Mock implements _i7.ApiService {}

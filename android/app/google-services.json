@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "889652137048",
+    "project_id": "ezymemory-1de38",
+    "storage_bucket": "ezymemory-1de38.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:889652137048:android:78e4cd1800afa7a8dace2d",
+        "android_client_info": {
+          "package_name": "com.kny.fyp_ezymemory"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "889652137048-l1fuv2eldd9391hsi08j7k2h593pui28.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kny.fyp_ezymemory",
+            "certificate_hash": "efa2d557ead4f52120e3d81f86c757992aa02367"
+          }
+        },
+        {
+          "client_id": "889652137048-ek934tun5lmhovomqbi8hb19l30k4inf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8pnEEkqC66MRLsqBpWq8TgG666IVIhl4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "889652137048-cgn2mhvoctbk4g1plnvomjnf3jb43i8b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

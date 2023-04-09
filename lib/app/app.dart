@@ -7,6 +7,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:fyp_ezymemory/ui/views/counter/counter_view.dart';
 import 'package:fyp_ezymemory/ui/views/login/login_view.dart';
 import 'package:fyp_ezymemory/services/auth_service.dart';
+import 'package:fyp_ezymemory/services/api_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -22,6 +23,7 @@ import 'package:fyp_ezymemory/services/auth_service.dart';
     LazySingleton(classType: DialogService),
     LazySingleton(classType: NavigationService),
     LazySingleton(classType: AuthService),
+    LazySingleton(classType: ApiService),
 // @stacked-service
   ],
   bottomsheets: [

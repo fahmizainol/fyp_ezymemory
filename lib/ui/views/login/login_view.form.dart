@@ -10,20 +10,25 @@ import 'package:flutter/material.dart';
 import 'package:fyp_ezymemory/ui/views/login/login_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
-const String UserNameValueKey = 'userName';
+const String EmailValueKey = 'email';
+const String PasswordValueKey = 'password';
 
 final Map<String, TextEditingController> _LoginViewTextEditingControllers = {};
 
 final Map<String, FocusNode> _LoginViewFocusNodes = {};
 
 final Map<String, String? Function(String?)?> _LoginViewTextValidations = {
-  UserNameValueKey: LoginValidators.validateReverseText,
+  EmailValueKey: LoginValidators.validateReverseText,
+  PasswordValueKey: LoginValidators.validateReverseText,
 };
 
 mixin $LoginView on StatelessWidget {
-  TextEditingController get userNameController =>
-      _getFormTextEditingController(UserNameValueKey);
-  FocusNode get userNameFocusNode => _getFormFocusNode(UserNameValueKey);
+  TextEditingController get emailController =>
+      _getFormTextEditingController(EmailValueKey);
+  TextEditingController get passwordController =>
+      _getFormTextEditingController(PasswordValueKey);
+  FocusNode get emailFocusNode => _getFormFocusNode(EmailValueKey);
+  FocusNode get passwordFocusNode => _getFormFocusNode(PasswordValueKey);
 
   TextEditingController _getFormTextEditingController(
     String key, {
@@ -49,7 +54,8 @@ mixin $LoginView on StatelessWidget {
   /// Registers a listener on every generated controller that calls [model.setData()]
   /// with the latest textController values
   void syncFormWithViewModel(FormViewModel model) {
-    userNameController.addListener(() => _updateFormData(model));
+    emailController.addListener(() => _updateFormData(model));
+    passwordController.addListener(() => _updateFormData(model));
   }
 
   /// Registers a listener on every generated controller that calls [model.setData()]
@@ -59,7 +65,8 @@ mixin $LoginView on StatelessWidget {
     'This feature was deprecated after 3.1.0.',
   )
   void listenToFormUpdated(FormViewModel model) {
-    userNameController.addListener(() => _updateFormData(model));
+    emailController.addListener(() => _updateFormData(model));
+    passwordController.addListener(() => _updateFormData(model));
   }
 
   final bool _autoTextFieldValidation = true;
@@ -73,7 +80,8 @@ mixin $LoginView on StatelessWidget {
     model.setData(
       model.formValueMap
         ..addAll({
-          UserNameValueKey: userNameController.text,
+          EmailValueKey: emailController.text,
+          PasswordValueKey: passwordController.text,
         }),
     );
 
@@ -101,45 +109,70 @@ mixin $LoginView on StatelessWidget {
 extension ValueProperties on FormViewModel {
   bool get isFormValid =>
       this.fieldsValidationMessages.values.every((element) => element == null);
-  String? get userNameValue => this.formValueMap[UserNameValueKey] as String?;
+  String? get emailValue => this.formValueMap[EmailValueKey] as String?;
+  String? get passwordValue => this.formValueMap[PasswordValueKey] as String?;
 
-  set userNameValue(String? value) {
+  set emailValue(String? value) {
     this.setData(
       this.formValueMap
         ..addAll({
-          UserNameValueKey: value,
+          EmailValueKey: value,
         }),
     );
 
-    if (_LoginViewTextEditingControllers.containsKey(UserNameValueKey)) {
-      _LoginViewTextEditingControllers[UserNameValueKey]?.text = value ?? '';
+    if (_LoginViewTextEditingControllers.containsKey(EmailValueKey)) {
+      _LoginViewTextEditingControllers[EmailValueKey]?.text = value ?? '';
     }
   }
 
-  bool get hasUserName =>
-      this.formValueMap.containsKey(UserNameValueKey) &&
-      (userNameValue?.isNotEmpty ?? false);
+  set passwordValue(String? value) {
+    this.setData(
+      this.formValueMap
+        ..addAll({
+          PasswordValueKey: value,
+        }),
+    );
 
-  bool get hasUserNameValidationMessage =>
-      this.fieldsValidationMessages[UserNameValueKey]?.isNotEmpty ?? false;
+    if (_LoginViewTextEditingControllers.containsKey(PasswordValueKey)) {
+      _LoginViewTextEditingControllers[PasswordValueKey]?.text = value ?? '';
+    }
+  }
 
-  String? get userNameValidationMessage =>
-      this.fieldsValidationMessages[UserNameValueKey];
+  bool get hasEmail =>
+      this.formValueMap.containsKey(EmailValueKey) &&
+      (emailValue?.isNotEmpty ?? false);
+  bool get hasPassword =>
+      this.formValueMap.containsKey(PasswordValueKey) &&
+      (passwordValue?.isNotEmpty ?? false);
+
+  bool get hasEmailValidationMessage =>
+      this.fieldsValidationMessages[EmailValueKey]?.isNotEmpty ?? false;
+  bool get hasPasswordValidationMessage =>
+      this.fieldsValidationMessages[PasswordValueKey]?.isNotEmpty ?? false;
+
+  String? get emailValidationMessage =>
+      this.fieldsValidationMessages[EmailValueKey];
+  String? get passwordValidationMessage =>
+      this.fieldsValidationMessages[PasswordValueKey];
 }
 
 extension Methods on FormViewModel {
-  setUserNameValidationMessage(String? validationMessage) =>
-      this.fieldsValidationMessages[UserNameValueKey] = validationMessage;
+  setEmailValidationMessage(String? validationMessage) =>
+      this.fieldsValidationMessages[EmailValueKey] = validationMessage;
+  setPasswordValidationMessage(String? validationMessage) =>
+      this.fieldsValidationMessages[PasswordValueKey] = validationMessage;
 
   /// Clears text input fields on the Form
   void clearForm() {
-    userNameValue = '';
+    emailValue = '';
+    passwordValue = '';
   }
 
   /// Validates text input fields on the Form
   void validateForm() {
     this.setValidationMessages({
-      UserNameValueKey: getValidationMessage(UserNameValueKey),
+      EmailValueKey: getValidationMessage(EmailValueKey),
+      PasswordValueKey: getValidationMessage(PasswordValueKey),
     });
   }
 }
@@ -158,5 +191,6 @@ String? getValidationMessage(String key) {
 
 /// Updates the fieldsValidationMessages on the FormViewModel
 void updateValidationData(FormViewModel model) => model.setValidationMessages({
-      UserNameValueKey: getValidationMessage(UserNameValueKey),
+      EmailValueKey: getValidationMessage(EmailValueKey),
+      PasswordValueKey: getValidationMessage(PasswordValueKey),
     });
