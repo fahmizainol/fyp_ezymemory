@@ -629,12 +629,6 @@ class MockDialogService extends _i1.Mock implements _i2.DialogService {
 /// See the documentation for Mockito's code generation for more information.
 class MockAuthService extends _i1.Mock implements _i6.AuthService {
   @override
-  bool get userLoggedIn => (super.noSuchMethod(
-        Invocation.getter(#userLoggedIn),
-        returnValue: false,
-        returnValueForMissingStub: false,
-      ) as bool);
-  @override
   _i4.Future<dynamic> loginWithEmail({
     required String? email,
     required String? password,

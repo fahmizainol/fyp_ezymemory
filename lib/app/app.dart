@@ -8,6 +8,7 @@ import 'package:fyp_ezymemory/ui/views/counter/counter_view.dart';
 import 'package:fyp_ezymemory/ui/views/login/login_view.dart';
 import 'package:fyp_ezymemory/services/auth_service.dart';
 import 'package:fyp_ezymemory/services/api_service.dart';
+import 'package:fyp_ezymemory/ui/views/register/register_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -16,6 +17,7 @@ import 'package:fyp_ezymemory/services/api_service.dart';
     MaterialRoute(page: StartupView),
     MaterialRoute(page: CounterView),
     MaterialRoute(page: LoginView),
+    MaterialRoute(page: RegisterView),
 // @stacked-route
   ],
   dependencies: [
