@@ -7,7 +7,6 @@
 // ignore_for_file: public_member_api_docs, constant_identifier_names, non_constant_identifier_names,unnecessary_this
 
 import 'package:flutter/material.dart';
-import 'package:fyp_ezymemory/ui/views/login/login_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
 const String EmailValueKey = 'email';
@@ -18,8 +17,8 @@ final Map<String, TextEditingController> _LoginViewTextEditingControllers = {};
 final Map<String, FocusNode> _LoginViewFocusNodes = {};
 
 final Map<String, String? Function(String?)?> _LoginViewTextValidations = {
-  EmailValueKey: LoginValidators.validateReverseText,
-  PasswordValueKey: LoginValidators.validateReverseText,
+  EmailValueKey: null,
+  PasswordValueKey: null,
 };
 
 mixin $LoginView on StatelessWidget {

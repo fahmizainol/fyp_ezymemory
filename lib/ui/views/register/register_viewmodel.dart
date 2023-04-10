@@ -8,17 +8,20 @@ class RegisterViewModel extends FormViewModel {
   final _authService = locator<AuthService>();
   final _navigationService = locator<NavigationService>();
 
-  Future<void> signUpWithEmail(String email, String password) async {
+  Future<void> signUpWithEmail(
+      String email, String password, String username) async {
     try {
-      await _authService.signUpWithEmail(email: email, password: password);
+      await _authService.signUpWithEmail(
+          email: email, password: password, username: username);
       // TODO: make a user model and initialize it
-      _navigationService.replaceWithHomeView();
+      _navigationService.navigateToHomeView();
     } catch (e) {
       e.toString();
     }
   }
 }
 
+// TODO: if account already exist error
 class RegisterValidators {
   static String? validateUsername(String? value) {
     if (value!.isEmpty) {

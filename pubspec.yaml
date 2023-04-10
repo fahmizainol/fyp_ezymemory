@@ -40,6 +40,8 @@ dependencies:
   firebase_core: ^2.9.0
   firebase_auth: ^4.4.0
   stacked_firebase_auth: ^2.19.2
+  cloud_firestore: ^4.5.0
+  equatable: ^2.0.5
 
 dev_dependencies:
   flutter_test:

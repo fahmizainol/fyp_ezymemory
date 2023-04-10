@@ -9,17 +9,17 @@ import 'login_view.form.dart';
 @FormView(fields: [
   FormTextField(
     name: 'email',
-    validator: LoginValidators.validateReverseText,
   ),
   FormTextField(
     name: 'password',
-    validator: LoginValidators.validateReverseText,
   ),
 ])
 
 // TODO: add login with google function
 class LoginView extends StackedView<LoginViewModel> with $LoginView {
   LoginView({Key? key}) : super(key: key);
+  final _formKey = GlobalKey<FormState>();
+  bool loginBtnClicked = false;
 
   @override
   Widget builder(
@@ -32,66 +32,60 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
       body: Container(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0),
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              verticalSpaceMedium,
-              const Text(
-                'Login',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
-              ),
-              verticalSpaceMedium,
-              TextFormField(
-                controller: emailController,
-                decoration: const InputDecoration(
-                  labelText: 'Email',
-                  border: OutlineInputBorder(),
+          child: Form(
+            key: _formKey,
+            autovalidateMode: loginBtnClicked
+                ? AutovalidateMode.onUserInteraction
+                : AutovalidateMode.disabled,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                verticalSpaceMedium,
+                const Text(
+                  'Login',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
                 ),
-              ),
-              // if (viewModel.hasemailValidationMessage) ...[
-              //   verticalSpaceTiny,
-              //   Text(
-              //     viewModel.emailValidationMessage!,
-              //     style: const TextStyle(
-              //       color: Colors.red,
-              //       fontSize: 12,
-              //       fontWeight: FontWeight.w700,
-              //     ),
-              //   ),
-              // ],
-              verticalSpaceMedium,
-              // Text(
-              //   viewModel.reversedText,
-              //   style: const TextStyle(
-              //     fontSize: 18,
-              //     fontWeight: FontWeight.w700,
-              //   ),
-              // ),
-              TextFormField(
-                controller: passwordController,
-                obscureText: true,
-                decoration: const InputDecoration(
-                  labelText: 'Password',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              verticalSpaceMedium,
-              ElevatedButton(
-                onPressed: () {
-                  // Implement login functionality here
-                  viewModel.logInWithEmail(
-                      emailController.text, passwordController.text);
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  textStyle: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
+                verticalSpaceMedium,
+                TextFormField(
+                  controller: emailController,
+                  decoration: const InputDecoration(
+                    labelText: 'Email',
+                    border: OutlineInputBorder(),
                   ),
+                  validator: LoginValidators.validateEmail,
                 ),
-                child: const Text('Login'),
-              )
-            ],
+                verticalSpaceMedium,
+                TextFormField(
+                  controller: passwordController,
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                    labelText: 'Password',
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: LoginValidators.validatePassword,
+                ),
+                verticalSpaceMedium,
+                ElevatedButton(
+                  onPressed: () {
+                    // Implement login functionality here
+                    if (_formKey.currentState!.validate()) {
+                      viewModel.logInWithEmail(
+                          emailController.text, passwordController.text);
+                    } else {
+                      loginBtnClicked = true;
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    textStyle: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                    ),
+                  ),
+                  child: const Text('Login'),
+                )
+              ],
+            ),
           ),
         ),
       ),

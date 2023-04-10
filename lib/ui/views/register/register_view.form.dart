@@ -7,7 +7,6 @@
 // ignore_for_file: public_member_api_docs, constant_identifier_names, non_constant_identifier_names,unnecessary_this
 
 import 'package:flutter/material.dart';
-import 'package:fyp_ezymemory/ui/views/register/register_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
 const String UsernameValueKey = 'username';
@@ -22,8 +21,8 @@ final Map<String, FocusNode> _RegisterViewFocusNodes = {};
 
 final Map<String, String? Function(String?)?> _RegisterViewTextValidations = {
   UsernameValueKey: null,
-  EmailValueKey: RegisterValidators.validateEmail,
-  PasswordValueKey: RegisterValidators.validatePassword,
+  EmailValueKey: null,
+  PasswordValueKey: null,
   ConfirmPasswordValueKey: null,
 };
 

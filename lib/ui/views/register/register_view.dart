@@ -102,8 +102,8 @@ class RegisterView extends StackedView<RegisterViewModel> with $RegisterView {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       // TODO: UserModel related stuff
-                      viewModel.signUpWithEmail(
-                          emailController.text, passwordController.text);
+                      viewModel.signUpWithEmail(emailController.text,
+                          passwordController.text, usernameController.text);
                     } else {
                       submitBtnClicked = true;
                     }

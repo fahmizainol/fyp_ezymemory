@@ -9,6 +9,7 @@ import 'package:fyp_ezymemory/ui/views/login/login_view.dart';
 import 'package:fyp_ezymemory/services/auth_service.dart';
 import 'package:fyp_ezymemory/services/api_service.dart';
 import 'package:fyp_ezymemory/ui/views/register/register_view.dart';
+import 'package:fyp_ezymemory/services/firestore_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -26,6 +27,7 @@ import 'package:fyp_ezymemory/ui/views/register/register_view.dart';
     LazySingleton(classType: NavigationService),
     LazySingleton(classType: AuthService),
     LazySingleton(classType: ApiService),
+    LazySingleton(classType: FirestoreService),
 // @stacked-service
   ],
   bottomsheets: [

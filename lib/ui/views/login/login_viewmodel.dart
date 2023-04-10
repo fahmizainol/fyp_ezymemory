@@ -9,26 +9,37 @@ class LoginViewModel extends FormViewModel {
   final _authService = locator<AuthService>();
   final _navigationService = locator<NavigationService>();
 
-  Future<void> logInWithEmail(String email, String password) async {
+  Future logInWithEmail(String email, String password) async {
     try {
       await _authService.loginWithEmail(email: email, password: password);
       // TODO: make a user model and initialize it
-      _navigationService.replaceWithHomeView();
+      // _navigationService.replaceWithHomeView();
+      print('object');
     } catch (e) {
-      e.toString();
+      return e.toString();
+      // print('error');
     }
   }
 }
 
 // TODO: add validations for username and password
 class LoginValidators {
-  static String? validateReverseText(String? value) {
-    if (value == null) {
-      return null;
+  static String? validateEmail(String? value) {
+    if (value!.isEmpty) {
+      return 'Email field must not be null';
     }
 
-    if (value.contains(RegExp(r'[0-9]'))) {
-      return 'No numbers allowed';
+    if (value!.isNotEmpty &&
+        !value.contains(RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$'))) {
+      return 'Please enter a valid email';
     }
+    return null;
+  }
+
+  static String? validatePassword(String? value) {
+    if (value!.isEmpty) {
+      return 'Please fill up your password';
+    }
+    return null;
   }
 }

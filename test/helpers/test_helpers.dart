@@ -4,6 +4,7 @@ import 'package:fyp_ezymemory/app/app.locator.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:fyp_ezymemory/services/auth_service.dart';
 import 'package:fyp_ezymemory/services/api_service.dart';
+import 'package:fyp_ezymemory/services/firestore_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -14,6 +15,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<DialogService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<AuthService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<ApiService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<FirestoreService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -22,6 +24,7 @@ void registerServices() {
   getAndRegisterDialogService();
   getAndRegisterAuthService();
   getAndRegisterApiService();
+  getAndRegisterFirestoreService();
 // @stacked-mock-register
 }
 
@@ -86,6 +89,13 @@ MockApiService getAndRegisterApiService() {
   _removeRegistrationIfExists<ApiService>();
   final service = MockApiService();
   locator.registerSingleton<ApiService>(service);
+  return service;
+}
+
+MockFirestoreService getAndRegisterFirestoreService() {
+  _removeRegistrationIfExists<FirestoreService>();
+  final service = MockFirestoreService();
+  locator.registerSingleton<FirestoreService>(service);
   return service;
 }
 // @stacked-mock-create
