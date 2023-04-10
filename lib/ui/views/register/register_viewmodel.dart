@@ -20,12 +20,13 @@ class RegisterViewModel extends FormViewModel {
 }
 
 class RegisterValidators {
-  // TODO: check for confirm password
   static String? validateUsername(String? value) {
     if (value!.isEmpty) {
       return 'Username field must not be null';
     }
-
+    if (value.length < 5) {
+      return 'Username must be at least 5 characters long';
+    }
     if (value!.isNotEmpty && !value.contains(RegExp(r'^[a-zA-Z0-9]+$'))) {
       return 'Only A-z and 0-9 are allowed';
     }

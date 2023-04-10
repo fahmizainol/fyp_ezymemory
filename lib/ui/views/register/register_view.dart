@@ -29,6 +29,7 @@ import 'register_viewmodel.dart';
 class RegisterView extends StackedView<RegisterViewModel> with $RegisterView {
   RegisterView({Key? key}) : super(key: key);
   final _formKey = GlobalKey<FormState>();
+  bool submitBtnClicked = false;
 
   @override
   Widget builder(
@@ -43,6 +44,9 @@ class RegisterView extends StackedView<RegisterViewModel> with $RegisterView {
         child: SingleChildScrollView(
           child: Form(
             key: _formKey,
+            autovalidateMode: submitBtnClicked
+                ? AutovalidateMode.onUserInteraction
+                : AutovalidateMode.disabled,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -82,8 +86,7 @@ class RegisterView extends StackedView<RegisterViewModel> with $RegisterView {
                     }),
                 verticalSpaceMedium,
                 TextFormField(
-                  controller:
-                      confirmPasswordController, // TODO: check back x sure
+                  controller: confirmPasswordController,
                   obscureText: true,
                   decoration: const InputDecoration(
                     labelText: 'Confirm Password',
@@ -98,10 +101,11 @@ class RegisterView extends StackedView<RegisterViewModel> with $RegisterView {
                 ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      // TODO: remove the red stuff after validating
                       // TODO: UserModel related stuff
                       viewModel.signUpWithEmail(
                           emailController.text, passwordController.text);
+                    } else {
+                      submitBtnClicked = true;
                     }
                   },
                   style: ElevatedButton.styleFrom(
