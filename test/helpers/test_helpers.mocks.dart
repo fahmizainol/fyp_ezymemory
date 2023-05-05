@@ -6,13 +6,15 @@
 import 'dart:async' as _i5;
 import 'dart:ui' as _i6;
 
-import 'package:firebase_auth/firebase_auth.dart' as _i2;
+import 'package:firebase_auth/firebase_auth.dart' as _i8;
 import 'package:flutter/material.dart' as _i4;
-import 'package:fyp_ezymemory/models/User.dart' as _i10;
-import 'package:fyp_ezymemory/services/api_service.dart' as _i8;
+import 'package:fyp_ezymemory/models/User/User.dart' as _i11;
+import 'package:fyp_ezymemory/services/api_service.dart' as _i9;
 import 'package:fyp_ezymemory/services/auth_service.dart' as _i7;
-import 'package:fyp_ezymemory/services/firestore_service.dart' as _i9;
+import 'package:fyp_ezymemory/services/firestore_service.dart' as _i10;
+import 'package:fyp_ezymemory/services/logger_service.dart' as _i12;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:simple_logger/simple_logger.dart' as _i2;
 import 'package:stacked_services/stacked_services.dart' as _i3;
 
 // ignore_for_file: type=lint
@@ -26,8 +28,8 @@ import 'package:stacked_services/stacked_services.dart' as _i3;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeUser_0 extends _i1.SmartFake implements _i2.User {
-  _FakeUser_0(
+class _FakeSimpleLogger_0 extends _i1.SmartFake implements _i2.SimpleLogger {
+  _FakeSimpleLogger_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -642,17 +644,11 @@ class MockDialogService extends _i1.Mock implements _i3.DialogService {
 /// See the documentation for Mockito's code generation for more information.
 class MockAuthService extends _i1.Mock implements _i7.AuthService {
   @override
-  _i2.User get currentUser => (super.noSuchMethod(
-        Invocation.getter(#currentUser),
-        returnValue: _FakeUser_0(
-          this,
-          Invocation.getter(#currentUser),
-        ),
-        returnValueForMissingStub: _FakeUser_0(
-          this,
-          Invocation.getter(#currentUser),
-        ),
-      ) as _i2.User);
+  String get header => (super.noSuchMethod(
+        Invocation.getter(#header),
+        returnValue: '',
+        returnValueForMissingStub: '',
+      ) as String);
   @override
   _i5.Future<dynamic> loginWithEmail({
     required String? email,
@@ -689,19 +685,34 @@ class MockAuthService extends _i1.Mock implements _i7.AuthService {
         returnValue: _i5.Future<dynamic>.value(),
         returnValueForMissingStub: _i5.Future<dynamic>.value(),
       ) as _i5.Future<dynamic>);
+  @override
+  _i5.Future<dynamic> getCurrentUser(_i8.User? user) => (super.noSuchMethod(
+        Invocation.method(
+          #getCurrentUser,
+          [user],
+        ),
+        returnValue: _i5.Future<dynamic>.value(),
+        returnValueForMissingStub: _i5.Future<dynamic>.value(),
+      ) as _i5.Future<dynamic>);
 }
 
 /// A class which mocks [ApiService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockApiService extends _i1.Mock implements _i8.ApiService {}
+class MockApiService extends _i1.Mock implements _i9.ApiService {}
 
 /// A class which mocks [FirestoreService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockFirestoreService extends _i1.Mock implements _i9.FirestoreService {
+class MockFirestoreService extends _i1.Mock implements _i10.FirestoreService {
   @override
-  _i5.Future<dynamic> createUser(_i10.User? user) => (super.noSuchMethod(
+  String get header => (super.noSuchMethod(
+        Invocation.getter(#header),
+        returnValue: '',
+        returnValueForMissingStub: '',
+      ) as String);
+  @override
+  _i5.Future<dynamic> createUser(_i11.User? user) => (super.noSuchMethod(
         Invocation.method(
           #createUser,
           [user],
@@ -718,4 +729,61 @@ class MockFirestoreService extends _i1.Mock implements _i9.FirestoreService {
         returnValue: _i5.Future<dynamic>.value(),
         returnValueForMissingStub: _i5.Future<dynamic>.value(),
       ) as _i5.Future<dynamic>);
+}
+
+/// A class which mocks [LoggerService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockLoggerService extends _i1.Mock implements _i12.LoggerService {
+  @override
+  _i2.SimpleLogger get logger => (super.noSuchMethod(
+        Invocation.getter(#logger),
+        returnValue: _FakeSimpleLogger_0(
+          this,
+          Invocation.getter(#logger),
+        ),
+        returnValueForMissingStub: _FakeSimpleLogger_0(
+          this,
+          Invocation.getter(#logger),
+        ),
+      ) as _i2.SimpleLogger);
+  @override
+  void setLoggerLevel() => super.noSuchMethod(
+        Invocation.method(
+          #setLoggerLevel,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void printInfo(
+    dynamic header,
+    dynamic message,
+  ) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #printInfo,
+          [
+            header,
+            message,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void printWarning(dynamic message) => super.noSuchMethod(
+        Invocation.method(
+          #printWarning,
+          [message],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void printShout(dynamic message) => super.noSuchMethod(
+        Invocation.method(
+          #printShout,
+          [message],
+        ),
+        returnValueForMissingStub: null,
+      );
 }

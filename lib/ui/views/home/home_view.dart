@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
+import 'package:fyp_ezymemory/ui/widgets/em_bottombar.dart';
+import 'package:fyp_ezymemory/ui/widgets/em_scaffold.dart';
 import 'package:stacked/stacked.dart';
 import 'package:fyp_ezymemory/ui/common/app_colors.dart';
 import 'package:fyp_ezymemory/ui/common/ui_helpers.dart';
@@ -14,8 +17,35 @@ class HomeView extends StackedView<HomeViewModel> {
     HomeViewModel viewModel,
     Widget? child,
   ) {
-    return Scaffold(
-      backgroundColor: Colors.purple,
+    viewModel.futureToRun();
+    print(viewModel.fetchedUser?.username.toString());
+    return EMScaffold(
+      appBar: EMAppBar(
+        title: viewModel.fetchedUser != null
+            ? "Welcome ${viewModel.fetchedUser?.username.toString()}"
+            : "Welcome nulls",
+      ),
+      bottomNavigationBar: EMBottomBar(),
+      backgroundColor: Colors.grey,
+      // bottomNavigationBar: BottomNavigationBar(
+      //   items: const <BottomNavigationBarItem>[
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.home),
+      //       label: 'Home',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.business),
+      //       label: 'Business',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.school),
+      //       label: 'School',
+      //     ),
+      //   ],
+      //   // currentIndex: _selectedIndex,
+      //   selectedItemColor: Colors.amber[800],
+      //   // onTap: _onItemTapped,
+      // ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -26,8 +56,8 @@ class HomeView extends StackedView<HomeViewModel> {
               children: [
                 verticalSpaceLarge,
                 Column(
-                  children: [
-                    const Text(
+                  children: const [
+                    Text(
                       'Hello, STACKED!',
                       style: TextStyle(
                         fontSize: 35,
@@ -35,14 +65,6 @@ class HomeView extends StackedView<HomeViewModel> {
                       ),
                     ),
                     verticalSpaceMedium,
-                    MaterialButton(
-                      color: Colors.black,
-                      onPressed: viewModel.incrementCounter,
-                      child: Text(
-                        viewModel.counterLabel,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
                   ],
                 ),
                 Row(
@@ -50,23 +72,23 @@ class HomeView extends StackedView<HomeViewModel> {
                   children: [
                     MaterialButton(
                       color: kcDarkGreyColor,
+                      onPressed: viewModel.showDialog,
                       child: const Text(
-                        'Show Dialog',
+                        'Import Deck +',
                         style: TextStyle(
                           color: Colors.white,
                         ),
                       ),
-                      onPressed: viewModel.showDialog,
                     ),
                     MaterialButton(
                       color: kcDarkGreyColor,
+                      onPressed: viewModel.toCreateDeckView,
                       child: const Text(
-                        'Show Bottom Sheet',
+                        'Create Deck +',
                         style: TextStyle(
                           color: Colors.white,
                         ),
                       ),
-                      onPressed: viewModel.showBottomSheet,
                     ),
                   ],
                 )

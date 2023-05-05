@@ -12,18 +12,23 @@ class CounterView extends StackedView<CounterViewModel> {
     CounterViewModel viewModel,
     Widget? child,
   ) {
+    // final pukimak = await viewModel.fuck();
+    viewModel.getUser();
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       floatingActionButton:
           FloatingActionButton(onPressed: viewModel.incrementCounter),
       body: Center(
-        child: Text(
-          viewModel.counter.toString(),
-          style: const TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        child: // viewModel will indicate busy until the future is fetched
+            // viewModel.isBusy
+            //     ? const CircularProgressIndicator()
+            //     : Text(viewModel.user!.email.toString()),
+            viewModel.isBusy
+                ? const CircularProgressIndicator()
+                : Text(viewModel.fetchedUser.toString()),
+        // viewModel.isBusy
+        //     ? const CircularProgressIndicator()
+        //     : Text(viewModel.fuckthisshit.toString()),
       ),
     );
   }

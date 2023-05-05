@@ -1,29 +1,38 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fyp_ezymemory/app/app.locator.dart';
 import 'package:fyp_ezymemory/services/firestore_service.dart';
+import 'package:fyp_ezymemory/services/logger_service.dart';
 
-import '../models/User.dart' as UserModel;
+import '../models/User/User.dart' as UserModel;
 
 // mapping, serialization, deseraliazation done in here.
 class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirestoreService _firestoreService = locator<FirestoreService>();
+  final LoggerService _loggerService = locator<LoggerService>();
+  final header = "[auth_service]";
 
-  late User _currentUser;
-  User get currentUser => _currentUser;
+  final User? _currentUser = FirebaseAuth.instance.currentUser;
+  User? get currentUser => _currentUser;
 
   Future loginWithEmail({
     required String email,
     required String password,
   }) async {
     try {
+      _loggerService.printInfo(header, "loginWithEmail: logging in user...");
+
       var authResult = await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      await _populateCurrentUser(authResult.user);
+      await getCurrentUser(authResult.user);
+
+      _loggerService.printInfo(header, "loginWithEmail: logging in success");
+
       return authResult.user != null;
     } catch (e) {
+      _loggerService.printShout("loginWithEmail: failed");
       return e.toString();
     }
   }
@@ -34,6 +43,8 @@ class AuthService {
     required String password,
   }) async {
     try {
+      _loggerService.printInfo(header, "signUpWithEmail: signing up user...");
+
       var authResult = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
@@ -51,8 +62,10 @@ class AuthService {
 
       await _firestoreService.createUser(userModel);
       // print(authResult.user);
+      _loggerService.printInfo(header, "signUpWithEmail: sign up success");
       return authResult.user != null;
     } catch (e) {
+      _loggerService.printShout("signUpWithEmail: failed");
       return e.toString();
     }
   }
@@ -62,11 +75,22 @@ class AuthService {
   //   await _populateCurrentUser(user);
   //   return user != null;
   // }
+  // Future getCurrentUserId()
 
-  // // get user from firebase
-  Future _populateCurrentUser(User? user) async {
+  // get user from firebase
+  Future getCurrentUser(User? user) async {
     if (user != null) {
-      _currentUser = await _firestoreService.getUser(user.uid);
+      _loggerService.printInfo(
+          header, "getCurrentUser: getting current user.. $user");
+
+      var userModel = await _firestoreService.getUser(user.uid);
+      final UserModel.User currentUser = UserModel.User.fromJson(userModel);
+
+      _loggerService.printInfo(
+          header, "getCurrentUser: \n currentUser: $currentUser");
+      return currentUser;
     }
+    _loggerService.printShout("getCurrentUser: failed");
+    throw Exception('Cannot get user from database');
   }
 }

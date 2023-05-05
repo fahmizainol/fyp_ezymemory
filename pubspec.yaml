@@ -42,6 +42,10 @@ dependencies:
   stacked_firebase_auth: ^2.19.2
   cloud_firestore: ^4.5.0
   equatable: ^2.0.5
+  simple_logger: ^1.9.0+2
+  freezed_annotation: ^2.2.0
+  json_annotation: ^4.8.1
+  uuid: ^3.0.7
 
 dev_dependencies:
   flutter_test:
@@ -53,10 +57,12 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.1
-  build_runner: ^2.2.0
+  build_runner: ^2.3.3
 
   stacked_generator: ^1.0.0
   mockito: ^5.3.2
+  freezed: ^2.3.3
+  json_serializable: ^6.6.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

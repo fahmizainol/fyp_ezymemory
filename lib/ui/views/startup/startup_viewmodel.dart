@@ -15,7 +15,7 @@ class StartupViewModel extends BaseViewModel {
     if (temp) {
       _navigationService.replaceWith(Routes.homeView);
     } else {
-      _navigationService.replaceWith(Routes.registerView);
+      _navigationService.replaceWith(Routes.loginView);
     }
   }
 }
