@@ -1,4 +1,5 @@
 import 'package:fyp_ezymemory/app/app.locator.dart';
+import 'package:fyp_ezymemory/models/Deck/Deck.dart';
 import 'package:fyp_ezymemory/models/User/User.dart';
 import 'package:fyp_ezymemory/services/auth_service.dart';
 import 'package:fyp_ezymemory/services/firestore_service.dart';
@@ -18,30 +19,44 @@ class CounterViewModel extends FutureViewModel {
   int get counter => _counter;
 
   User? fetchedUser;
+  Deck? fetchedDeck;
+  List<Deck>? fetchedDeckList;
   String? fuckthisshit;
   // User? get user => _user;
 
   @override
-  Future<String> futureToRun() => getUser();
+  Future futureToRun() => test();
 
-  @override
-  Future<void> get future => getUser();
+  // @override
+  // Future<void> get future => getUser();
 
-  Future<String> getUser() async {
-    // setBusy(true);
-    _loggerService.printInfo(
-        header, "futureToRun: currentUser $_authService.currentUser!.uid");
+  // Future<String> getUser() async {
+  //   // setBusy(true);
+  //   _loggerService.printInfo(
+  //       header, "futureToRun: currentUser $_authService.currentUser!.uid");
 
-    var response =
-        await _firestoreService.getUser(_authService.currentUser!.uid);
+  //   var response =
+  //       await _firestoreService.getUser(_authService.currentUser!.uid);
 
-    fetchedUser = User.fromJson(response);
+  //   fetchedUser = User.fromJson(response);
 
-    // setBusy(false);
-    _loggerService.printInfo(header, "futureToRun: $fetchedUser");
-    print("futureToRun: $fetchedUser");
-    fuckthisshit = 'fuckstacked';
-    return "Pukimak";
+  //   // setBusy(false);
+  //   _loggerService.printInfo(header, "futureToRun: $fetchedUser");
+  //   print("futureToRun: $fetchedUser");
+  //   fuckthisshit = 'fuckstacked';
+  //   return "Pukimak";
+  // }
+
+  Future test() async {
+    // getDeckById
+    // String deckId = "6dd42643-c356-425c-bdb2-22670259490b";
+    // fetchedDeck = await _firestoreService.getDeckById(deckId);
+
+    // _loggerService.printInfo(header, "test: $fetchedDeck");
+
+    // getDeckList
+    fetchedDeckList = await _firestoreService.getDeckList();
+    _loggerService.printInfo(header, "test: ${fetchedDeckList.toString()}");
   }
 
   // Future getUser() async {

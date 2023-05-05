@@ -13,7 +13,7 @@ class LoginViewModel extends FormViewModel {
     try {
       await _authService.loginWithEmail(email: email, password: password);
       // TODO: make a user model and initialize it
-      _navigationService.replaceWithHomeView();
+      _navigationService.navigateToHomeView();
       print('object');
     } catch (e) {
       return e.toString();

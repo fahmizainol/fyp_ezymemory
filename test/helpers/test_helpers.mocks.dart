@@ -729,6 +729,40 @@ class MockFirestoreService extends _i1.Mock implements _i10.FirestoreService {
         returnValue: _i5.Future<dynamic>.value(),
         returnValueForMissingStub: _i5.Future<dynamic>.value(),
       ) as _i5.Future<dynamic>);
+  @override
+  _i5.Future<bool> createDeck(
+    String? deckName,
+    String? category,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #createDeck,
+          [
+            deckName,
+            category,
+          ],
+        ),
+        returnValue: _i5.Future<bool>.value(false),
+        returnValueForMissingStub: _i5.Future<bool>.value(false),
+      ) as _i5.Future<bool>);
+  @override
+  _i5.Future<dynamic> getDeckById(String? deckId) => (super.noSuchMethod(
+        Invocation.method(
+          #getDeckById,
+          [deckId],
+        ),
+        returnValue: _i5.Future<dynamic>.value(),
+        returnValueForMissingStub: _i5.Future<dynamic>.value(),
+      ) as _i5.Future<dynamic>);
+  @override
+  _i5.Future<dynamic> getUserDeckList() => (super.noSuchMethod(
+        Invocation.method(
+          #getUserDeckList,
+          [],
+        ),
+        returnValue: _i5.Future<dynamic>.value(),
+        returnValueForMissingStub: _i5.Future<dynamic>.value(),
+      ) as _i5.Future<dynamic>);
 }
 
 /// A class which mocks [LoggerService].

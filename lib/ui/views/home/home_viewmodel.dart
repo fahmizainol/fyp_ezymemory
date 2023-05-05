@@ -2,6 +2,7 @@ import 'package:fyp_ezymemory/app/app.bottomsheets.dart';
 import 'package:fyp_ezymemory/app/app.dialogs.dart';
 import 'package:fyp_ezymemory/app/app.locator.dart';
 import 'package:fyp_ezymemory/app/app.router.dart';
+import 'package:fyp_ezymemory/models/Deck/Deck.dart';
 import 'package:fyp_ezymemory/models/User/User.dart';
 import 'package:fyp_ezymemory/services/auth_service.dart';
 import 'package:fyp_ezymemory/services/firestore_service.dart';
@@ -21,24 +22,27 @@ class HomeViewModel extends FutureViewModel {
   final header = "[home_view]";
 
   User? fetchedUser;
+  List<Deck>? fetchedUserDeckList;
 
   @override
-  Future futureToRun() => getUser();
+  Future futureToRun() => init();
 
-  Future<void> getUser() async {
-    // setBusy(true);
-    _loggerService.printInfo(
-        header, "futureToRun: currentUser $_authService.currentUser!.uid");
-
-    var response =
+  Future<void> init() async {
+    fetchedUserDeckList = await _firestoreService.getDeckList();
+    fetchedUser =
         await _firestoreService.getUser(_authService.currentUser!.uid);
 
-    fetchedUser = User.fromJson(response);
-
     // setBusy(false);
-    _loggerService.printInfo(header, "futureToRun: $fetchedUser");
+    _loggerService.printInfo(header, "test: ${fetchedUserDeckList!.length}");
+    // _loggerService.printInfo(header, "futureToRun: $fetchedUser");
     // print("futureToRun: $fetchedUser");
   }
+
+  Future<void> getDeckList() async {
+    var response = await _firestoreService.getUserDeckList();
+  }
+
+  // Future<void> getDeckById()
 
   void toCreateDeckView() {
     _navigationService.navigateToCreateDeckView();

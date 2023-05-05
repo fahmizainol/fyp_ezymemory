@@ -1,11 +1,13 @@
 import 'package:fyp_ezymemory/app/app.locator.dart';
 import 'package:fyp_ezymemory/app/app.router.dart';
 import 'package:fyp_ezymemory/services/auth_service.dart';
+import 'package:fyp_ezymemory/services/firestore_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class RegisterViewModel extends FormViewModel {
   final _authService = locator<AuthService>();
+  final FirestoreService _firestoreService = locator<FirestoreService>();
   final _navigationService = locator<NavigationService>();
 
   Future<void> signUpWithEmail(
@@ -13,6 +15,8 @@ class RegisterViewModel extends FormViewModel {
     try {
       await _authService.signUpWithEmail(
           email: email, password: password, username: username);
+
+      await _firestoreService.createUser(username, email);
       // TODO: make a user model and initialize it
       _navigationService.navigateToHomeView();
     } catch (e) {

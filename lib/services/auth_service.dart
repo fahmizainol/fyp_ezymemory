@@ -8,7 +8,7 @@ import '../models/User/User.dart' as UserModel;
 // mapping, serialization, deseraliazation done in here.
 class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final FirestoreService _firestoreService = locator<FirestoreService>();
+  // final FirestoreService _firestoreService = locator<FirestoreService>();
   final LoggerService _loggerService = locator<LoggerService>();
   final header = "[auth_service]";
 
@@ -26,7 +26,7 @@ class AuthService {
         email: email,
         password: password,
       );
-      await getCurrentUser(authResult.user);
+      // await getCurrentUser(authResult.user);
 
       _loggerService.printInfo(header, "loginWithEmail: logging in success");
 
@@ -49,18 +49,7 @@ class AuthService {
         email: email,
         password: password,
       );
-      var userModel = UserModel.User(
-        id: authResult.user!.uid,
-        username: username,
-        email: email,
-        currentPoints: 0,
-        deckList: [],
-        badgeList: [],
-        checkInToday: false,
-        userStatsId: '',
-      );
-
-      await _firestoreService.createUser(userModel);
+      // await _firestoreService.createUser(userModel);
       // print(authResult.user);
       _loggerService.printInfo(header, "signUpWithEmail: sign up success");
       return authResult.user != null;
@@ -83,8 +72,8 @@ class AuthService {
       _loggerService.printInfo(
           header, "getCurrentUser: getting current user.. $user");
 
-      var userModel = await _firestoreService.getUser(user.uid);
-      final UserModel.User currentUser = UserModel.User.fromJson(userModel);
+      // var userModel = await _firestoreService.getUser(user.uid);
+      // final UserModel.User currentUser = UserModel.User.fromJson(userModel);
 
       _loggerService.printInfo(
           header, "getCurrentUser: \n currentUser: $currentUser");
