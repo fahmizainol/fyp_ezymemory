@@ -33,7 +33,6 @@ import 'register_viewmodel.dart';
 class RegisterView extends StackedView<RegisterViewModel> with $RegisterView {
   RegisterView({Key? key}) : super(key: key);
   final _formKey = GlobalKey<FormBuilderState>();
-  bool submitBtnClicked = false;
 
   @override
   Widget builder(
@@ -48,9 +47,7 @@ class RegisterView extends StackedView<RegisterViewModel> with $RegisterView {
         child: SingleChildScrollView(
           child: FormBuilder(
             key: _formKey,
-            autovalidateMode: submitBtnClicked
-                ? AutovalidateMode.onUserInteraction
-                : AutovalidateMode.disabled,
+            autovalidateMode: AutovalidateMode.disabled,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -63,6 +60,7 @@ class RegisterView extends StackedView<RegisterViewModel> with $RegisterView {
                 ),
                 verticalSpaceMedium,
                 FormBuilderTextField(
+                  focusNode: usernameFocusNode,
                   style: const TextStyle(color: GFColors.WHITE),
                   controller: usernameController,
                   // initialValue: viewModel.isBusy ? "" : viewModel.deckName,
@@ -77,10 +75,11 @@ class RegisterView extends StackedView<RegisterViewModel> with $RegisterView {
                     //     : const Icon(Icons.check, color: Colors.green),
                   ),
                   name: 'username',
-                  // validator: CreateDeckValidators.validateDeckName,
+                  validator: RegisterValidators.validateUsername,
                 ),
                 verticalSpaceMedium,
                 FormBuilderTextField(
+                  focusNode: emailFocusNode,
                   style: const TextStyle(color: GFColors.WHITE),
                   controller: emailController,
                   // initialValue: viewModel.isBusy ? "" : viewModel.deckName,
@@ -95,10 +94,11 @@ class RegisterView extends StackedView<RegisterViewModel> with $RegisterView {
                     //     : const Icon(Icons.check, color: Colors.green),
                   ),
                   name: 'email',
-                  // validator: CreateDeckValidators.validateDeckName,
+                  validator: RegisterValidators.validateEmail,
                 ),
                 verticalSpaceMedium,
                 FormBuilderTextField(
+                  focusNode: passwordFocusNode,
                   style: const TextStyle(color: GFColors.WHITE),
                   controller: passwordController,
                   // initialValue: viewModel.isBusy ? "" : viewModel.deckName,
@@ -114,10 +114,11 @@ class RegisterView extends StackedView<RegisterViewModel> with $RegisterView {
                     //     : const Icon(Icons.check, color: Colors.green),
                   ),
                   name: 'password',
-                  // validator: CreateDeckValidators.validateDeckName,
+                  validator: RegisterValidators.validatePassword,
                 ),
                 verticalSpaceMedium,
                 FormBuilderTextField(
+                  focusNode: confirmPasswordFocusNode,
                   style: const TextStyle(color: GFColors.WHITE),
                   controller: confirmPasswordController,
                   // initialValue: viewModel.isBusy ? "" : viewModel.deckName,
@@ -133,17 +134,19 @@ class RegisterView extends StackedView<RegisterViewModel> with $RegisterView {
                     //     : const Icon(Icons.check, color: Colors.green),
                   ),
                   name: 'confirmPassword',
-                  // validator: CreateDeckValidators.validateDeckName,
+                  validator: (value) =>
+                      RegisterValidators.validateConfirmPassword(
+                          value, passwordController.text),
                 ),
                 verticalSpaceMedium,
                 ElevatedButton(
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      // TODO: UserModel related stuff
+                    if (_formKey.currentState?.saveAndValidate(
+                            focusOnInvalid: false,
+                            autoScrollWhenFocusOnInvalid: true) ??
+                        false) {
                       viewModel.signUpWithEmail(emailController.text,
                           passwordController.text, usernameController.text);
-                    } else {
-                      submitBtnClicked = true;
                     }
                   },
                   style: ElevatedButton.styleFrom(

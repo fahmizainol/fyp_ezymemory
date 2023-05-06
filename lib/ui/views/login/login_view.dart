@@ -24,7 +24,6 @@ import 'login_view.form.dart';
 class LoginView extends StackedView<LoginViewModel> with $LoginView {
   LoginView({Key? key}) : super(key: key);
   final _formKey = GlobalKey<FormBuilderState>();
-  bool loginBtnClicked = false;
 
   @override
   Widget builder(
@@ -39,9 +38,7 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
         child: SingleChildScrollView(
           child: FormBuilder(
             key: _formKey,
-            autovalidateMode: loginBtnClicked
-                ? AutovalidateMode.onUserInteraction
-                : AutovalidateMode.disabled,
+            autovalidateMode: AutovalidateMode.disabled,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -68,7 +65,7 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
                     //     : const Icon(Icons.check, color: Colors.green),
                   ),
                   name: 'email',
-                  // validator: CreateDeckValidators.validateDeckName,
+                  validator: LoginValidators.validateEmail,
                 ),
                 verticalSpaceMedium,
                 FormBuilderTextField(
@@ -87,7 +84,7 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
                     //     : const Icon(Icons.check, color: Colors.green),
                   ),
                   name: 'password',
-                  // validator: CreateDeckValidators.validateDeckName,
+                  validator: LoginValidators.validatePassword,
                 ),
                 verticalSpaceMedium,
                 ElevatedButton(
@@ -96,8 +93,6 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
                     if (_formKey.currentState!.validate()) {
                       viewModel.logInWithEmail(
                           emailController.text, passwordController.text);
-                    } else {
-                      loginBtnClicked = true;
                     }
                   },
                   style: ElevatedButton.styleFrom(

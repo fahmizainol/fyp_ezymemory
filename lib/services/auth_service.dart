@@ -31,7 +31,8 @@ class AuthService {
       return authResult.user != null;
     } catch (e) {
       _loggerService.printShout("loginWithEmail: failed");
-      return e.toString();
+      throw Exception(e.toString());
+      // return e.toString();
     }
   }
 

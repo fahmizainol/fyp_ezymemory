@@ -8,14 +8,18 @@ import 'login_view.form.dart';
 class LoginViewModel extends FormViewModel {
   final _authService = locator<AuthService>();
   final _navigationService = locator<NavigationService>();
+  final DialogService _dialogService = locator<DialogService>();
 
   Future logInWithEmail(String email, String password) async {
     try {
-      await _authService.loginWithEmail(email: email, password: password);
+      var res =
+          await _authService.loginWithEmail(email: email, password: password);
       // TODO: make a user model and initialize it
       _navigationService.navigateToHomeView();
       print('object');
     } catch (e) {
+      _dialogService.showDialog(
+          title: "Error Detected", description: e.toString());
       return e.toString();
       // print('error');
     }
