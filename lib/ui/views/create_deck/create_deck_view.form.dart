@@ -10,20 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 const String DeckNameValueKey = 'deckName';
-const String CategoryValueKey = 'category';
-
-final Map<String, String> CategoryValueToTitleMap = {
-  'value': 'title',
-  'Science': 'Science',
-  'Chemistry': 'Chemistry',
-  'Biology': 'Biology',
-  'Programming': 'Programming',
-  'Math': 'Math',
-  'English': 'English',
-  'French': 'French',
-  'Japanese': 'Japanese',
-  'Others': 'Others',
-};
 
 final Map<String, TextEditingController> _CreateDeckViewTextEditingControllers =
     {};
@@ -116,7 +102,6 @@ extension ValueProperties on FormViewModel {
   bool get isFormValid =>
       this.fieldsValidationMessages.values.every((element) => element == null);
   String? get deckNameValue => this.formValueMap[DeckNameValueKey] as String?;
-  String? get categoryValue => this.formValueMap[CategoryValueKey] as String?;
 
   set deckNameValue(String? value) {
     this.setData(
@@ -135,28 +120,17 @@ extension ValueProperties on FormViewModel {
   bool get hasDeckName =>
       this.formValueMap.containsKey(DeckNameValueKey) &&
       (deckNameValue?.isNotEmpty ?? false);
-  bool get hasCategory => this.formValueMap.containsKey(CategoryValueKey);
 
   bool get hasDeckNameValidationMessage =>
       this.fieldsValidationMessages[DeckNameValueKey]?.isNotEmpty ?? false;
-  bool get hasCategoryValidationMessage =>
-      this.fieldsValidationMessages[CategoryValueKey]?.isNotEmpty ?? false;
 
   String? get deckNameValidationMessage =>
       this.fieldsValidationMessages[DeckNameValueKey];
-  String? get categoryValidationMessage =>
-      this.fieldsValidationMessages[CategoryValueKey];
 }
 
 extension Methods on FormViewModel {
-  void setCategory(String category) {
-    this.setData(this.formValueMap..addAll({CategoryValueKey: category}));
-  }
-
   setDeckNameValidationMessage(String? validationMessage) =>
       this.fieldsValidationMessages[DeckNameValueKey] = validationMessage;
-  setCategoryValidationMessage(String? validationMessage) =>
-      this.fieldsValidationMessages[CategoryValueKey] = validationMessage;
 
   /// Clears text input fields on the Form
   void clearForm() {

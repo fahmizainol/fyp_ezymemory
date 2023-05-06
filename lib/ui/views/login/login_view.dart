@@ -83,6 +83,20 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
                     ),
                   ),
                   child: const Text('Login'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    // Implement login functionality here
+                    viewModel.toRegisterView();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    textStyle: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                    ),
+                  ),
+                  child: const Text('go to register'),
                 )
               ],
             ),

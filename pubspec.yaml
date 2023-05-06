@@ -46,6 +46,9 @@ dependencies:
   freezed_annotation: ^2.2.0
   json_annotation: ^4.8.1
   uuid: ^3.0.7
+  popover: ^0.2.8+2
+  getwidget: ^3.1.1
+  flutter_form_builder: ^8.0.0
 
 dev_dependencies:
   flutter_test:

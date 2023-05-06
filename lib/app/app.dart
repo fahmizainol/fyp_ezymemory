@@ -12,6 +12,7 @@ import 'package:fyp_ezymemory/ui/views/register/register_view.dart';
 import 'package:fyp_ezymemory/services/firestore_service.dart';
 import 'package:fyp_ezymemory/services/logger_service.dart';
 import 'package:fyp_ezymemory/ui/views/create_deck/create_deck_view.dart';
+import 'package:fyp_ezymemory/ui/views/edit_deck/edit_deck_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -22,6 +23,7 @@ import 'package:fyp_ezymemory/ui/views/create_deck/create_deck_view.dart';
     MaterialRoute(page: LoginView),
     MaterialRoute(page: RegisterView),
     MaterialRoute(page: CreateDeckView),
+    MaterialRoute(page: EditDeckView),
 // @stacked-route
   ],
   dependencies: [

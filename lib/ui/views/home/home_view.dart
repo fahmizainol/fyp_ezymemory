@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_bottombar.dart';
+import 'package:fyp_ezymemory/ui/widgets/em_circular.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_scaffold.dart';
+import 'package:popover/popover.dart';
+import 'package:getwidget/getwidget.dart';
 import 'package:stacked/stacked.dart';
 import 'package:fyp_ezymemory/ui/common/app_colors.dart';
 import 'package:fyp_ezymemory/ui/common/ui_helpers.dart';
 
 import 'home_viewmodel.dart';
+import 'widgets/gesture_popover.dart';
 
 class HomeView extends StackedView<HomeViewModel> {
   const HomeView({Key? key}) : super(key: key);
@@ -17,99 +21,106 @@ class HomeView extends StackedView<HomeViewModel> {
     HomeViewModel viewModel,
     Widget? child,
   ) {
-    viewModel.futureToRun();
+    // viewModel.futureToRun();
     // print(viewModel.fetchedUser?.username.toString());
-    return viewModel.isBusy
-        ? const CircularProgressIndicator()
-        : EMScaffold(
-            appBar: EMAppBar(
-              title: viewModel.fetchedUser != null
-                  ? "Welcome ${viewModel.fetchedUser?.username.toString()}"
-                  : "Welcome nulls",
-            ),
-            bottomNavigationBar: EMBottomBar(),
-            backgroundColor: Colors.grey,
-            // bottomNavigationBar: BottomNavigationBar(
-            //   items: const <BottomNavigationBarItem>[
-            //     BottomNavigationBarItem(
-            //       icon: Icon(Icons.home),
-            //       label: 'Home',
-            //     ),
-            //     BottomNavigationBarItem(
-            //       icon: Icon(Icons.business),
-            //       label: 'Business',
-            //     ),
-            //     BottomNavigationBarItem(
-            //       icon: Icon(Icons.school),
-            //       label: 'School',
-            //     ),
-            //   ],
-            //   // currentIndex: _selectedIndex,
-            //   selectedItemColor: Colors.amber[800],
-            //   // onTap: _onItemTapped,
-            // ),
-            body: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      verticalSpaceLarge,
-                      Column(
-                        children: [
-                          ListView.builder(
+    return EMScaffold(
+      appBar: EMAppBar(
+          title: viewModel.isBusy
+              ? "Welcome "
+              : "Welcome ${viewModel.fetchedUser?.username}"),
+      bottomNavigationBar: const EMBottomBar(),
+      // backgroundColor: GFColors.DARK,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                verticalSpaceLarge,
+                Column(
+                  children: [
+                    SizedBox(
+                      height: 500,
+                      child: viewModel.isBusy
+                          ? const EMCircular()
+                          : ListView.builder(
                               itemCount: viewModel.fetchedUserDeckList?.length,
-                              // prototypeItem: ListTile(
-                              //   title: Text(viewModel.fetchedUserDeckList?.l),
-                              // ),
                               scrollDirection: Axis.vertical,
                               shrinkWrap: true,
                               itemBuilder: ((context, index) {
-                                return ListTile(
-                                  leading: Text(index.toString()),
-                                  // title: Text(viewModel.fetchedUserDeckList.isNotEmpty
-                                  //     ? viewModel.fetchedUserDeckList[index].name
-                                  //     : "null"),
-                                  title: Text(viewModel
-                                          .fetchedUserDeckList?[index].name ??
-                                      ""),
-                                );
-                              }))
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          MaterialButton(
-                            color: kcDarkGreyColor,
-                            onPressed: viewModel.showDialog,
-                            child: const Text(
-                              'Import Deck +',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          MaterialButton(
-                            color: kcDarkGreyColor,
-                            onPressed: viewModel.toCreateDeckView,
-                            child: const Text(
-                              'Create Deck +',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
+                                return GFListTile(
+                                    icon: PopupMenuButton<int>(
+                                        position: PopupMenuPosition.under,
+                                        onSelected: (int value) {
+                                          viewModel.popupMenuLogic(
+                                              value,
+                                              viewModel
+                                                      .fetchedUserDeckList?[
+                                                          index]
+                                                      .id ??
+                                                  "",
+                                              viewModel
+                                                      .fetchedUserDeckList?[
+                                                          index]
+                                                      .name ??
+                                                  "");
+                                        },
+                                        itemBuilder: (context) => [
+                                              const PopupMenuItem<int>(
+                                                  value: 0,
+                                                  child: Text("Edit deck")),
+                                              const PopupMenuItem<int>(
+                                                  value: 1,
+                                                  child: Text("Delete deck")),
+                                              const PopupMenuItem<int>(
+                                                  value: 2,
+                                                  child: Text("Share deck")),
+                                            ]),
+                                    color: GFColors.LIGHT,
+                                    titleText: viewModel
+                                            .fetchedUserDeckList?[index].name ??
+                                        "",
+                                    subTitleText: viewModel
+                                            .fetchedUserDeckList?[index]
+                                            .user_id ??
+                                        "");
+                              })),
+                    )
+                  ],
                 ),
-              ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GFButton(
+                      color: kcDarkGreyColor,
+                      onPressed: viewModel.showDialog,
+                      child: const Text(
+                        'Import Deck +',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    GFButton(
+                      color: kcDarkGreyColor,
+                      onPressed: viewModel.toCreateDeckView,
+                      child: const Text(
+                        'Create Deck +',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              ],
             ),
-          );
+          ),
+        ),
+      ),
+    );
     // );
   }
 

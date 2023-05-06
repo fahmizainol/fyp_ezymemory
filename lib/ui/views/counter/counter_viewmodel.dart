@@ -55,7 +55,11 @@ class CounterViewModel extends FutureViewModel {
     // _loggerService.printInfo(header, "test: $fetchedDeck");
 
     // getDeckList
-    fetchedDeckList = await _firestoreService.getDeckList();
+    // fetchedDeckList = await _firestoreService.getDeckList();
+    // _loggerService.printInfo(header, "test: ${fetchedDeckList.toString()}");
+
+    // getUserDeckList
+    fetchedDeckList = await _firestoreService.getUserDeckList();
     _loggerService.printInfo(header, "test: ${fetchedDeckList.toString()}");
   }
 

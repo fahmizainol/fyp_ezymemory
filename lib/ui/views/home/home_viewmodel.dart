@@ -1,3 +1,6 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:fyp_ezymemory/app/app.bottomsheets.dart';
 import 'package:fyp_ezymemory/app/app.dialogs.dart';
 import 'package:fyp_ezymemory/app/app.locator.dart';
@@ -11,7 +14,7 @@ import 'package:fyp_ezymemory/ui/common/app_strings.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class HomeViewModel extends FutureViewModel {
+class HomeViewModel extends StreamViewModel {
   final _dialogService = locator<DialogService>();
   final _bottomSheetService = locator<BottomSheetService>();
   final _navigationService = locator<NavigationService>();
@@ -21,39 +24,57 @@ class HomeViewModel extends FutureViewModel {
 
   final header = "[home_view]";
 
+  Offset tapPosition = Offset.zero;
+
   User? fetchedUser;
   List<Deck>? fetchedUserDeckList;
 
   @override
-  Future futureToRun() => init();
+  // TODO: implement stream
+  Stream get stream => init();
 
-  Future<void> init() async {
-    fetchedUserDeckList = await _firestoreService.getDeckList();
+  Stream init() async* {
+    fetchedUserDeckList = await _firestoreService.getUserDeckList();
     fetchedUser =
         await _firestoreService.getUser(_authService.currentUser!.uid);
 
-    // setBusy(false);
     _loggerService.printInfo(header, "test: ${fetchedUserDeckList!.length}");
-    // _loggerService.printInfo(header, "futureToRun: $fetchedUser");
-    // print("futureToRun: $fetchedUser");
+    yield fetchedUserDeckList;
   }
 
-  Future<void> getDeckList() async {
-    var response = await _firestoreService.getUserDeckList();
-  }
+  Future<void> deleteDeck(String deckId, String deckName) async {
+    var res = await _dialogService.showConfirmationDialog(
+      barrierDismissible: true,
+      title: "⚠️ Delete Operation",
+      description:
+          "Are you sure you want to delete $deckName ? This action cannot be undone",
+    );
 
-  // Future<void> getDeckById()
+    if (res!.confirmed) {
+      await _firestoreService.deleteDeck(deckId);
+      await _dialogService.showDialog(title: "Delete deck success!");
+      notifySourceChanged();
+      // notifySourceChanged();
+      // notifyListeners();
+    } else {
+      print(" not nc");
+    }
+  }
 
   void toCreateDeckView() {
     _navigationService.navigateToCreateDeckView();
   }
 
+  void toEditDeckView(String deckId) {
+    _navigationService.navigateToEditDeckView(key: UniqueKey(), deckId: deckId);
+  }
+
+  void showDeleteDialog() {
+    _dialogService.showConfirmationDialog(
+        title: "Are you sure you want to delete ");
+  }
+
   void showDialog() {
-    // _dialogService.showCustomDialog(
-    //   variant: DialogType.infoAlert,
-    //   title: 'Stacked Rocks!',
-    //   description: 'Give stacked $_counter stars on Github',
-    // );
     _navigationService.navigateToCounterView();
   }
 
@@ -63,5 +84,21 @@ class HomeViewModel extends FutureViewModel {
       title: ksHomeBottomSheetTitle,
       description: ksHomeBottomSheetDescription,
     );
+  }
+
+  void popupMenuLogic(int value, String deckId, String deckName) {
+    switch (value) {
+      case 0:
+        toEditDeckView(deckId);
+        break;
+
+      case 1:
+        deleteDeck(deckId, deckName);
+        break;
+      case 2:
+        print("2");
+        break;
+      default:
+    }
   }
 }

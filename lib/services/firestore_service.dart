@@ -120,16 +120,9 @@ class FirestoreService {
 
       final Deck deck =
           await _decksCollectionReference.doc(deckId).get().then((value) {
-        var deckMap = value.data() as Map<String, dynamic>;
+        Map<String, dynamic> deckMap = value.data() as Map<String, dynamic>;
         return Deck.fromJson(deckMap);
       });
-
-      // var deckSnap = await _decksCollectionReference
-      //     .doc(deckId)
-      //     .get()
-      //     .then((value) => value.data() as Map<String, dynamic>);
-
-      // final Deck deck = Deck.fromJson(deckSnap);
 
       _loggerService.printInfo(header, "getDeckById: ${deck.toString()} ...");
       return deck;
@@ -140,41 +133,13 @@ class FirestoreService {
     try {
       _loggerService.printInfo(header, "getDeckList: getting deck list ...");
 
-      // var deckListSnap = await _decksCollectionReference.get();
-      // final deckList = deckListSnap.docs.map((e) => e.data().toList());
-
-      // final List<Deck> decks =
-      //     await _decksCollectionReference.get().then((value) {
-      //   var deckListMap = value.docs.map((e) {
-      //     var data = e.data() as Map<String, dynamic>;
-      //     return Deck.fromJson(data);
-      //   }).toList();
-      //   return deckListMap;
-      // });
-
       var deckListSnap = await _decksCollectionReference.get();
-      // print(deckListSnap);
+
       final List<Deck> decks = deckListSnap.docs.map((e) {
         Map<String, dynamic> data = e.data() as Map<String, dynamic>;
         Deck deckModel = Deck.fromJson(data);
         return deckModel;
       }).toList();
-
-      // final List<Deck> decks = deckListSnap.docs.map((e) {
-      //   Map<String, dynamic> data = e.data() as Map<String, dynamic>;
-      //   return Deck.fromJson(data);
-      // }).toList();
-      // print(decks);
-      // print(decks[0]);
-
-      // var deckListSnap = await _decksCollectionReference.get().then((value) {
-      //   final list = value.docs.map((e) => e.data());
-      //   return list;
-      // });
-
-      // final List<Deck> deckList = deckListSnap.toList();
-
-      // _loggerService.printInfo(header, "getDeckList: ${decks.toString()} ...");
 
       return decks;
     } catch (e) {}
@@ -185,12 +150,19 @@ class FirestoreService {
       _loggerService.printInfo(header,
           "getUserDeckList: getting user ${_authService.currentUser!.email} deck list...");
 
-      var userGet = await getUser(_authService.currentUser!.uid);
-      final User user = User.fromJson(userGet);
+      var userDeckListSnap = await _decksCollectionReference
+          .where('user_id', isEqualTo: _authService.currentUser?.uid)
+          .get();
 
-      var userDeckListId = [...user.deckList]; // Only the list of deck id.
+      final List<Deck> userDecks = userDeckListSnap.docs.map((e) {
+        Map<String, dynamic> data = e.data() as Map<String, dynamic>;
+        Deck deckModel = Deck.fromJson(data);
+        return deckModel;
+      }).toList();
 
-      // return userDeckList;
+      _loggerService.printInfo(
+          header, "getUserDeckList: ${userDecks.toString()}...");
+      return userDecks;
       // var userDeckList = user.data["deckList"];
     } catch (e) {
       if (e is PlatformException) {
@@ -201,5 +173,31 @@ class FirestoreService {
       _loggerService.printShout("getUserDeckList: ${e.toString()}");
       return e.toString();
     }
+  }
+
+  Future updateDeck(String deckId, String deckName, String category) async {
+    try {
+      _loggerService.printInfo(header,
+          "updateDeck: editing deckId $deckId deckName $deckName category $category");
+
+      await _decksCollectionReference
+          .doc(deckId)
+          .update({"name": deckName, "category": category});
+
+      return true;
+    } catch (e) {}
+  }
+
+  Future deleteDeck(
+    String deckId,
+  ) async {
+    try {
+      _loggerService.printInfo(
+          header, "updateDeck: deleting deckId $deckId ... ");
+
+      await _decksCollectionReference.doc(deckId).delete();
+
+      return true;
+    } catch (e) {}
   }
 }

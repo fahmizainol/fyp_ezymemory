@@ -2,10 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:getwidget/colors/gf_color.dart';
 
 class EMScaffold extends StatelessWidget {
   // final String title;
-  final MaterialColor backgroundColor;
+  final Color? backgroundColor;
   final Widget? body;
   final PreferredSizeWidget? appBar;
   final Widget? bottomNavigationBar;
@@ -13,7 +14,7 @@ class EMScaffold extends StatelessWidget {
   EMScaffold(
       {super.key,
       // required this.title,
-      required this.backgroundColor,
+      this.backgroundColor,
       this.body,
       this.bottomNavigationBar,
       this.appBar});
@@ -24,7 +25,7 @@ class EMScaffold extends StatelessWidget {
         appBar: appBar,
         drawer: Drawer(),
         bottomNavigationBar: bottomNavigationBar,
-        backgroundColor: backgroundColor,
+        backgroundColor: backgroundColor ?? GFColors.DARK,
         body: body);
   }
 }

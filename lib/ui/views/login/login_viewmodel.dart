@@ -20,6 +20,10 @@ class LoginViewModel extends FormViewModel {
       // print('error');
     }
   }
+
+  void toRegisterView() {
+    _navigationService.navigateToRegisterView();
+  }
 }
 
 // TODO: add validations for username and password

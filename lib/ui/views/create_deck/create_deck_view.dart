@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:fyp_ezymemory/ui/common/ui_helpers.dart';
 import 'package:fyp_ezymemory/ui/views/create_deck/create_deck_view.form.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_bottombar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_scaffold.dart';
+import 'package:getwidget/colors/gf_color.dart';
+import 'package:getwidget/components/typography/gf_typography.dart';
+import 'package:getwidget/getwidget.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
@@ -13,45 +17,6 @@ import 'create_deck_viewmodel.dart';
   FormTextField(
     name: 'deckName',
   ),
-  FormDropdownField(name: "category", items: [
-    StaticDropdownItem(title: "title", value: "value"),
-    StaticDropdownItem(
-      title: 'Science',
-      value: 'Science',
-    ),
-    StaticDropdownItem(
-      title: 'Chemistry',
-      value: 'Chemistry',
-    ),
-    StaticDropdownItem(
-      title: 'Biology',
-      value: 'Biology',
-    ),
-    StaticDropdownItem(
-      title: 'Programming',
-      value: 'Programming',
-    ),
-    StaticDropdownItem(
-      title: 'Math',
-      value: 'Math',
-    ),
-    StaticDropdownItem(
-      title: 'English',
-      value: 'English',
-    ),
-    StaticDropdownItem(
-      title: 'French',
-      value: 'French',
-    ),
-    StaticDropdownItem(
-      title: 'Japanese',
-      value: 'Japanese',
-    ),
-    StaticDropdownItem(
-      title: 'Others',
-      value: 'Others',
-    )
-  ])
 ])
 class CreateDeckView extends StackedView<CreateDeckViewModel>
     with $CreateDeckView {
@@ -69,7 +34,6 @@ class CreateDeckView extends StackedView<CreateDeckViewModel>
     return EMScaffold(
       appBar: EMAppBar(title: "Create Deck"),
       bottomNavigationBar: EMBottomBar(),
-      backgroundColor: Colors.grey,
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
@@ -80,72 +44,82 @@ class CreateDeckView extends StackedView<CreateDeckViewModel>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               verticalSpaceMedium,
-              const Text(
-                'Please fill out the deck name and category',
-                style: TextStyle(fontSize: 18),
-              ),
+              const GFTypography(
+                  text: "Please edit the deck name and category",
+                  textColor: GFColors.WHITE,
+                  showDivider: false),
               verticalSpaceMedium,
-              TextFormField(
+              FormBuilderTextField(
+                style: const TextStyle(color: GFColors.WHITE),
                 controller: deckNameController,
+                // initialValue: viewModel.isBusy ? "" : viewModel.deckName,
                 decoration: const InputDecoration(
                   labelText: 'Deck Name',
-                  border: OutlineInputBorder(),
+                  labelStyle: TextStyle(color: GFColors.WHITE),
+                  // fillColor: GFColors.WHITE,
+
+                  filled: true,
+                  // suffixIcon: _ageHasError
+                  //     ? const Icon(Icons.error, color: Colors.red)
+                  //     : const Icon(Icons.check, color: Colors.green),
                 ),
-                validator: CreateDeckValidators.validateDeckName,
+                name: 'deckName',
+                // validator: CreateDeckValidators.validateDeckName,
               ),
               verticalSpaceMedium,
-              DropdownButtonFormField(
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      //<-- SEE HERE
-                      borderSide: BorderSide(color: Colors.black, width: 2),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      //<-- SEE HERE
-                      borderSide: BorderSide(color: Colors.black, width: 2),
-                    ),
-                  ),
-                  value: viewModel.currentDropdownValue,
-                  onChanged: (String? newValue) {
-                    // TODO: find a way to set the valueDD
-                    viewModel.changeDropdownValue(newValue);
-                  },
-                  items: <String>[
-                    'Science',
-                    'Chemistry',
-                    'Biology',
-                    'Programming',
-                    'Math',
-                    'English',
-                    'French',
-                    'Japanese',
-                    'Others'
-                  ].map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(
-                        value,
-                      ),
-                    );
-                  }).toList()),
+              FormBuilderDropdown<String>(
+                alignment: Alignment.bottomRight,
+                style: const TextStyle(
+                  color: GFColors.WHITE,
+                ),
+                dropdownColor: GFColors.DARK, isDense: true,
+                initialValue: viewModel.currentDropdownValue,
+                name: 'category',
+                decoration: const InputDecoration(
+                  labelText: 'Category',
+                  labelStyle: TextStyle(color: GFColors.WHITE),
+                  // fillColor: GFColors.WHITE,
+
+                  filled: true,
+                ),
+                // validator: FormBuilderValidators.compose(
+                //     [FormBuilderValidators.required()]),
+                items: <String>[
+                  'Science',
+                  'Chemistry',
+                  'Biology',
+                  'Programming',
+                  'Math',
+                  'English',
+                  'French',
+                  'Japanese',
+                  'Others'
+                ]
+                    .map((gender) => DropdownMenuItem(
+                          alignment: AlignmentDirectional.center,
+                          value: gender,
+                          child: Text(gender),
+                        ))
+                    .toList(),
+                onChanged: (val) {
+                  viewModel.changeDropdownValue(val);
+                },
+                valueTransformer: (val) => val?.toString(),
+              ),
               verticalSpaceMedium,
-              ElevatedButton(
+              GFButton(
+                textColor: GFColors.DARK,
+                color: GFColors.LIGHT,
                 onPressed: () {
                   // Implement login functionality here
                   if (_formKey.currentState!.validate()) {
+                    // print(_formKey.currentState.);
                     viewModel.createNewDeck(deckNameController.text,
                         viewModel.currentDropdownValue);
                   } else {
                     submitBtnClicked = true;
                   }
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  textStyle: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                  ),
-                ),
                 child: const Text('Create Deck'),
               )
             ],

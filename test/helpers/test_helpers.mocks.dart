@@ -8,11 +8,10 @@ import 'dart:ui' as _i6;
 
 import 'package:firebase_auth/firebase_auth.dart' as _i8;
 import 'package:flutter/material.dart' as _i4;
-import 'package:fyp_ezymemory/models/User/User.dart' as _i11;
 import 'package:fyp_ezymemory/services/api_service.dart' as _i9;
 import 'package:fyp_ezymemory/services/auth_service.dart' as _i7;
 import 'package:fyp_ezymemory/services/firestore_service.dart' as _i10;
-import 'package:fyp_ezymemory/services/logger_service.dart' as _i12;
+import 'package:fyp_ezymemory/services/logger_service.dart' as _i11;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:simple_logger/simple_logger.dart' as _i2;
 import 'package:stacked_services/stacked_services.dart' as _i3;
@@ -712,10 +711,17 @@ class MockFirestoreService extends _i1.Mock implements _i10.FirestoreService {
         returnValueForMissingStub: '',
       ) as String);
   @override
-  _i5.Future<dynamic> createUser(_i11.User? user) => (super.noSuchMethod(
+  _i5.Future<dynamic> createUser(
+    String? username,
+    String? email,
+  ) =>
+      (super.noSuchMethod(
         Invocation.method(
           #createUser,
-          [user],
+          [
+            username,
+            email,
+          ],
         ),
         returnValue: _i5.Future<dynamic>.value(),
         returnValueForMissingStub: _i5.Future<dynamic>.value(),
@@ -755,10 +761,46 @@ class MockFirestoreService extends _i1.Mock implements _i10.FirestoreService {
         returnValueForMissingStub: _i5.Future<dynamic>.value(),
       ) as _i5.Future<dynamic>);
   @override
+  _i5.Future<dynamic> getDeckList() => (super.noSuchMethod(
+        Invocation.method(
+          #getDeckList,
+          [],
+        ),
+        returnValue: _i5.Future<dynamic>.value(),
+        returnValueForMissingStub: _i5.Future<dynamic>.value(),
+      ) as _i5.Future<dynamic>);
+  @override
   _i5.Future<dynamic> getUserDeckList() => (super.noSuchMethod(
         Invocation.method(
           #getUserDeckList,
           [],
+        ),
+        returnValue: _i5.Future<dynamic>.value(),
+        returnValueForMissingStub: _i5.Future<dynamic>.value(),
+      ) as _i5.Future<dynamic>);
+  @override
+  _i5.Future<dynamic> updateDeck(
+    String? deckId,
+    String? deckName,
+    String? category,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateDeck,
+          [
+            deckId,
+            deckName,
+            category,
+          ],
+        ),
+        returnValue: _i5.Future<dynamic>.value(),
+        returnValueForMissingStub: _i5.Future<dynamic>.value(),
+      ) as _i5.Future<dynamic>);
+  @override
+  _i5.Future<dynamic> deleteDeck(String? deckId) => (super.noSuchMethod(
+        Invocation.method(
+          #deleteDeck,
+          [deckId],
         ),
         returnValue: _i5.Future<dynamic>.value(),
         returnValueForMissingStub: _i5.Future<dynamic>.value(),
@@ -768,7 +810,7 @@ class MockFirestoreService extends _i1.Mock implements _i10.FirestoreService {
 /// A class which mocks [LoggerService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLoggerService extends _i1.Mock implements _i12.LoggerService {
+class MockLoggerService extends _i1.Mock implements _i11.LoggerService {
   @override
   _i2.SimpleLogger get logger => (super.noSuchMethod(
         Invocation.getter(#logger),
