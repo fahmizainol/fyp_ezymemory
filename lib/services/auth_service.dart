@@ -12,15 +12,13 @@ class AuthService {
   final LoggerService _loggerService = locator<LoggerService>();
   final header = "[auth_service]";
 
-  final User? _currentUser = FirebaseAuth.instance.currentUser;
-  User? get currentUser => _currentUser;
-
   Future loginWithEmail({
     required String email,
     required String password,
   }) async {
     try {
-      _loggerService.printInfo(header, "loginWithEmail: logging in user...");
+      _loggerService.printInfo(
+          header, "loginWithEmail: logging in user $email");
 
       var authResult = await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
@@ -59,27 +57,24 @@ class AuthService {
     }
   }
 
-  //   Future<bool> isUserLoggedIn() async {
-  //   var user = await _firebaseAuth.currentUser();
-  //   await _populateCurrentUser(user);
-  //   return user != null;
-  // }
-  // Future getCurrentUserId()
+  Future signOutUser() async {
+    try {
+      _loggerService.printInfo(header,
+          "signOutUser: signing out user... ${_firebaseAuth.currentUser}");
 
-  // get user from firebase
-  Future getCurrentUser(User? user) async {
-    if (user != null) {
-      _loggerService.printInfo(
-          header, "getCurrentUser: getting current user.. $user");
+      var authResult = await _firebaseAuth.signOut();
 
-      // var userModel = await _firestoreService.getUser(user.uid);
-      // final UserModel.User currentUser = UserModel.User.fromJson(userModel);
-
-      _loggerService.printInfo(
-          header, "getCurrentUser: \n currentUser: $currentUser");
-      return currentUser;
+      return true;
+    } catch (e) {
+      _loggerService.printShout("signOutUser: failed");
+      return e.toString();
     }
-    _loggerService.printShout("getCurrentUser: failed");
-    throw Exception('Cannot get user from database');
+  }
+
+  Future getCurrentUserId() async {
+    try {
+      var res = await _firebaseAuth.currentUser?.uid;
+      return res;
+    } catch (e) {}
   }
 }

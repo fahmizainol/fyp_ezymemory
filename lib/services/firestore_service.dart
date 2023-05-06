@@ -23,12 +23,13 @@ class FirestoreService {
 
   // USER
   Future createUser(String username, String email) async {
+    // FIXME: think of a better way to pas the uid
     try {
       _loggerService.printInfo(
           header, "createUser: creating user in firebase..");
-
+      var uid = await _authService.getCurrentUserId();
       final User user = User(
-        id: _authService.currentUser!.uid,
+        id: uid,
         username: username,
         email: email,
         currentPoints: 0,
@@ -38,9 +39,7 @@ class FirestoreService {
         userStatsId: '',
       );
 
-      await _usersCollectionReference
-          .doc(_authService.currentUser!.uid)
-          .set(user.toJson());
+      await _usersCollectionReference.doc(uid).set(user.toJson());
     } catch (e) {
       // TODO: Find or create a way to repeat error handling without so much repeated code
       if (e is PlatformException) {
@@ -79,26 +78,27 @@ class FirestoreService {
   // DECK
   Future<bool> createDeck(String deckName, String category) async {
     try {
+      var uid = await _authService.getCurrentUserId();
       _loggerService.printInfo(
           header, "createDeck: creating deck in firebase..");
 
       var uuid = const Uuid();
       final Deck deck = Deck(
           id: uuid.v4(),
-          user_id: _authService.currentUser!.uid,
+          user_id: uid,
           name: deckName,
           createDate: DateTime.now(),
           isShared: false,
           category: category,
           flashcard: "");
-      // var userGet = await getUser(_authService.currentUser!.uid);
-      final User user = await getUser(_authService.currentUser!.uid);
+      // var userGet = await getUser(uid);
+      final User user = await getUser(uid);
 
       var currentDeckList = [...user.deckList, deck.id];
 
       await _decksCollectionReference.doc(deck.id).set(deck.toJson());
       await _usersCollectionReference
-          .doc(_authService.currentUser!.uid)
+          .doc(uid)
           .set(user.copyWith(deckList: currentDeckList).toJson());
 
       return true;
@@ -142,16 +142,20 @@ class FirestoreService {
       }).toList();
 
       return decks;
-    } catch (e) {}
+    } catch (e) {
+      final List<Deck> emptyDeck = [];
+      return emptyDeck;
+    }
   }
 
   Future getUserDeckList() async {
     try {
-      _loggerService.printInfo(header,
-          "getUserDeckList: getting user ${_authService.currentUser!.email} deck list...");
+      var uid = await _authService.getCurrentUserId();
+      _loggerService.printInfo(
+          header, "getUserDeckList: getting user ${uid} deck list...");
 
       var userDeckListSnap = await _decksCollectionReference
-          .where('user_id', isEqualTo: _authService.currentUser?.uid)
+          .where('user_id', isEqualTo: uid)
           .get();
 
       final List<Deck> userDecks = userDeckListSnap.docs.map((e) {

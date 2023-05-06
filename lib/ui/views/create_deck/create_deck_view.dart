@@ -40,89 +40,91 @@ class CreateDeckView extends StackedView<CreateDeckViewModel>
           autovalidateMode: submitBtnClicked
               ? AutovalidateMode.onUserInteraction
               : AutovalidateMode.disabled,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              verticalSpaceMedium,
-              const GFTypography(
-                  text: "Please edit the deck name and category",
-                  textColor: GFColors.WHITE,
-                  showDivider: false),
-              verticalSpaceMedium,
-              FormBuilderTextField(
-                style: const TextStyle(color: GFColors.WHITE),
-                controller: deckNameController,
-                // initialValue: viewModel.isBusy ? "" : viewModel.deckName,
-                decoration: const InputDecoration(
-                  labelText: 'Deck Name',
-                  labelStyle: TextStyle(color: GFColors.WHITE),
-                  // fillColor: GFColors.WHITE,
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                verticalSpaceMedium,
+                const GFTypography(
+                    text: "Please fill the deck name and category",
+                    textColor: GFColors.WHITE,
+                    showDivider: false),
+                verticalSpaceMedium,
+                FormBuilderTextField(
+                  style: const TextStyle(color: GFColors.WHITE),
+                  controller: deckNameController,
+                  // initialValue: viewModel.isBusy ? "" : viewModel.deckName,
+                  decoration: const InputDecoration(
+                    labelText: 'Deck Name',
+                    labelStyle: TextStyle(color: GFColors.WHITE),
+                    // fillColor: GFColors.WHITE,
 
-                  filled: true,
-                  // suffixIcon: _ageHasError
-                  //     ? const Icon(Icons.error, color: Colors.red)
-                  //     : const Icon(Icons.check, color: Colors.green),
+                    filled: true,
+                    // suffixIcon: _ageHasError
+                    //     ? const Icon(Icons.error, color: Colors.red)
+                    //     : const Icon(Icons.check, color: Colors.green),
+                  ),
+                  name: 'deckName',
+                  // validator: CreateDeckValidators.validateDeckName,
                 ),
-                name: 'deckName',
-                // validator: CreateDeckValidators.validateDeckName,
-              ),
-              verticalSpaceMedium,
-              FormBuilderDropdown<String>(
-                alignment: Alignment.bottomRight,
-                style: const TextStyle(
-                  color: GFColors.WHITE,
-                ),
-                dropdownColor: GFColors.DARK, isDense: true,
-                initialValue: viewModel.currentDropdownValue,
-                name: 'category',
-                decoration: const InputDecoration(
-                  labelText: 'Category',
-                  labelStyle: TextStyle(color: GFColors.WHITE),
-                  // fillColor: GFColors.WHITE,
+                verticalSpaceMedium,
+                FormBuilderDropdown<String>(
+                  alignment: Alignment.bottomRight,
+                  style: const TextStyle(
+                    color: GFColors.WHITE,
+                  ),
+                  dropdownColor: GFColors.DARK, isDense: true,
+                  initialValue: viewModel.currentDropdownValue,
+                  name: 'category',
+                  decoration: const InputDecoration(
+                    labelText: 'Category',
+                    labelStyle: TextStyle(color: GFColors.WHITE),
+                    // fillColor: GFColors.WHITE,
 
-                  filled: true,
+                    filled: true,
+                  ),
+                  // validator: FormBuilderValidators.compose(
+                  //     [FormBuilderValidators.required()]),
+                  items: <String>[
+                    'Science',
+                    'Chemistry',
+                    'Biology',
+                    'Programming',
+                    'Math',
+                    'English',
+                    'French',
+                    'Japanese',
+                    'Others'
+                  ]
+                      .map((gender) => DropdownMenuItem(
+                            value: gender,
+                            child: Text(gender),
+                          ))
+                      .toList(),
+                  onChanged: (val) {
+                    viewModel.changeDropdownValue(val);
+                  },
+                  valueTransformer: (val) => val?.toString(),
                 ),
-                // validator: FormBuilderValidators.compose(
-                //     [FormBuilderValidators.required()]),
-                items: <String>[
-                  'Science',
-                  'Chemistry',
-                  'Biology',
-                  'Programming',
-                  'Math',
-                  'English',
-                  'French',
-                  'Japanese',
-                  'Others'
-                ]
-                    .map((gender) => DropdownMenuItem(
-                          alignment: AlignmentDirectional.center,
-                          value: gender,
-                          child: Text(gender),
-                        ))
-                    .toList(),
-                onChanged: (val) {
-                  viewModel.changeDropdownValue(val);
-                },
-                valueTransformer: (val) => val?.toString(),
-              ),
-              verticalSpaceMedium,
-              GFButton(
-                textColor: GFColors.DARK,
-                color: GFColors.LIGHT,
-                onPressed: () {
-                  // Implement login functionality here
-                  if (_formKey.currentState!.validate()) {
-                    // print(_formKey.currentState.);
-                    viewModel.createNewDeck(deckNameController.text,
-                        viewModel.currentDropdownValue);
-                  } else {
-                    submitBtnClicked = true;
-                  }
-                },
-                child: const Text('Create Deck'),
-              )
-            ],
+                verticalSpaceMedium,
+                GFButton(
+                  textColor: GFColors.DARK,
+                  color: GFColors.LIGHT,
+                  onPressed: () {
+                    // Implement login functionality here
+                    if (_formKey.currentState!.validate()) {
+                      // print(_formKey.currentState.);
+                      viewModel.createNewDeck(deckNameController.text,
+                          viewModel.currentDropdownValue);
+                    } else {
+                      submitBtnClicked = true;
+                    }
+                  },
+                  child: const Text('Create Deck'),
+                )
+              ],
+            ),
           ),
         ),
       ),

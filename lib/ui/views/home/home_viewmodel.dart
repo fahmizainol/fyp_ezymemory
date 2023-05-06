@@ -34,9 +34,10 @@ class HomeViewModel extends StreamViewModel {
   Stream get stream => init();
 
   Stream init() async* {
+    var uid = await _authService.getCurrentUserId();
+    _loggerService.printInfo(header, "init: ${uid}");
     fetchedUserDeckList = await _firestoreService.getUserDeckList();
-    fetchedUser =
-        await _firestoreService.getUser(_authService.currentUser!.uid);
+    fetchedUser = await _firestoreService.getUser(uid);
 
     _loggerService.printInfo(header, "test: ${fetchedUserDeckList!.length}");
     yield fetchedUserDeckList;
@@ -59,6 +60,19 @@ class HomeViewModel extends StreamViewModel {
     } else {
       print(" not nc");
     }
+  }
+
+  Future signOut() async {
+    _loggerService.printInfo(header,
+        "signOut: b4 fetchedUserDeckList $fetchedUserDeckList.toString()");
+    await _authService.signOutUser();
+    _loggerService.printInfo(header,
+        "signOut: after fetchedUserDeckList $fetchedUserDeckList.toString()");
+
+    // _loggerService.printInfo(header,
+    //     "signOut: after disposefetchedUserDeckList $fetchedUserDeckList.toString()");
+    await _navigationService.navigateToLoginView();
+    dispose();
   }
 
   void toCreateDeckView() {
@@ -97,6 +111,9 @@ class HomeViewModel extends StreamViewModel {
         break;
       case 2:
         print("2");
+        break;
+      case 3:
+        print("3");
         break;
       default:
     }

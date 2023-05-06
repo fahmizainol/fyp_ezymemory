@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:fyp_ezymemory/ui/widgets/em_drawer.dart';
 import 'package:getwidget/colors/gf_color.dart';
 
 class EMScaffold extends StatelessWidget {
@@ -23,7 +24,7 @@ class EMScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: appBar,
-        drawer: Drawer(),
+        drawer: EMDrawer(),
         bottomNavigationBar: bottomNavigationBar,
         backgroundColor: backgroundColor ?? GFColors.DARK,
         body: body);

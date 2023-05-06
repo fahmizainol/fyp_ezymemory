@@ -9,6 +9,7 @@ import 'package:stacked_services/stacked_services.dart';
 class CreateDeckViewModel extends BaseViewModel {
   final FirestoreService _firestoreService = locator<FirestoreService>();
   final DialogService _dialogService = locator<DialogService>();
+  final NavigationService _navigationService = locator<NavigationService>();
   final AuthService _authService = locator<AuthService>();
   final LoggerService _loggerService = locator<LoggerService>();
 
@@ -18,7 +19,8 @@ class CreateDeckViewModel extends BaseViewModel {
     try {
       var response = await _firestoreService.createDeck(deckName, category);
       if (response) {
-        _dialogService.showDialog(title: "Create Deck success!");
+        await _dialogService.showDialog(title: "Create Deck success!");
+        _navigationService.back();
       }
     } catch (e) {}
   }

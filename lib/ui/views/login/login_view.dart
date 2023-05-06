@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fyp_ezymemory/ui/common/ui_helpers.dart';
+import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
+import 'package:fyp_ezymemory/ui/widgets/em_scaffold.dart';
+import 'package:getwidget/components/typography/gf_typography.dart';
+import 'package:getwidget/getwidget.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
@@ -27,8 +31,8 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
     LoginViewModel viewModel,
     Widget? child,
   ) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Text Reverser')),
+    return EMScaffold(
+      appBar: EMAppBar(title: "EzyMemory Login"),
       body: Container(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0),
         child: SingleChildScrollView(
@@ -41,9 +45,11 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 verticalSpaceMedium,
-                const Text(
-                  'Login',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                const GFTypography(
+                  text: "Login",
+                  textColor: GFColors.LIGHT,
+                  type: GFTypographyType.typo2,
+                  showDivider: false,
                 ),
                 verticalSpaceMedium,
                 TextFormField(
