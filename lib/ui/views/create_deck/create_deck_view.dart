@@ -21,7 +21,7 @@ import 'create_deck_viewmodel.dart';
 class CreateDeckView extends StackedView<CreateDeckViewModel>
     with $CreateDeckView {
   CreateDeckView({Key? key}) : super(key: key);
-  final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormBuilderState>();
   bool submitBtnClicked = false;
   // String dropdownValue = "Others";
 
@@ -113,13 +113,13 @@ class CreateDeckView extends StackedView<CreateDeckViewModel>
                   color: GFColors.LIGHT,
                   onPressed: () {
                     // Implement login functionality here
-                    if (_formKey.currentState!.validate()) {
-                      // print(_formKey.currentState.);
-                      viewModel.createNewDeck(deckNameController.text,
-                          viewModel.currentDropdownValue);
-                    } else {
-                      submitBtnClicked = true;
-                    }
+                    // if (_formKey.currentState!.validate()) {
+                    // print(_formKey.currentState.);
+                    viewModel.createNewDeck(deckNameController.text,
+                        viewModel.currentDropdownValue);
+                    // } else {
+                    // submitBtnClicked = true;
+                    // }
                   },
                   child: const Text('Create Deck'),
                 )

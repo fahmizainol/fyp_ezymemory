@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:fyp_ezymemory/ui/views/register/register_view.form.dart';
+import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
+import 'package:fyp_ezymemory/ui/widgets/em_scaffold.dart';
+import 'package:getwidget/getwidget.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
@@ -28,7 +32,7 @@ import 'register_viewmodel.dart';
 // TODO: add register with google fx
 class RegisterView extends StackedView<RegisterViewModel> with $RegisterView {
   RegisterView({Key? key}) : super(key: key);
-  final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormBuilderState>();
   bool submitBtnClicked = false;
 
   @override
@@ -37,12 +41,12 @@ class RegisterView extends StackedView<RegisterViewModel> with $RegisterView {
     RegisterViewModel viewModel,
     Widget? child,
   ) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('EzyMemory')),
+    return EMScaffold(
+      appBar: EMAppBar(title: 'EzyMemory register'),
       body: Container(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0),
         child: SingleChildScrollView(
-          child: Form(
+          child: FormBuilder(
             key: _formKey,
             autovalidateMode: submitBtnClicked
                 ? AutovalidateMode.onUserInteraction
@@ -51,51 +55,85 @@ class RegisterView extends StackedView<RegisterViewModel> with $RegisterView {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 verticalSpaceMedium,
-                const Text(
-                  'Register',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                const GFTypography(
+                  text: "Register",
+                  textColor: GFColors.LIGHT,
+                  type: GFTypographyType.typo2,
+                  showDivider: false,
                 ),
                 verticalSpaceMedium,
-                TextFormField(
+                FormBuilderTextField(
+                  style: const TextStyle(color: GFColors.WHITE),
                   controller: usernameController,
+                  // initialValue: viewModel.isBusy ? "" : viewModel.deckName,
                   decoration: const InputDecoration(
                     labelText: 'Username',
-                    border: OutlineInputBorder(),
+                    labelStyle: TextStyle(color: GFColors.WHITE),
+                    // fillColor: GFColors.WHITE,
+
+                    filled: true,
+                    // suffixIcon: _ageHasError
+                    //     ? const Icon(Icons.error, color: Colors.red)
+                    //     : const Icon(Icons.check, color: Colors.green),
                   ),
-                  validator: RegisterValidators.validateUsername,
+                  name: 'username',
+                  // validator: CreateDeckValidators.validateDeckName,
                 ),
                 verticalSpaceMedium,
-                TextFormField(
+                FormBuilderTextField(
+                  style: const TextStyle(color: GFColors.WHITE),
                   controller: emailController,
+                  // initialValue: viewModel.isBusy ? "" : viewModel.deckName,
                   decoration: const InputDecoration(
                     labelText: 'Email',
-                    border: OutlineInputBorder(),
+                    labelStyle: TextStyle(color: GFColors.WHITE),
+                    // fillColor: GFColors.WHITE,
+
+                    filled: true,
+                    // suffixIcon: _ageHasError
+                    //     ? const Icon(Icons.error, color: Colors.red)
+                    //     : const Icon(Icons.check, color: Colors.green),
                   ),
-                  validator: RegisterValidators.validateEmail,
+                  name: 'email',
+                  // validator: CreateDeckValidators.validateDeckName,
                 ),
                 verticalSpaceMedium,
-                TextFormField(
-                    controller: passwordController,
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      labelText: 'Password',
-                      border: OutlineInputBorder(),
-                    ),
-                    validator: (value) {
-                      return RegisterValidators.validatePassword(value);
-                    }),
+                FormBuilderTextField(
+                  style: const TextStyle(color: GFColors.WHITE),
+                  controller: passwordController,
+                  // initialValue: viewModel.isBusy ? "" : viewModel.deckName,
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                    labelText: 'Password',
+                    labelStyle: TextStyle(color: GFColors.WHITE),
+                    // fillColor: GFColors.WHITE,
+
+                    filled: true,
+                    // suffixIcon: _ageHasError
+                    //     ? const Icon(Icons.error, color: Colors.red)
+                    //     : const Icon(Icons.check, color: Colors.green),
+                  ),
+                  name: 'password',
+                  // validator: CreateDeckValidators.validateDeckName,
+                ),
                 verticalSpaceMedium,
-                TextFormField(
+                FormBuilderTextField(
+                  style: const TextStyle(color: GFColors.WHITE),
                   controller: confirmPasswordController,
+                  // initialValue: viewModel.isBusy ? "" : viewModel.deckName,
                   obscureText: true,
                   decoration: const InputDecoration(
                     labelText: 'Confirm Password',
-                    border: OutlineInputBorder(),
+                    labelStyle: TextStyle(color: GFColors.WHITE),
+                    // fillColor: GFColors.WHITE,
+
+                    filled: true,
+                    // suffixIcon: _ageHasError
+                    //     ? const Icon(Icons.error, color: Colors.red)
+                    //     : const Icon(Icons.check, color: Colors.green),
                   ),
-                  validator: (value) {
-                    return RegisterValidators.validateConfirmPassword(
-                        value, passwordController.text);
-                  },
+                  name: 'confirmPassword',
+                  // validator: CreateDeckValidators.validateDeckName,
                 ),
                 verticalSpaceMedium,
                 ElevatedButton(

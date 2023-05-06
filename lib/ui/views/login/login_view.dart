@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:fyp_ezymemory/ui/common/ui_helpers.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_scaffold.dart';
@@ -22,7 +23,7 @@ import 'login_view.form.dart';
 // TODO: add login with google function
 class LoginView extends StackedView<LoginViewModel> with $LoginView {
   LoginView({Key? key}) : super(key: key);
-  final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormBuilderState>();
   bool loginBtnClicked = false;
 
   @override
@@ -36,7 +37,7 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
       body: Container(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0),
         child: SingleChildScrollView(
-          child: Form(
+          child: FormBuilder(
             key: _formKey,
             autovalidateMode: loginBtnClicked
                 ? AutovalidateMode.onUserInteraction
@@ -52,23 +53,41 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
                   showDivider: false,
                 ),
                 verticalSpaceMedium,
-                TextFormField(
+                FormBuilderTextField(
+                  style: const TextStyle(color: GFColors.WHITE),
                   controller: emailController,
+                  // initialValue: viewModel.isBusy ? "" : viewModel.deckName,
                   decoration: const InputDecoration(
-                    labelText: 'Email',
-                    border: OutlineInputBorder(),
+                    labelText: 'Your email',
+                    labelStyle: TextStyle(color: GFColors.WHITE),
+                    // fillColor: GFColors.WHITE,
+
+                    filled: true,
+                    // suffixIcon: _ageHasError
+                    //     ? const Icon(Icons.error, color: Colors.red)
+                    //     : const Icon(Icons.check, color: Colors.green),
                   ),
-                  validator: LoginValidators.validateEmail,
+                  name: 'email',
+                  // validator: CreateDeckValidators.validateDeckName,
                 ),
                 verticalSpaceMedium,
-                TextFormField(
-                  controller: passwordController,
+                FormBuilderTextField(
                   obscureText: true,
+                  style: const TextStyle(color: GFColors.WHITE),
+                  controller: passwordController,
+                  // initialValue: viewModel.isBusy ? "" : viewModel.deckName,
                   decoration: const InputDecoration(
-                    labelText: 'Password',
-                    border: OutlineInputBorder(),
+                    labelText: 'Your password',
+                    labelStyle: TextStyle(color: GFColors.WHITE),
+                    // fillColor: GFColors.WHITE,
+
+                    filled: true,
+                    // suffixIcon: _ageHasError
+                    //     ? const Icon(Icons.error, color: Colors.red)
+                    //     : const Icon(Icons.check, color: Colors.green),
                   ),
-                  validator: LoginValidators.validatePassword,
+                  name: 'password',
+                  // validator: CreateDeckValidators.validateDeckName,
                 ),
                 verticalSpaceMedium,
                 ElevatedButton(

@@ -16,7 +16,7 @@ import 'edit_deck_viewmodel.dart';
 class EditDeckView extends StackedView<EditDeckViewModel> {
   final String deckId;
   EditDeckView(this.deckId, {Key? key}) : super(key: key);
-  final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormBuilderState>();
   bool submitBtnClicked = false;
   // String dropdownValue = "Others";
 
