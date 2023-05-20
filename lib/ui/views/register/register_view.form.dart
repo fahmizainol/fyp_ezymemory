@@ -26,7 +26,7 @@ final Map<String, String? Function(String?)?> _RegisterViewTextValidations = {
   ConfirmPasswordValueKey: null,
 };
 
-mixin $RegisterView on StatelessWidget {
+mixin $RegisterView {
   TextEditingController get usernameController =>
       _getFormTextEditingController(UsernameValueKey);
   TextEditingController get emailController =>
@@ -84,7 +84,7 @@ mixin $RegisterView on StatelessWidget {
     confirmPasswordController.addListener(() => _updateFormData(model));
   }
 
-  final bool _autoTextFieldValidation = true;
+  static const bool _autoTextFieldValidation = true;
   bool validateFormFields(FormViewModel model) {
     _updateFormData(model, forceValidate: true);
     return model.isFormValid;

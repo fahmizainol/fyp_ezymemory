@@ -86,6 +86,9 @@ class HomeView extends StackedView<HomeViewModel> {
                                             const PopupMenuItem<int>(
                                                 value: 3,
                                                 child: Text("Add cards")),
+                                            const PopupMenuItem<int>(
+                                                value: 4,
+                                                child: Text("Study deck")),
                                           ]),
                                   color: GFColors.LIGHT,
                                   titleText: viewModel

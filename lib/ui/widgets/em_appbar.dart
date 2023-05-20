@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
-class EMAppBar extends StatelessWidget with PreferredSizeWidget {
+class EMAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   const EMAppBar({super.key, required this.title});
 

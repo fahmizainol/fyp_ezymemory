@@ -6,12 +6,11 @@
 import 'dart:async' as _i5;
 import 'dart:ui' as _i6;
 
-import 'package:firebase_auth/firebase_auth.dart' as _i8;
 import 'package:flutter/material.dart' as _i4;
-import 'package:fyp_ezymemory/services/api_service.dart' as _i9;
+import 'package:fyp_ezymemory/services/api_service.dart' as _i8;
 import 'package:fyp_ezymemory/services/auth_service.dart' as _i7;
-import 'package:fyp_ezymemory/services/firestore_service.dart' as _i10;
-import 'package:fyp_ezymemory/services/logger_service.dart' as _i11;
+import 'package:fyp_ezymemory/services/firestore_service.dart' as _i9;
+import 'package:fyp_ezymemory/services/logger_service.dart' as _i10;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:simple_logger/simple_logger.dart' as _i2;
 import 'package:stacked_services/stacked_services.dart' as _i3;
@@ -606,7 +605,9 @@ class MockDialogService extends _i1.Mock implements _i3.DialogService {
     String? title,
     String? description,
     String? cancelTitle = r'Cancel',
+    _i6.Color? cancelTitleColor,
     String? confirmationTitle = r'Ok',
+    _i6.Color? confirmationTitleColor,
     bool? barrierDismissible = false,
     _i3.DialogPlatform? dialogPlatform,
   }) =>
@@ -618,7 +619,9 @@ class MockDialogService extends _i1.Mock implements _i3.DialogService {
             #title: title,
             #description: description,
             #cancelTitle: cancelTitle,
+            #cancelTitleColor: cancelTitleColor,
             #confirmationTitle: confirmationTitle,
+            #confirmationTitleColor: confirmationTitleColor,
             #barrierDismissible: barrierDismissible,
             #dialogPlatform: dialogPlatform,
           },
@@ -685,10 +688,19 @@ class MockAuthService extends _i1.Mock implements _i7.AuthService {
         returnValueForMissingStub: _i5.Future<dynamic>.value(),
       ) as _i5.Future<dynamic>);
   @override
-  _i5.Future<dynamic> getCurrentUser(_i8.User? user) => (super.noSuchMethod(
+  _i5.Future<dynamic> signOutUser() => (super.noSuchMethod(
         Invocation.method(
-          #getCurrentUser,
-          [user],
+          #signOutUser,
+          [],
+        ),
+        returnValue: _i5.Future<dynamic>.value(),
+        returnValueForMissingStub: _i5.Future<dynamic>.value(),
+      ) as _i5.Future<dynamic>);
+  @override
+  _i5.Future<dynamic> getCurrentUserId() => (super.noSuchMethod(
+        Invocation.method(
+          #getCurrentUserId,
+          [],
         ),
         returnValue: _i5.Future<dynamic>.value(),
         returnValueForMissingStub: _i5.Future<dynamic>.value(),
@@ -698,12 +710,12 @@ class MockAuthService extends _i1.Mock implements _i7.AuthService {
 /// A class which mocks [ApiService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockApiService extends _i1.Mock implements _i9.ApiService {}
+class MockApiService extends _i1.Mock implements _i8.ApiService {}
 
 /// A class which mocks [FirestoreService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockFirestoreService extends _i1.Mock implements _i10.FirestoreService {
+class MockFirestoreService extends _i1.Mock implements _i9.FirestoreService {
   @override
   String get header => (super.noSuchMethod(
         Invocation.getter(#header),
@@ -805,12 +817,40 @@ class MockFirestoreService extends _i1.Mock implements _i10.FirestoreService {
         returnValue: _i5.Future<dynamic>.value(),
         returnValueForMissingStub: _i5.Future<dynamic>.value(),
       ) as _i5.Future<dynamic>);
+  @override
+  _i5.Future<dynamic> createFlashcard(
+    String? deckId,
+    String? front,
+    String? back,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #createFlashcard,
+          [
+            deckId,
+            front,
+            back,
+          ],
+        ),
+        returnValue: _i5.Future<dynamic>.value(),
+        returnValueForMissingStub: _i5.Future<dynamic>.value(),
+      ) as _i5.Future<dynamic>);
+  @override
+  _i5.Future<dynamic> getFlashcardListById(String? deckId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getFlashcardListById,
+          [deckId],
+        ),
+        returnValue: _i5.Future<dynamic>.value(),
+        returnValueForMissingStub: _i5.Future<dynamic>.value(),
+      ) as _i5.Future<dynamic>);
 }
 
 /// A class which mocks [LoggerService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLoggerService extends _i1.Mock implements _i11.LoggerService {
+class MockLoggerService extends _i1.Mock implements _i10.LoggerService {
   @override
   _i2.SimpleLogger get logger => (super.noSuchMethod(
         Invocation.getter(#logger),

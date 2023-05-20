@@ -21,7 +21,7 @@ final Map<String, String? Function(String?)?> _LoginViewTextValidations = {
   PasswordValueKey: null,
 };
 
-mixin $LoginView on StatelessWidget {
+mixin $LoginView {
   TextEditingController get emailController =>
       _getFormTextEditingController(EmailValueKey);
   TextEditingController get passwordController =>
@@ -68,7 +68,7 @@ mixin $LoginView on StatelessWidget {
     passwordController.addListener(() => _updateFormData(model));
   }
 
-  final bool _autoTextFieldValidation = true;
+  static const bool _autoTextFieldValidation = true;
   bool validateFormFields(FormViewModel model) {
     _updateFormData(model, forceValidate: true);
     return model.isFormValid;

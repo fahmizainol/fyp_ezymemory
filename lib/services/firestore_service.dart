@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:fyp_ezymemory/models/Deck/Deck.dart';
+import 'package:fyp_ezymemory/models/Flashcard/Flashcard.dart';
 import 'package:fyp_ezymemory/services/auth_service.dart';
 import 'package:fyp_ezymemory/services/logger_service.dart';
 import 'package:uuid/uuid.dart';
@@ -15,6 +16,9 @@ class FirestoreService {
       FirebaseFirestore.instance.collection('users');
   final CollectionReference _decksCollectionReference =
       FirebaseFirestore.instance.collection('decks');
+  // final CollectionReference _flashcardsCollectionReference =
+  //     FirebaseFirestore.instance.collection('decks').;
+
   final LoggerService _loggerService = locator<LoggerService>();
   final AuthService _authService = locator<AuthService>();
 
@@ -203,5 +207,66 @@ class FirestoreService {
 
       return true;
     } catch (e) {}
+  }
+
+  // FLASHCARD
+  Future createFlashcard(String deckId, String front, String back) async {
+    try {
+      _loggerService.printInfo(
+          header, "createDeck: creating deck in firebase..");
+
+      var uuid = const Uuid();
+      final Flashcard flashcard = Flashcard(
+        id: uuid.v4(),
+        back: back,
+        front: front,
+        easeFactor: 0.0,
+        previousInterval: 0,
+        quality: 0,
+        repetition: 0,
+        status: '',
+      );
+      // var userGet = await getUser(uid);
+
+      await _decksCollectionReference
+          .doc(deckId)
+          .collection('flashcards')
+          .doc(flashcard.id)
+          .set(flashcard.toJson());
+      //     .set(user.copyWith(deckList: currentDeckList).toJson());
+
+      return true;
+      // Need to create in User & Deck collection
+    } catch (e) {
+      if (e is PlatformException) {
+        _loggerService.printShout("getUser: ${e.message}");
+        return false;
+      }
+      _loggerService.printShout("getUser: ${e.toString()}");
+      return false;
+    }
+  }
+
+  Future getFlashcardListById(String deckId) async {
+    try {
+      _loggerService.printInfo(
+          header, "getFlashcardList: getting flashcard list $deckId ...");
+
+      var flashcardListSnap = await _decksCollectionReference
+          .doc(deckId)
+          .collection('flashcards')
+          .get();
+
+      final List<Flashcard> flashcards = flashcardListSnap.docs.map((e) {
+        Map<String, dynamic> data = e.data() as Map<String, dynamic>;
+        Flashcard flashcardModel = Flashcard.fromJson(data);
+        return flashcardModel;
+      }).toList();
+
+      return flashcards;
+    } catch (e) {
+      final List<Flashcard> emptyFlashcard = [];
+      return emptyFlashcard;
+    }
   }
 }

@@ -83,6 +83,17 @@ class HomeViewModel extends StreamViewModel {
     _navigationService.navigateToEditDeckView(key: UniqueKey(), deckId: deckId);
   }
 
+  void toCreateFlashcardView(String deckId, String deckName) {
+    _navigationService.navigateToCreateFlashcardView(
+        key: UniqueKey(), deckId: deckId, deckName: deckName);
+  }
+
+  // TODO: add cards count
+  void toSessionChooserView(String deckId, String deckName) {
+    _navigationService.navigateToSessionChooserView(
+        key: UniqueKey(), deckId: deckId, deckName: deckName);
+  }
+
   void showDeleteDialog() {
     _dialogService.showConfirmationDialog(
         title: "Are you sure you want to delete ");
@@ -105,7 +116,6 @@ class HomeViewModel extends StreamViewModel {
       case 0:
         toEditDeckView(deckId);
         break;
-
       case 1:
         deleteDeck(deckId, deckName);
         break;
@@ -113,7 +123,10 @@ class HomeViewModel extends StreamViewModel {
         print("2");
         break;
       case 3:
-        print("3");
+        toCreateFlashcardView(deckId, deckName);
+        break;
+      case 4:
+        toSessionChooserView(deckId, deckName);
         break;
       default:
     }

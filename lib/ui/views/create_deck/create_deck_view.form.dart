@@ -20,7 +20,7 @@ final Map<String, String? Function(String?)?> _CreateDeckViewTextValidations = {
   DeckNameValueKey: null,
 };
 
-mixin $CreateDeckView on StatelessWidget {
+mixin $CreateDeckView {
   TextEditingController get deckNameController =>
       _getFormTextEditingController(DeckNameValueKey);
   FocusNode get deckNameFocusNode => _getFormFocusNode(DeckNameValueKey);
@@ -62,7 +62,7 @@ mixin $CreateDeckView on StatelessWidget {
     deckNameController.addListener(() => _updateFormData(model));
   }
 
-  final bool _autoTextFieldValidation = true;
+  static const bool _autoTextFieldValidation = true;
   bool validateFormFields(FormViewModel model) {
     _updateFormData(model, forceValidate: true);
     return model.isFormValid;
