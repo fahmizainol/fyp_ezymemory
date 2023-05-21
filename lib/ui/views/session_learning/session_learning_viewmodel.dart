@@ -13,6 +13,7 @@ class SessionLearningViewModel extends FutureViewModel {
   final DialogService _dialogService = locator<DialogService>();
 
   int count = 0;
+  bool frontVisible = true;
   List<Flashcard>? fetchedFlashcardsList;
   // TabController? tabController  = TabController(length: 3, vsync);
 
@@ -24,11 +25,15 @@ class SessionLearningViewModel extends FutureViewModel {
         await _firestoreService.getFlashcardListById(deckId);
   }
 
+  void showAns() {
+    frontVisible = false;
+    rebuildUi();
+  }
+
   void nextCard() {
-    print(count);
-    print(fetchedFlashcardsList!.length);
     if (count < (fetchedFlashcardsList!.length - 1)) {
       count++;
+      frontVisible = true;
       rebuildUi();
     } else {
       _dialogService.showDialog(title: 'your last card!');
