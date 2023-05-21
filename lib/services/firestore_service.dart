@@ -263,6 +263,9 @@ class FirestoreService {
         return flashcardModel;
       }).toList();
 
+      _loggerService.printInfo(header,
+          "getFlashcardList: getting flashcard list success! ${flashcards.toString()}");
+
       return flashcards;
     } catch (e) {
       final List<Flashcard> emptyFlashcard = [];

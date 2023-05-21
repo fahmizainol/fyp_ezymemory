@@ -28,6 +28,7 @@ class HomeViewModel extends StreamViewModel {
 
   User? fetchedUser;
   List<Deck>? fetchedUserDeckList;
+  TabController? tabController;
 
   @override
   // TODO: implement stream
