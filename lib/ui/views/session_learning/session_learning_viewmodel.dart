@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:fyp_ezymemory/app/app.locator.dart';
 import 'package:fyp_ezymemory/models/Flashcard/Flashcard.dart';
 import 'package:fyp_ezymemory/services/firestore_service.dart';
+import 'package:fyp_ezymemory/services/sm2_service.dart';
+import 'package:fyp_ezymemory/services/spacedr_service.dart';
+import 'package:spaced_repetition/SmResponse.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -11,6 +14,9 @@ class SessionLearningViewModel extends FutureViewModel {
 
   final FirestoreService _firestoreService = locator<FirestoreService>();
   final DialogService _dialogService = locator<DialogService>();
+  final Sm2Service _sm2Service = locator<Sm2Service>();
+
+  // final Sm sm = Sm();
 
   int count = 0;
   bool frontVisible = true;
@@ -23,6 +29,21 @@ class SessionLearningViewModel extends FutureViewModel {
   Future getFlashcardsList(String deckId) async {
     fetchedFlashcardsList =
         await _firestoreService.getFlashcardListById(deckId);
+
+    // fetchedFlashcardsList!.sort((a, b) => a.reviewTime.compareTo(b.reviewTime));
+  }
+
+  Future updateFlashcard(int quality) async {
+    Flashcard currentCard = fetchedFlashcardsList![count];
+
+    SmResponse smResponse = _sm2Service.calculateIRE(quality,
+        currentCard.repetitions, currentCard.interval, currentCard.easeFactor);
+
+    // update database
+    await _firestoreService.updateFlashcardById(deckId, currentCard.id,
+        smResponse.interval, smResponse.repetitions, smResponse.easeFactor);
+
+    nextCard();
   }
 
   void showAns() {
@@ -39,4 +60,19 @@ class SessionLearningViewModel extends FutureViewModel {
       _dialogService.showDialog(title: 'your last card!');
     }
   }
+
+  Future debugMenuLogic(int value) async {
+    Flashcard currentCard = fetchedFlashcardsList![count];
+    switch (value) {
+      case 0:
+        // FIXME: data wasnt refetched back from firebase meaning the currentCard still holds the prev values despite firebase being resetted
+        await _firestoreService.updateFlashcardById(
+            deckId, currentCard.id, 0, 0, 0);
+        break;
+
+      default:
+    }
+  }
+
+  // TODO: the status of the card?
 }

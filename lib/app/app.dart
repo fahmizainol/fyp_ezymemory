@@ -17,6 +17,8 @@ import 'package:fyp_ezymemory/ui/views/create_flashcard/create_flashcard_view.da
 import 'package:fyp_ezymemory/ui/views/session_chooser/session_chooser_view.dart';
 import 'package:fyp_ezymemory/ui/views/session_learning/session_learning_view.dart';
 import 'package:fyp_ezymemory/ui/views/em_learning_bar/em_learning_bar_view.dart';
+import 'package:fyp_ezymemory/services/sm2_service.dart';
+import 'package:fyp_ezymemory/services/spacedr_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -42,6 +44,8 @@ import 'package:fyp_ezymemory/ui/views/em_learning_bar/em_learning_bar_view.dart
     LazySingleton(classType: ApiService),
     LazySingleton(classType: FirestoreService),
     LazySingleton(classType: LoggerService),
+    LazySingleton(classType: Sm2Service),
+    LazySingleton(classType: SpacedrService),
 // @stacked-service
   ],
   bottomsheets: [

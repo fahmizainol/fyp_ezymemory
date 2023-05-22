@@ -17,7 +17,6 @@ class RegisterViewModel extends FormViewModel {
           email: email, password: password, username: username);
 
       await _firestoreService.createUser(username, email);
-      // TODO: make a user model and initialize it
       _navigationService.navigateToHomeView();
     } catch (e) {
       e.toString();
@@ -25,7 +24,6 @@ class RegisterViewModel extends FormViewModel {
   }
 }
 
-// TODO: if account already exist error
 class RegisterValidators {
   static String? validateUsername(String? value) {
     if (value!.isEmpty) {

@@ -6,6 +6,8 @@ import 'package:fyp_ezymemory/services/auth_service.dart';
 import 'package:fyp_ezymemory/services/api_service.dart';
 import 'package:fyp_ezymemory/services/firestore_service.dart';
 import 'package:fyp_ezymemory/services/logger_service.dart';
+import 'package:fyp_ezymemory/services/sm2_service.dart';
+import 'package:fyp_ezymemory/services/spacedr_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -18,6 +20,8 @@ import 'test_helpers.mocks.dart';
   MockSpec<ApiService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<FirestoreService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<LoggerService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<Sm2Service>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<SpacedrService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -28,6 +32,8 @@ void registerServices() {
   getAndRegisterApiService();
   getAndRegisterFirestoreService();
   getAndRegisterLoggerService();
+  getAndRegisterSm2Service();
+  getAndRegisterSpacedrService();
 // @stacked-mock-register
 }
 
@@ -106,6 +112,20 @@ MockLoggerService getAndRegisterLoggerService() {
   _removeRegistrationIfExists<LoggerService>();
   final service = MockLoggerService();
   locator.registerSingleton<LoggerService>(service);
+  return service;
+}
+
+MockSm2Service getAndRegisterSm2Service() {
+  _removeRegistrationIfExists<Sm2Service>();
+  final service = MockSm2Service();
+  locator.registerSingleton<Sm2Service>(service);
+  return service;
+}
+
+MockSpacedrService getAndRegisterSpacedrService() {
+  _removeRegistrationIfExists<SpacedrService>();
+  final service = MockSpacedrService();
+  locator.registerSingleton<SpacedrService>(service);
   return service;
 }
 // @stacked-mock-create

@@ -1,4 +1,3 @@
-// TODO: create a uniform scaffold for all
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -11,6 +10,7 @@ class EMScaffold extends StatelessWidget {
   final Widget? body;
   final PreferredSizeWidget? appBar;
   final Widget? bottomNavigationBar;
+  final Widget? floatingButton;
   bool shadowColor = false;
   EMScaffold(
       {super.key,
@@ -18,11 +18,13 @@ class EMScaffold extends StatelessWidget {
       this.backgroundColor,
       this.body,
       this.bottomNavigationBar,
-      this.appBar});
+      this.appBar,
+      this.floatingButton});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        floatingActionButton: floatingButton,
         appBar: appBar,
         drawer: EMDrawer(),
         bottomNavigationBar: bottomNavigationBar,

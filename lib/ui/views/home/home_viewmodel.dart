@@ -31,7 +31,6 @@ class HomeViewModel extends StreamViewModel {
   TabController? tabController;
 
   @override
-  // TODO: implement stream
   Stream get stream => init();
 
   Stream init() async* {

@@ -15,6 +15,8 @@ import '../services/api_service.dart';
 import '../services/auth_service.dart';
 import '../services/firestore_service.dart';
 import '../services/logger_service.dart';
+import '../services/sm2_service.dart';
+import '../services/spacedr_service.dart';
 
 final locator = StackedLocator.instance;
 
@@ -34,4 +36,6 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => ApiService());
   locator.registerLazySingleton(() => FirestoreService());
   locator.registerLazySingleton(() => LoggerService());
+  locator.registerLazySingleton(() => Sm2Service());
+  locator.registerLazySingleton(() => SpacedrService());
 }

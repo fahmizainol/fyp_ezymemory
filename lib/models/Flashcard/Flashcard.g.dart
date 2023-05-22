@@ -11,9 +11,9 @@ _$_Flashcard _$$_FlashcardFromJson(Map<String, dynamic> json) => _$_Flashcard(
       front: json['front'] as String,
       back: json['back'] as String,
       status: json['status'] as String,
-      quality: json['quality'] as int,
-      repetition: json['repetition'] as int,
-      previousInterval: json['previousInterval'] as int,
+      repetitions: json['repetitions'] as int,
+      interval: json['interval'] as int,
+      reviewTime: const TimestampSerializer().fromJson(json['reviewTime']),
       easeFactor: (json['easeFactor'] as num).toDouble(),
     );
 
@@ -23,8 +23,8 @@ Map<String, dynamic> _$$_FlashcardToJson(_$_Flashcard instance) =>
       'front': instance.front,
       'back': instance.back,
       'status': instance.status,
-      'quality': instance.quality,
-      'repetition': instance.repetition,
-      'previousInterval': instance.previousInterval,
+      'repetitions': instance.repetitions,
+      'interval': instance.interval,
+      'reviewTime': const TimestampSerializer().toJson(instance.reviewTime),
       'easeFactor': instance.easeFactor,
     };

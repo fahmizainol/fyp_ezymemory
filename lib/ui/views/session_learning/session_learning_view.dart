@@ -1,5 +1,6 @@
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
+import 'package:fyp_ezymemory/ui/common/ui_helpers.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_bottombar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_circular.dart';
@@ -21,6 +22,18 @@ class SessionLearningView extends StackedView<SessionLearningViewModel> {
     Widget? child,
   ) {
     return EMScaffold(
+      // TODO: add counter for new, review, repeat
+      floatingButton: PopupMenuButton<int>(
+          position: PopupMenuPosition.over,
+          onSelected: (int value) {
+            viewModel.debugMenuLogic(value);
+          },
+          itemBuilder: (context) => [
+                const PopupMenuItem<int>(
+                    value: 0, child: Text("[D] Reset SM2 stats")),
+                // const PopupMenuItem<int>(
+                //     value: 0, child: Text("[D] Reset SM2 stats")),
+              ]),
       appBar: const EMAppBar(title: "Learning Session"),
       // bottomNavigationBar: const EMLearningBottomBar(),
       // backgroundColor: Theme.of(context).colorScheme.background,
@@ -45,20 +58,21 @@ class SessionLearningView extends StackedView<SessionLearningViewModel> {
                         child: viewModel.isBusy
                             ? const EMCircular()
                             : Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                // mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
-                                  Text(
-                                      viewModel
-                                          .fetchedFlashcardsList![
-                                              viewModel.count]
-                                          .front,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline1),
-                                  Text('Click here to flip front',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1),
+                                  Text('Question'),
+                                  verticalSpaceMassive,
+                                  verticalSpaceMassive,
+                                  Center(
+                                    child: Text(
+                                        viewModel
+                                            .fetchedFlashcardsList![
+                                                viewModel.count]
+                                            .front,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineMedium),
+                                  ),
                                 ],
                               ),
                       ),
@@ -69,6 +83,7 @@ class SessionLearningView extends StackedView<SessionLearningViewModel> {
                       children: [
                         GFButton(
                           onPressed: () {
+                            print('show ans');
                             viewModel.showAns();
                           },
                           text: 'Show answer',
@@ -97,20 +112,28 @@ class SessionLearningView extends StackedView<SessionLearningViewModel> {
                         child: viewModel.isBusy
                             ? const EMCircular()
                             : Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                // mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
-                                  Text(
-                                      viewModel
-                                          .fetchedFlashcardsList![
-                                              viewModel.count]
-                                          .back,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline1),
-                                  Text('Click here to flip front',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1),
+                                  Text('Answer'),
+                                  verticalSpaceMassive,
+                                  verticalSpaceMassive,
+                                  // GFTypography(
+                                  //   text: viewModel
+                                  //       .fetchedFlashcardsList![viewModel.count]
+                                  //       .back,
+                                  //   showDivider: false,
+                                  //   type: GFTypographyType.typo1,
+                                  // )
+                                  Center(
+                                    child: Text(
+                                        viewModel
+                                            .fetchedFlashcardsList![
+                                                viewModel.count]
+                                            .back,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineMedium),
+                                  ),
                                 ],
                               ),
                       ),
@@ -121,20 +144,24 @@ class SessionLearningView extends StackedView<SessionLearningViewModel> {
                       children: [
                         GFButton(
                           onPressed: () {
-                            viewModel.nextCard();
+                            viewModel.updateFlashcard(5);
                           },
                           text: 'Easy',
                           size: GFSize.LARGE,
                           // color: GF,
                         ),
                         GFButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            viewModel.updateFlashcard(3);
+                          },
                           text: 'Good',
                           size: GFSize.LARGE,
                           color: GFColors.SUCCESS,
                         ),
                         GFButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              viewModel.updateFlashcard(0);
+                            },
                             text: 'Hard',
                             size: GFSize.LARGE,
                             color: GFColors.DANGER)

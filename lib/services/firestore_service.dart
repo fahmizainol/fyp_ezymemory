@@ -27,7 +27,6 @@ class FirestoreService {
 
   // USER
   Future createUser(String username, String email) async {
-    // FIXME: think of a better way to pas the uid
     try {
       _loggerService.printInfo(
           header, "createUser: creating user in firebase..");
@@ -45,7 +44,6 @@ class FirestoreService {
 
       await _usersCollectionReference.doc(uid).set(user.toJson());
     } catch (e) {
-      // TODO: Find or create a way to repeat error handling without so much repeated code
       if (e is PlatformException) {
         _loggerService.printShout("createUser: ${e.message}");
         return e.message;
@@ -221,10 +219,10 @@ class FirestoreService {
         back: back,
         front: front,
         easeFactor: 0.0,
-        previousInterval: 0,
-        quality: 0,
-        repetition: 0,
-        status: '',
+        interval: 0,
+        reviewTime: DateTime.now(),
+        repetitions: 0,
+        status: 'fresh',
       );
       // var userGet = await getUser(uid);
 
@@ -248,28 +246,119 @@ class FirestoreService {
   }
 
   Future getFlashcardListById(String deckId) async {
+    // IDEA: fetch 2 lists -- 1 is status=new, 2 is status=review where reviewTime >= currTime and then combine
     try {
       _loggerService.printInfo(
           header, "getFlashcardList: getting flashcard list $deckId ...");
 
-      var flashcardListSnap = await _decksCollectionReference
+      var reviewFlashcardListSnap = await _decksCollectionReference
           .doc(deckId)
           .collection('flashcards')
+          .where('status', isEqualTo: 'review')
+          .where('reviewTime', isLessThanOrEqualTo: Timestamp.now())
+          // .where('repetitions', isNotEqualTo: 0)
           .get();
 
-      final List<Flashcard> flashcards = flashcardListSnap.docs.map((e) {
+      var freshFlashcardListSnap = await _decksCollectionReference
+          .doc(deckId)
+          .collection('flashcards')
+          .where('status', isEqualTo: 'fresh')
+          .limit(20)
+          .get();
+
+      final List<Flashcard> reviewFlashcards =
+          reviewFlashcardListSnap.docs.map((e) {
+        Map<String, dynamic> data = e.data() as Map<String, dynamic>;
+        Flashcard flashcardModel = Flashcard.fromJson(data);
+        return flashcardModel;
+      }).toList();
+
+      final List<Flashcard> freshFlashcards =
+          freshFlashcardListSnap.docs.map((e) {
         Map<String, dynamic> data = e.data() as Map<String, dynamic>;
         Flashcard flashcardModel = Flashcard.fromJson(data);
         return flashcardModel;
       }).toList();
 
       _loggerService.printInfo(header,
-          "getFlashcardList: getting flashcard list success! ${flashcards.toString()}");
+          "getFlashcardList: getting due review flashcard list success! ${reviewFlashcards.toString()}");
+
+      _loggerService.printInfo(header,
+          "getFlashcardList: getting fresh flashcard list success! ${freshFlashcards.toString()}");
+
+      // combine the lists
+      final List<Flashcard> flashcards = [
+        ...reviewFlashcards,
+        ...freshFlashcards
+      ];
+
+      _loggerService.printInfo(header,
+          "getFlashcardList: getting session flashcard list success! ${flashcards.toString()}");
 
       return flashcards;
     } catch (e) {
       final List<Flashcard> emptyFlashcard = [];
       return emptyFlashcard;
     }
+  }
+  // Future getFlashcardListById(String deckId) async {
+  //   // IDEA: fetch 2 lists -- 1 is status=new, 2 is status=review where reviewTime >= currTime and then combine
+  //   try {
+  //     _loggerService.printInfo(
+  //         header, "getFlashcardList: getting flashcard list $deckId ...");
+
+  //     var flashcardListSnap = await _decksCollectionReference
+  //         .doc(deckId)
+  //         .collection('flashcards')
+  //         .get();
+
+  //     final List<Flashcard> flashcards = flashcardListSnap.docs.map((e) {
+  //       Map<String, dynamic> data = e.data() as Map<String, dynamic>;
+  //       Flashcard flashcardModel = Flashcard.fromJson(data);
+  //       return flashcardModel;
+  //     }).toList();
+
+  //     _loggerService.printInfo(header,
+  //         "getFlashcardList: getting flashcard list success! ${flashcards.toString()}");
+
+  //     return flashcards;
+  //   } catch (e) {
+  //     final List<Flashcard> emptyFlashcard = [];
+  //     return emptyFlashcard;
+  //   }
+  // }
+
+  Future updateFlashcardById(String deckId, String flashcardId, int interval,
+      int repetitions, double easeFactor) async {
+    try {
+      _loggerService.printInfo(
+          header, "updateFlashcardById: updating flashcardId $flashcardId ");
+
+      DateTime currTime = DateTime.now();
+      DateTime currDateOnly = currTime.copyWith(hour: 0, minute: 0, second: 0);
+
+      print(currDateOnly);
+
+      Timestamp reviewTime =
+          Timestamp.fromDate(currDateOnly.add(Duration(days: interval)));
+
+      // reset the time to 00:00:00
+
+      // print("updateFlashcardById: $reviewTime");
+
+      await _decksCollectionReference
+          .doc(deckId)
+          .collection('flashcards')
+          .doc(flashcardId)
+          .update({
+        "interval": interval,
+        "repetitions": repetitions,
+        "easeFactor": easeFactor,
+        "reviewTime": reviewTime,
+        "status": "review"
+      });
+
+      return true;
+    } catch (e) {}
   }
 }

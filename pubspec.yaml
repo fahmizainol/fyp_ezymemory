@@ -50,6 +50,8 @@ dependencies:
   getwidget: ^3.1.1
   flutter_form_builder: ^8.0.0
   flip_card: ^0.7.0
+  spaced_repetition: ^0.1.0
+  freezed: ^2.3.4
 
 dev_dependencies:
   flutter_test:
@@ -65,7 +67,6 @@ dev_dependencies:
 
   stacked_generator: ^1.0.0
   mockito: ^5.3.2
-  freezed: ^2.3.3
   json_serializable: ^6.6.2
 
 # For information on the generic Dart part of this file, see the

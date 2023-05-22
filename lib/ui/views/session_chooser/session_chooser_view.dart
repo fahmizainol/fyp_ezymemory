@@ -35,20 +35,37 @@ class SessionChooserView extends StackedView<SessionChooserViewModel> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              verticalSpaceTiny,
+              // verticalSpaceMedium,
+              // GFTypography(
+              //   text: "Deck: $deckName",
+              //   showDivider: false,
+              // ),
+              // verticalSpaceTiny,
               Column(
                 children: [
-                  // const Padding(
-                  //   padding: EdgeInsets.fromLTRB(15, 0, 0, 10),
+                  verticalSpaceTiny,
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 16, 0, 0),
+                    child: GFTypography(
+                      text: "Deck: $deckName",
+                      showDivider: false,
+                      textColor: GFColors.WHITE,
+                      type: GFTypographyType.typo6,
+                    ),
+                  ),
+                  // verticalSpaceTiny,
+                  // Padding(
+                  //   padding: const EdgeInsets.fromLTRB(16, 16, 0, 0),
                   //   child: GFTypography(
-                  //     dividerColor: GFColors.WHITE,
-                  //     type: GFTypographyType.typo2,
-                  //     text: "Your Deck",
+                  //     text: "Deck : $deckName",
+                  //     showDivider: false,
                   //     textColor: GFColors.WHITE,
+                  //     type: GFTypographyType.typo6,
                   //   ),
                   // ),
+
                   SizedBox(
-                    height: 300,
+                    height: 250,
                     child: GFCard(
                       boxFit: BoxFit.cover,
                       image: Image.asset('your asset image'),
@@ -75,7 +92,7 @@ class SessionChooserView extends StackedView<SessionChooserViewModel> {
                     ),
                   ),
                   SizedBox(
-                    height: 300,
+                    height: 250,
                     child: GFCard(
                       boxFit: BoxFit.cover,
                       image: Image.asset('your asset image'),

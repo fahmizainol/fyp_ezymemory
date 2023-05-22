@@ -24,9 +24,10 @@ mixin _$Flashcard {
   String get front => throw _privateConstructorUsedError;
   String get back => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
-  int get quality => throw _privateConstructorUsedError;
-  int get repetition => throw _privateConstructorUsedError;
-  int get previousInterval => throw _privateConstructorUsedError;
+  int get repetitions => throw _privateConstructorUsedError;
+  int get interval => throw _privateConstructorUsedError;
+  @TimestampSerializer()
+  DateTime get reviewTime => throw _privateConstructorUsedError;
   double get easeFactor => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -45,9 +46,9 @@ abstract class $FlashcardCopyWith<$Res> {
       String front,
       String back,
       String status,
-      int quality,
-      int repetition,
-      int previousInterval,
+      int repetitions,
+      int interval,
+      @TimestampSerializer() DateTime reviewTime,
       double easeFactor});
 }
 
@@ -68,9 +69,9 @@ class _$FlashcardCopyWithImpl<$Res, $Val extends Flashcard>
     Object? front = null,
     Object? back = null,
     Object? status = null,
-    Object? quality = null,
-    Object? repetition = null,
-    Object? previousInterval = null,
+    Object? repetitions = null,
+    Object? interval = null,
+    Object? reviewTime = null,
     Object? easeFactor = null,
   }) {
     return _then(_value.copyWith(
@@ -90,18 +91,18 @@ class _$FlashcardCopyWithImpl<$Res, $Val extends Flashcard>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
-      quality: null == quality
-          ? _value.quality
-          : quality // ignore: cast_nullable_to_non_nullable
+      repetitions: null == repetitions
+          ? _value.repetitions
+          : repetitions // ignore: cast_nullable_to_non_nullable
               as int,
-      repetition: null == repetition
-          ? _value.repetition
-          : repetition // ignore: cast_nullable_to_non_nullable
+      interval: null == interval
+          ? _value.interval
+          : interval // ignore: cast_nullable_to_non_nullable
               as int,
-      previousInterval: null == previousInterval
-          ? _value.previousInterval
-          : previousInterval // ignore: cast_nullable_to_non_nullable
-              as int,
+      reviewTime: null == reviewTime
+          ? _value.reviewTime
+          : reviewTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       easeFactor: null == easeFactor
           ? _value.easeFactor
           : easeFactor // ignore: cast_nullable_to_non_nullable
@@ -122,9 +123,9 @@ abstract class _$$_FlashcardCopyWith<$Res> implements $FlashcardCopyWith<$Res> {
       String front,
       String back,
       String status,
-      int quality,
-      int repetition,
-      int previousInterval,
+      int repetitions,
+      int interval,
+      @TimestampSerializer() DateTime reviewTime,
       double easeFactor});
 }
 
@@ -143,9 +144,9 @@ class __$$_FlashcardCopyWithImpl<$Res>
     Object? front = null,
     Object? back = null,
     Object? status = null,
-    Object? quality = null,
-    Object? repetition = null,
-    Object? previousInterval = null,
+    Object? repetitions = null,
+    Object? interval = null,
+    Object? reviewTime = null,
     Object? easeFactor = null,
   }) {
     return _then(_$_Flashcard(
@@ -165,18 +166,18 @@ class __$$_FlashcardCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
-      quality: null == quality
-          ? _value.quality
-          : quality // ignore: cast_nullable_to_non_nullable
+      repetitions: null == repetitions
+          ? _value.repetitions
+          : repetitions // ignore: cast_nullable_to_non_nullable
               as int,
-      repetition: null == repetition
-          ? _value.repetition
-          : repetition // ignore: cast_nullable_to_non_nullable
+      interval: null == interval
+          ? _value.interval
+          : interval // ignore: cast_nullable_to_non_nullable
               as int,
-      previousInterval: null == previousInterval
-          ? _value.previousInterval
-          : previousInterval // ignore: cast_nullable_to_non_nullable
-              as int,
+      reviewTime: null == reviewTime
+          ? _value.reviewTime
+          : reviewTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       easeFactor: null == easeFactor
           ? _value.easeFactor
           : easeFactor // ignore: cast_nullable_to_non_nullable
@@ -193,9 +194,9 @@ class _$_Flashcard with DiagnosticableTreeMixin implements _Flashcard {
       required this.front,
       required this.back,
       required this.status,
-      required this.quality,
-      required this.repetition,
-      required this.previousInterval,
+      required this.repetitions,
+      required this.interval,
+      @TimestampSerializer() required this.reviewTime,
       required this.easeFactor});
 
   factory _$_Flashcard.fromJson(Map<String, dynamic> json) =>
@@ -210,17 +211,18 @@ class _$_Flashcard with DiagnosticableTreeMixin implements _Flashcard {
   @override
   final String status;
   @override
-  final int quality;
+  final int repetitions;
   @override
-  final int repetition;
+  final int interval;
   @override
-  final int previousInterval;
+  @TimestampSerializer()
+  final DateTime reviewTime;
   @override
   final double easeFactor;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Flashcard(id: $id, front: $front, back: $back, status: $status, quality: $quality, repetition: $repetition, previousInterval: $previousInterval, easeFactor: $easeFactor)';
+    return 'Flashcard(id: $id, front: $front, back: $back, status: $status, repetitions: $repetitions, interval: $interval, reviewTime: $reviewTime, easeFactor: $easeFactor)';
   }
 
   @override
@@ -232,9 +234,9 @@ class _$_Flashcard with DiagnosticableTreeMixin implements _Flashcard {
       ..add(DiagnosticsProperty('front', front))
       ..add(DiagnosticsProperty('back', back))
       ..add(DiagnosticsProperty('status', status))
-      ..add(DiagnosticsProperty('quality', quality))
-      ..add(DiagnosticsProperty('repetition', repetition))
-      ..add(DiagnosticsProperty('previousInterval', previousInterval))
+      ..add(DiagnosticsProperty('repetitions', repetitions))
+      ..add(DiagnosticsProperty('interval', interval))
+      ..add(DiagnosticsProperty('reviewTime', reviewTime))
       ..add(DiagnosticsProperty('easeFactor', easeFactor));
   }
 
@@ -247,19 +249,20 @@ class _$_Flashcard with DiagnosticableTreeMixin implements _Flashcard {
             (identical(other.front, front) || other.front == front) &&
             (identical(other.back, back) || other.back == back) &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.quality, quality) || other.quality == quality) &&
-            (identical(other.repetition, repetition) ||
-                other.repetition == repetition) &&
-            (identical(other.previousInterval, previousInterval) ||
-                other.previousInterval == previousInterval) &&
+            (identical(other.repetitions, repetitions) ||
+                other.repetitions == repetitions) &&
+            (identical(other.interval, interval) ||
+                other.interval == interval) &&
+            (identical(other.reviewTime, reviewTime) ||
+                other.reviewTime == reviewTime) &&
             (identical(other.easeFactor, easeFactor) ||
                 other.easeFactor == easeFactor));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, front, back, status, quality,
-      repetition, previousInterval, easeFactor);
+  int get hashCode => Object.hash(runtimeType, id, front, back, status,
+      repetitions, interval, reviewTime, easeFactor);
 
   @JsonKey(ignore: true)
   @override
@@ -281,9 +284,9 @@ abstract class _Flashcard implements Flashcard {
       required final String front,
       required final String back,
       required final String status,
-      required final int quality,
-      required final int repetition,
-      required final int previousInterval,
+      required final int repetitions,
+      required final int interval,
+      @TimestampSerializer() required final DateTime reviewTime,
       required final double easeFactor}) = _$_Flashcard;
 
   factory _Flashcard.fromJson(Map<String, dynamic> json) =
@@ -298,11 +301,12 @@ abstract class _Flashcard implements Flashcard {
   @override
   String get status;
   @override
-  int get quality;
+  int get repetitions;
   @override
-  int get repetition;
+  int get interval;
   @override
-  int get previousInterval;
+  @TimestampSerializer()
+  DateTime get reviewTime;
   @override
   double get easeFactor;
   @override
