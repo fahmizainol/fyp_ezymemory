@@ -21,6 +21,8 @@ class SessionLearningViewModel extends FutureViewModel {
   int count = 0;
   bool frontVisible = true;
   List<Flashcard>? fetchedFlashcardsList;
+  int freshFlashcardsCount = 0;
+  int reviewFlashcardsCount = 0;
   // TabController? tabController  = TabController(length: 3, vsync);
 
   @override
@@ -30,11 +32,23 @@ class SessionLearningViewModel extends FutureViewModel {
     fetchedFlashcardsList =
         await _firestoreService.getFlashcardListById(deckId);
 
+    freshFlashcardsCount = fetchedFlashcardsList!
+        .where((element) => element.status.contains("fresh"))
+        .toList()
+        .length;
+    reviewFlashcardsCount = fetchedFlashcardsList!
+        .where((element) => element.status.contains("review"))
+        .toList()
+        .length;
     // fetchedFlashcardsList!.sort((a, b) => a.reviewTime.compareTo(b.reviewTime));
   }
 
   Future updateFlashcard(int quality) async {
     Flashcard currentCard = fetchedFlashcardsList![count];
+
+    if (currentCard.status == "fresh") freshFlashcardsCount--;
+    if (currentCard.status == "review") reviewFlashcardsCount--;
+    rebuildUi();
 
     SmResponse smResponse = _sm2Service.calculateIRE(quality,
         currentCard.repetitions, currentCard.interval, currentCard.easeFactor);
@@ -73,6 +87,4 @@ class SessionLearningViewModel extends FutureViewModel {
       default:
     }
   }
-
-  // TODO: the status of the card?
 }

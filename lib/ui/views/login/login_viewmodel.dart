@@ -14,7 +14,6 @@ class LoginViewModel extends FormViewModel {
     try {
       var res =
           await _authService.loginWithEmail(email: email, password: password);
-      // TODO: make a user model and initialize it
       _navigationService.navigateToHomeView();
       print('object');
     } catch (e) {

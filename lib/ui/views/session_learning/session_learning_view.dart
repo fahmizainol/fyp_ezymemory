@@ -34,7 +34,20 @@ class SessionLearningView extends StackedView<SessionLearningViewModel> {
                 // const PopupMenuItem<int>(
                 //     value: 0, child: Text("[D] Reset SM2 stats")),
               ]),
-      appBar: const EMAppBar(title: "Learning Session"),
+      appBar: EMAppBar(title: "Learning Session", actions: [
+        viewModel.isBusy
+            ? const EMCircular()
+            : Row(
+                children: [
+                  Text(viewModel.freshFlashcardsCount.toString(),
+                      style: TextStyle(color: GFColors.SUCCESS)),
+                  horizontalSpaceSmall,
+                  Text(viewModel.reviewFlashcardsCount.toString(),
+                      style: TextStyle(color: GFColors.DANGER)),
+                  horizontalSpaceMedium,
+                ],
+              )
+      ]),
       // bottomNavigationBar: const EMLearningBottomBar(),
       // backgroundColor: Theme.of(context).colorScheme.background,
       body: Container(
