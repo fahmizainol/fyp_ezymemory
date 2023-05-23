@@ -86,13 +86,14 @@ class FirestoreService {
 
       var uuid = const Uuid();
       final Deck deck = Deck(
-          id: uuid.v4(),
-          user_id: uid,
-          name: deckName,
-          createDate: DateTime.now(),
-          isShared: false,
-          category: category,
-          flashcard: "");
+        id: uuid.v4(),
+        user_id: uid,
+        name: deckName,
+        createDate: DateTime.now(),
+        isShared: false,
+        category: category,
+        flashcard: "",
+      );
       // var userGet = await getUser(uid);
       final User user = await getUser(uid);
 
@@ -215,15 +216,15 @@ class FirestoreService {
 
       var uuid = const Uuid();
       final Flashcard flashcard = Flashcard(
-        id: uuid.v4(),
-        back: back,
-        front: front,
-        easeFactor: 0.0,
-        interval: 0,
-        reviewTime: DateTime.now(),
-        repetitions: 0,
-        status: 'fresh',
-      );
+          id: uuid.v4(),
+          back: back,
+          front: front,
+          easeFactor: 0.0,
+          interval: 0,
+          reviewTime: DateTime.now(),
+          repetitions: 0,
+          status: 'fresh',
+          inUserStack: false);
       // var userGet = await getUser(uid);
 
       await _decksCollectionReference
@@ -245,16 +246,22 @@ class FirestoreService {
     }
   }
 
-  Future getFlashcardListById(String deckId) async {
-    // IDEA: fetch 2 lists -- 1 is status=new, 2 is status=review where reviewTime >= currTime and then combine
+  Future getFlashcardListById(String deckId, {int freshLimit = 10}) async {
     try {
       _loggerService.printInfo(
           header, "getFlashcardList: getting flashcard list $deckId ...");
 
+      // TODO: if (count<limit)
+      //          if (date has changed from lastFetchTime)
+
+      // IDEA: add a field to flashcard session to indicate
+      print(Timestamp.now().toDate());
+      // FIXME: not working reviewTime
       var reviewFlashcardListSnap = await _decksCollectionReference
           .doc(deckId)
           .collection('flashcards')
           .where('status', isEqualTo: 'review')
+          // .where('reviewTime', isLessThan: Timestamp.now())
           .where('reviewTime', isLessThanOrEqualTo: Timestamp.now())
           // .where('repetitions', isNotEqualTo: 0)
           .get();
@@ -263,12 +270,19 @@ class FirestoreService {
           .doc(deckId)
           .collection('flashcards')
           .where('status', isEqualTo: 'fresh')
-          .limit(20)
+          .limit(freshLimit)
           .get();
+
+      // TODO: set the inUserStack = freshLimit in Deck to firebase
 
       final List<Flashcard> reviewFlashcards =
           reviewFlashcardListSnap.docs.map((e) {
         Map<String, dynamic> data = e.data() as Map<String, dynamic>;
+        // set inUserStack to true and update to firebase
+        data["inUserStack"] = true;
+        updateFlashcardById(deckId, data["id"], data["interval"],
+            data["repetitions"], data["easeFactor"], data["reviewTime"],
+            inUserStack: true, status: 'review');
         Flashcard flashcardModel = Flashcard.fromJson(data);
         return flashcardModel;
       }).toList();
@@ -276,6 +290,10 @@ class FirestoreService {
       final List<Flashcard> freshFlashcards =
           freshFlashcardListSnap.docs.map((e) {
         Map<String, dynamic> data = e.data() as Map<String, dynamic>;
+        data["inUserStack"] = true;
+        updateFlashcardById(deckId, data["id"], data["interval"],
+            data["repetitions"], data["easeFactor"], data["reviewTime"],
+            inUserStack: true, status: 'fresh');
         Flashcard flashcardModel = Flashcard.fromJson(data);
         return flashcardModel;
       }).toList();
@@ -301,46 +319,20 @@ class FirestoreService {
       return emptyFlashcard;
     }
   }
-  // Future getFlashcardListById(String deckId) async {
-  //   // IDEA: fetch 2 lists -- 1 is status=new, 2 is status=review where reviewTime >= currTime and then combine
-  //   try {
-  //     _loggerService.printInfo(
-  //         header, "getFlashcardList: getting flashcard list $deckId ...");
 
-  //     var flashcardListSnap = await _decksCollectionReference
-  //         .doc(deckId)
-  //         .collection('flashcards')
-  //         .get();
-
-  //     final List<Flashcard> flashcards = flashcardListSnap.docs.map((e) {
-  //       Map<String, dynamic> data = e.data() as Map<String, dynamic>;
-  //       Flashcard flashcardModel = Flashcard.fromJson(data);
-  //       return flashcardModel;
-  //     }).toList();
-
-  //     _loggerService.printInfo(header,
-  //         "getFlashcardList: getting flashcard list success! ${flashcards.toString()}");
-
-  //     return flashcards;
-  //   } catch (e) {
-  //     final List<Flashcard> emptyFlashcard = [];
-  //     return emptyFlashcard;
-  //   }
-  // }
-
-  Future updateFlashcardById(String deckId, String flashcardId, int interval,
-      int repetitions, double easeFactor) async {
+  Future updateFlashcardById(
+    String deckId,
+    String flashcardId,
+    int interval,
+    int repetitions,
+    double easeFactor,
+    Timestamp reviewTime, {
+    String status = 'review',
+    bool inUserStack = false,
+  }) async {
     try {
       _loggerService.printInfo(
           header, "updateFlashcardById: updating flashcardId $flashcardId ");
-
-      DateTime currTime = DateTime.now();
-      DateTime currDateOnly = currTime.copyWith(hour: 0, minute: 0, second: 0);
-
-      print(currDateOnly);
-
-      Timestamp reviewTime =
-          Timestamp.fromDate(currDateOnly.add(Duration(days: interval)));
 
       // reset the time to 00:00:00
 
@@ -355,10 +347,34 @@ class FirestoreService {
         "repetitions": repetitions,
         "easeFactor": easeFactor,
         "reviewTime": reviewTime,
-        "status": "review"
+        "status": status,
+        "inUserStack": inUserStack
       });
 
       return true;
+    } catch (e) {}
+  }
+
+  Future checkFreshInUserStackCount(String deckId) async {
+    try {
+      _loggerService.printInfo(
+          header, "checkFreshInUserStackCount: getting count for $deckId");
+
+      int freshInUserStackCount = 0;
+      var freshFlashcardListSnap = await _decksCollectionReference
+          .doc(deckId)
+          .collection('flashcards')
+          .where('status', isEqualTo: 'fresh')
+          .where('inUserStack', isEqualTo: true)
+          .count()
+          // .limit(freshLimit)
+          .get()
+          .then((value) => freshInUserStackCount = value.count);
+
+      _loggerService.printInfo(header,
+          "checkFreshInUserStackCount:  count for $deckId is $freshInUserStackCount");
+
+      return freshInUserStackCount;
     } catch (e) {}
   }
 }

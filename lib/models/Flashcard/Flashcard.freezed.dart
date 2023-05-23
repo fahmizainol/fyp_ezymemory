@@ -29,6 +29,7 @@ mixin _$Flashcard {
   @TimestampSerializer()
   DateTime get reviewTime => throw _privateConstructorUsedError;
   double get easeFactor => throw _privateConstructorUsedError;
+  bool get inUserStack => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -49,7 +50,8 @@ abstract class $FlashcardCopyWith<$Res> {
       int repetitions,
       int interval,
       @TimestampSerializer() DateTime reviewTime,
-      double easeFactor});
+      double easeFactor,
+      bool inUserStack});
 }
 
 /// @nodoc
@@ -73,6 +75,7 @@ class _$FlashcardCopyWithImpl<$Res, $Val extends Flashcard>
     Object? interval = null,
     Object? reviewTime = null,
     Object? easeFactor = null,
+    Object? inUserStack = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -107,6 +110,10 @@ class _$FlashcardCopyWithImpl<$Res, $Val extends Flashcard>
           ? _value.easeFactor
           : easeFactor // ignore: cast_nullable_to_non_nullable
               as double,
+      inUserStack: null == inUserStack
+          ? _value.inUserStack
+          : inUserStack // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -126,7 +133,8 @@ abstract class _$$_FlashcardCopyWith<$Res> implements $FlashcardCopyWith<$Res> {
       int repetitions,
       int interval,
       @TimestampSerializer() DateTime reviewTime,
-      double easeFactor});
+      double easeFactor,
+      bool inUserStack});
 }
 
 /// @nodoc
@@ -148,6 +156,7 @@ class __$$_FlashcardCopyWithImpl<$Res>
     Object? interval = null,
     Object? reviewTime = null,
     Object? easeFactor = null,
+    Object? inUserStack = null,
   }) {
     return _then(_$_Flashcard(
       id: null == id
@@ -182,6 +191,10 @@ class __$$_FlashcardCopyWithImpl<$Res>
           ? _value.easeFactor
           : easeFactor // ignore: cast_nullable_to_non_nullable
               as double,
+      inUserStack: null == inUserStack
+          ? _value.inUserStack
+          : inUserStack // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -197,7 +210,8 @@ class _$_Flashcard with DiagnosticableTreeMixin implements _Flashcard {
       required this.repetitions,
       required this.interval,
       @TimestampSerializer() required this.reviewTime,
-      required this.easeFactor});
+      required this.easeFactor,
+      required this.inUserStack});
 
   factory _$_Flashcard.fromJson(Map<String, dynamic> json) =>
       _$$_FlashcardFromJson(json);
@@ -219,10 +233,12 @@ class _$_Flashcard with DiagnosticableTreeMixin implements _Flashcard {
   final DateTime reviewTime;
   @override
   final double easeFactor;
+  @override
+  final bool inUserStack;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Flashcard(id: $id, front: $front, back: $back, status: $status, repetitions: $repetitions, interval: $interval, reviewTime: $reviewTime, easeFactor: $easeFactor)';
+    return 'Flashcard(id: $id, front: $front, back: $back, status: $status, repetitions: $repetitions, interval: $interval, reviewTime: $reviewTime, easeFactor: $easeFactor, inUserStack: $inUserStack)';
   }
 
   @override
@@ -237,7 +253,8 @@ class _$_Flashcard with DiagnosticableTreeMixin implements _Flashcard {
       ..add(DiagnosticsProperty('repetitions', repetitions))
       ..add(DiagnosticsProperty('interval', interval))
       ..add(DiagnosticsProperty('reviewTime', reviewTime))
-      ..add(DiagnosticsProperty('easeFactor', easeFactor));
+      ..add(DiagnosticsProperty('easeFactor', easeFactor))
+      ..add(DiagnosticsProperty('inUserStack', inUserStack));
   }
 
   @override
@@ -256,13 +273,15 @@ class _$_Flashcard with DiagnosticableTreeMixin implements _Flashcard {
             (identical(other.reviewTime, reviewTime) ||
                 other.reviewTime == reviewTime) &&
             (identical(other.easeFactor, easeFactor) ||
-                other.easeFactor == easeFactor));
+                other.easeFactor == easeFactor) &&
+            (identical(other.inUserStack, inUserStack) ||
+                other.inUserStack == inUserStack));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, front, back, status,
-      repetitions, interval, reviewTime, easeFactor);
+      repetitions, interval, reviewTime, easeFactor, inUserStack);
 
   @JsonKey(ignore: true)
   @override
@@ -287,7 +306,8 @@ abstract class _Flashcard implements Flashcard {
       required final int repetitions,
       required final int interval,
       @TimestampSerializer() required final DateTime reviewTime,
-      required final double easeFactor}) = _$_Flashcard;
+      required final double easeFactor,
+      required final bool inUserStack}) = _$_Flashcard;
 
   factory _Flashcard.fromJson(Map<String, dynamic> json) =
       _$_Flashcard.fromJson;
@@ -309,6 +329,8 @@ abstract class _Flashcard implements Flashcard {
   DateTime get reviewTime;
   @override
   double get easeFactor;
+  @override
+  bool get inUserStack;
   @override
   @JsonKey(ignore: true)
   _$$_FlashcardCopyWith<_$_Flashcard> get copyWith =>

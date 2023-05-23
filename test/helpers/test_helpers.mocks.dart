@@ -860,11 +860,15 @@ class MockFirestoreService extends _i1.Mock implements _i11.FirestoreService {
         returnValueForMissingStub: _i7.Future<dynamic>.value(),
       ) as _i7.Future<dynamic>);
   @override
-  _i7.Future<dynamic> getFlashcardListById(String? deckId) =>
+  _i7.Future<dynamic> getFlashcardListById(
+    String? deckId, {
+    int? freshLimit = 20,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #getFlashcardListById,
           [deckId],
+          {#freshLimit: freshLimit},
         ),
         returnValue: _i7.Future<dynamic>.value(),
         returnValueForMissingStub: _i7.Future<dynamic>.value(),
@@ -875,8 +879,10 @@ class MockFirestoreService extends _i1.Mock implements _i11.FirestoreService {
     String? flashcardId,
     int? interval,
     int? repetitions,
-    double? easeFactor,
-  ) =>
+    double? easeFactor, {
+    String? status = r'review',
+    bool? inUserStack = false,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateFlashcardById,
@@ -887,6 +893,20 @@ class MockFirestoreService extends _i1.Mock implements _i11.FirestoreService {
             repetitions,
             easeFactor,
           ],
+          {
+            #status: status,
+            #inUserStack: inUserStack,
+          },
+        ),
+        returnValue: _i7.Future<dynamic>.value(),
+        returnValueForMissingStub: _i7.Future<dynamic>.value(),
+      ) as _i7.Future<dynamic>);
+  @override
+  _i7.Future<dynamic> checkFreshInUserStackCount(String? deckId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #checkFreshInUserStackCount,
+          [deckId],
         ),
         returnValue: _i7.Future<dynamic>.value(),
         returnValueForMissingStub: _i7.Future<dynamic>.value(),

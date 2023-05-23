@@ -22,7 +22,6 @@ class SessionLearningView extends StackedView<SessionLearningViewModel> {
     Widget? child,
   ) {
     return EMScaffold(
-      // TODO: add counter for new, review, repeat
       floatingButton: PopupMenuButton<int>(
           position: PopupMenuPosition.over,
           onSelected: (int value) {

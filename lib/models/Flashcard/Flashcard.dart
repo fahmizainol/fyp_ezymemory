@@ -21,6 +21,7 @@ class Flashcard with _$Flashcard {
     required int interval,
     @TimestampSerializer() required DateTime reviewTime,
     required double easeFactor,
+    required bool inUserStack,
   }) = _Flashcard;
 
   factory Flashcard.fromJson(Map<String, Object?> json) =>

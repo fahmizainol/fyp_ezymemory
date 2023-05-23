@@ -29,7 +29,6 @@ class LoginViewModel extends FormViewModel {
   }
 }
 
-// TODO: add validations for username and password
 class LoginValidators {
   static String? validateEmail(String? value) {
     if (value!.isEmpty) {

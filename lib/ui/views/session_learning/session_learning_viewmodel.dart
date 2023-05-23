@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fyp_ezymemory/app/app.locator.dart';
 import 'package:fyp_ezymemory/models/Flashcard/Flashcard.dart';
@@ -40,6 +41,10 @@ class SessionLearningViewModel extends FutureViewModel {
         .where((element) => element.status.contains("review"))
         .toList()
         .length;
+
+    // int count = await _firestoreService.checkFreshInUserStackCount(deckId);
+    // print(count);
+
     // fetchedFlashcardsList!.sort((a, b) => a.reviewTime.compareTo(b.reviewTime));
   }
 
@@ -53,12 +58,42 @@ class SessionLearningViewModel extends FutureViewModel {
     SmResponse smResponse = _sm2Service.calculateIRE(quality,
         currentCard.repetitions, currentCard.interval, currentCard.easeFactor);
 
+    DateTime currTime = DateTime.now();
+    DateTime currDateOnly = currTime.copyWith(hour: 0, minute: 0, second: 0);
+
+    print(currDateOnly);
+
+    Timestamp reviewTime = Timestamp.fromDate(
+        currDateOnly.add(Duration(days: currentCard.interval)));
+
     // update database
-    await _firestoreService.updateFlashcardById(deckId, currentCard.id,
-        smResponse.interval, smResponse.repetitions, smResponse.easeFactor);
+    await _firestoreService.updateFlashcardById(
+        deckId,
+        currentCard.id,
+        smResponse.interval,
+        smResponse.repetitions,
+        smResponse.easeFactor,
+        reviewTime);
 
     nextCard();
   }
+
+  // TODO: fetch 20 fresh cards and all due cards every single day.
+  // - store userLastLogin timestamp
+  // - compare with current time
+
+  // - use local storage store 20 cards
+  // - if < 20 cards then make request to firebase
+
+  // - add bool inUserStack in flashcards collection to indicate whether the card is curr inside the user stack
+  // - say user finishes 10/20 fresh cards, the next day they login check inUserStack < 20 (10). then fetch the next non-review 10 from firebase\
+  // - only when user clicks on 'study deck'
+  // - add fetchTime for the card to compare and check how many days have passed since last fetch. e.g: fetchTime 20/5, user log in 22/5.
+  //   2 days have passed. there should be 40 cards added.
+
+  // - store lastLoginTime in User
+  // - if (timestamp.now() - lastLoginTime >= 1 day)
+  // - fetch limit - requiredCountToReachLimit
 
   void showAns() {
     frontVisible = false;
@@ -81,7 +116,7 @@ class SessionLearningViewModel extends FutureViewModel {
       case 0:
         // FIXME: data wasnt refetched back from firebase meaning the currentCard still holds the prev values despite firebase being resetted
         await _firestoreService.updateFlashcardById(
-            deckId, currentCard.id, 0, 0, 0);
+            deckId, currentCard.id, 0, 0, 0, Timestamp.now());
         break;
 
       default:

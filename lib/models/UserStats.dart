@@ -10,7 +10,6 @@ class UserStats {
     required this.userId,
     required this.username,
     required this.email,
-    // TODO: add more
   });
 
   factory UserStats.fromData(Map<String, dynamic> data) => UserStats(

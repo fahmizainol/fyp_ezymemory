@@ -39,7 +39,8 @@ class HomeViewModel extends StreamViewModel {
     fetchedUserDeckList = await _firestoreService.getUserDeckList();
     fetchedUser = await _firestoreService.getUser(uid);
 
-    _loggerService.printInfo(header, "test: ${fetchedUserDeckList!.length}");
+    // _loggerService.printInfo(header, "test: ${fetchedUserDeckList!}");
+    // _loggerService.printInfo(header, "test: ${fetchedUserDeckList!.length}");
     yield fetchedUserDeckList;
   }
 

@@ -10,7 +10,6 @@ class Badge {
     required this.userId,
     required this.username,
     required this.email,
-    // TODO: add more
   });
 
   factory Badge.fromData(Map<String, dynamic> data) => Badge(
