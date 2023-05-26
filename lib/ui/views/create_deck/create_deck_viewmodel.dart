@@ -1,4 +1,5 @@
 import 'package:fyp_ezymemory/app/app.locator.dart';
+import 'package:fyp_ezymemory/app/app.router.dart';
 import 'package:fyp_ezymemory/services/auth_service.dart';
 import 'package:fyp_ezymemory/services/firestore_service.dart';
 import 'package:fyp_ezymemory/services/logger_service.dart';
@@ -20,7 +21,9 @@ class CreateDeckViewModel extends BaseViewModel {
       var response = await _firestoreService.createDeck(deckName, category);
       if (response) {
         await _dialogService.showDialog(title: "Create Deck success!");
-        _navigationService.back();
+        // _navigationService.back();
+        // _navigationService.popUntil((route) => false)
+        _navigationService.navigateToHomeView();
       }
     } catch (e) {}
   }

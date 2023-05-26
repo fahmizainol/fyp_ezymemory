@@ -1,5 +1,8 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:fyp_ezymemory/app/app.locator.dart';
+import 'package:fyp_ezymemory/app/app.router.dart';
 import 'package:fyp_ezymemory/models/Deck/Deck.dart';
 import 'package:fyp_ezymemory/services/auth_service.dart';
 import 'package:fyp_ezymemory/services/firestore_service.dart';
@@ -12,9 +15,7 @@ import 'package:stacked_services/stacked_services.dart';
 class EditDeckViewModel extends FutureViewModel {
   final FirestoreService _firestoreService = locator<FirestoreService>();
   final DialogService _dialogService = locator<DialogService>();
-  final BottomSheetService _bottomSheetService = locator<BottomSheetService>();
-  final AuthService _authService = locator<AuthService>();
-  final LoggerService _loggerService = locator<LoggerService>();
+  final NavigationService _navigationService = locator<NavigationService>();
 
   final String deckId;
   EditDeckViewModel({required this.deckId});
@@ -40,7 +41,15 @@ class EditDeckViewModel extends FutureViewModel {
           await _firestoreService.updateDeck(deckId, deckName, category);
 
       if (response) {
-        _dialogService.showDialog(title: "Edit Deck success!");
+        // rebuildUi();
+        // notifySourceChanged();
+        // notifyListeners();
+
+        // rebu
+        await _dialogService.showDialog(title: "Edit Deck success!");
+        // _navigationService.popRepeated(1);
+        _navigationService.navigateToHomeView();
+        // Navigator.of(context).pop();
         // _bottomSheetService.showBottomSheet(
         //   title: "Edit Deck success!",
         //   barrierDismissible: true,
@@ -60,6 +69,10 @@ class EditDeckViewModel extends FutureViewModel {
     } catch (e) {
       return false;
     }
+  }
+
+  void toHomeView() {
+    _navigationService.navigateToHomeView();
   }
 
   void changeDropdownValue(newDropdownValue) {

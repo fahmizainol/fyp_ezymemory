@@ -67,13 +67,13 @@ class SessionLearningViewModel extends FutureViewModel {
         currDateOnly.add(Duration(days: currentCard.interval)));
 
     // update database
-    await _firestoreService.updateFlashcardById(
-        deckId,
-        currentCard.id,
-        smResponse.interval,
-        smResponse.repetitions,
-        smResponse.easeFactor,
-        reviewTime);
+    // await _firestoreService.updateFlashcardById(
+    //     deckId,
+    //     currentCard.id,
+    //     smResponse.interval,
+    //     smResponse.repetitions,
+    //     smResponse.easeFactor,
+    //     reviewTime);
 
     nextCard();
   }
@@ -115,8 +115,8 @@ class SessionLearningViewModel extends FutureViewModel {
     switch (value) {
       case 0:
         // FIXME: data wasnt refetched back from firebase meaning the currentCard still holds the prev values despite firebase being resetted
-        await _firestoreService.updateFlashcardById(
-            deckId, currentCard.id, 0, 0, 0, Timestamp.now());
+        // await _firestoreService.updateFlashcardById(
+        //     deckId, currentCard.id, 0, 0, 0, Timestamp.now());
         break;
 
       default:

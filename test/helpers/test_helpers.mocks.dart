@@ -6,13 +6,14 @@
 import 'dart:async' as _i7;
 import 'dart:ui' as _i8;
 
+import 'package:cloud_firestore/cloud_firestore.dart' as _i12;
 import 'package:flutter/material.dart' as _i6;
 import 'package:fyp_ezymemory/services/api_service.dart' as _i10;
 import 'package:fyp_ezymemory/services/auth_service.dart' as _i9;
 import 'package:fyp_ezymemory/services/firestore_service.dart' as _i11;
-import 'package:fyp_ezymemory/services/logger_service.dart' as _i12;
-import 'package:fyp_ezymemory/services/sm2_service.dart' as _i13;
-import 'package:fyp_ezymemory/services/spacedr_service.dart' as _i14;
+import 'package:fyp_ezymemory/services/logger_service.dart' as _i13;
+import 'package:fyp_ezymemory/services/sm2_service.dart' as _i14;
+import 'package:fyp_ezymemory/services/spacedr_service.dart' as _i15;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:simple_logger/simple_logger.dart' as _i2;
 import 'package:spaced_repetition/sm.dart' as _i3;
@@ -797,7 +798,7 @@ class MockFirestoreService extends _i1.Mock implements _i11.FirestoreService {
         returnValueForMissingStub: _i7.Future<dynamic>.value(),
       ) as _i7.Future<dynamic>);
   @override
-  _i7.Future<dynamic> getDeckList() => (super.noSuchMethod(
+  _i7.Future<dynamic> getSharedDeckList() => (super.noSuchMethod(
         Invocation.method(
           #getDeckList,
           [],
@@ -862,7 +863,7 @@ class MockFirestoreService extends _i1.Mock implements _i11.FirestoreService {
   @override
   _i7.Future<dynamic> getFlashcardListById(
     String? deckId, {
-    int? freshLimit = 20,
+    int? freshLimit = 10,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -879,7 +880,8 @@ class MockFirestoreService extends _i1.Mock implements _i11.FirestoreService {
     String? flashcardId,
     int? interval,
     int? repetitions,
-    double? easeFactor, {
+    double? easeFactor,
+    _i12.Timestamp? reviewTime, {
     String? status = r'review',
     bool? inUserStack = false,
   }) =>
@@ -892,6 +894,7 @@ class MockFirestoreService extends _i1.Mock implements _i11.FirestoreService {
             interval,
             repetitions,
             easeFactor,
+            reviewTime,
           ],
           {
             #status: status,
@@ -916,7 +919,7 @@ class MockFirestoreService extends _i1.Mock implements _i11.FirestoreService {
 /// A class which mocks [LoggerService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLoggerService extends _i1.Mock implements _i12.LoggerService {
+class MockLoggerService extends _i1.Mock implements _i13.LoggerService {
   @override
   _i2.SimpleLogger get logger => (super.noSuchMethod(
         Invocation.getter(#logger),
@@ -973,7 +976,7 @@ class MockLoggerService extends _i1.Mock implements _i12.LoggerService {
 /// A class which mocks [Sm2Service].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSm2Service extends _i1.Mock implements _i13.Sm2Service {
+class MockSm2Service extends _i1.Mock implements _i14.Sm2Service {
   @override
   _i3.Sm get sm => (super.noSuchMethod(
         Invocation.getter(#sm),
@@ -1039,7 +1042,7 @@ class MockSm2Service extends _i1.Mock implements _i13.Sm2Service {
 /// A class which mocks [SpacedrService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSpacedrService extends _i1.Mock implements _i14.SpacedrService {
+class MockSpacedrService extends _i1.Mock implements _i15.SpacedrService {
   @override
   _i3.Sm get sm => (super.noSuchMethod(
         Invocation.getter(#sm),

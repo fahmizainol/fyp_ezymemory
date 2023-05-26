@@ -132,17 +132,26 @@ class FirestoreService {
     } catch (e) {}
   }
 
-  Future getDeckList() async {
+  Future getSharedDeckList() async {
     try {
-      _loggerService.printInfo(header, "getDeckList: getting deck list ...");
+      _loggerService.printInfo(
+          header, "getSharedDeckList: getting shared deck list ...");
 
-      var deckListSnap = await _decksCollectionReference.get();
+      var uid = await _authService.getCurrentUserId();
+
+      var deckListSnap = await _decksCollectionReference
+          .where('isShared', isEqualTo: true)
+          .where('user_id', isNotEqualTo: uid)
+          .get();
 
       final List<Deck> decks = deckListSnap.docs.map((e) {
         Map<String, dynamic> data = e.data() as Map<String, dynamic>;
         Deck deckModel = Deck.fromJson(data);
         return deckModel;
       }).toList();
+
+      _loggerService.printInfo(
+          header, "getSharedDeckList: ${decks.toString()} ...");
 
       return decks;
     } catch (e) {
@@ -179,6 +188,74 @@ class FirestoreService {
       }
       _loggerService.printShout("getUserDeckList: ${e.toString()}");
       return e.toString();
+    }
+  }
+
+  Future importUserDeck(Deck importedDeck) async {
+    try {
+      var uid = await _authService.getCurrentUserId();
+      _loggerService.printInfo(
+          header, "importUserDeck: importing deck to user...");
+
+      // TODO: query the flashcard oso
+      var importedDeckFlashcard = await _decksCollectionReference
+          .doc(importedDeck.id)
+          .collection('flashcards')
+          .get();
+
+      _loggerService.printInfo(
+          header, "importUserDeck: creating local list of flashcards and  ...");
+
+      var uuid = const Uuid();
+      final Deck deck =
+          importedDeck.copyWith(id: uuid.v4(), user_id: uid, isShared: false);
+
+      final List<Flashcard> importedDeckFlashcardList =
+          importedDeckFlashcard.docs.map((e) {
+        Map<String, dynamic> data = e.data() as Map<String, dynamic>;
+        print(data["id"]);
+        updateFlashcardById(
+            inUserStack: true,
+            status: 'fresh',
+            deckId: deck.id,
+            flashcardId: data["id"],
+            reviewTime: data["reviewTime"],
+            easeFactor: data["easeFactor"],
+            interval: data["interval"],
+            repetitions: data["repetitions"]);
+
+        Flashcard flashcardModel = Flashcard.fromJson(data);
+        // Flashcard newFlashcardModel = flashcardModel.copyWith
+        return flashcardModel;
+      }).toList();
+
+      // set deck
+      _loggerService.printInfo(
+          header, "importUserDeck: saving the deck to firebase  ...");
+
+      await _decksCollectionReference.doc(deck.id).set(deck.toJson());
+
+      // set flashcard
+      _loggerService.printInfo(
+          header, "importUserDeck: saving the flashcards to firebase  ...");
+
+      for (Flashcard flashcard in importedDeckFlashcardList) {
+        await _decksCollectionReference
+            .doc(deck.id)
+            .collection('flashcards')
+            .doc(flashcard.id)
+            .set(flashcard.toJson());
+      }
+
+      return true;
+      // Need to create in User & Deck collection
+    } catch (e) {
+      if (e is PlatformException) {
+        _loggerService.printShout("importUserDeck: ${e.message}");
+        return false;
+      }
+      _loggerService.printShout("importUserDeck: ${e.toString()}");
+      return false;
     }
   }
 
@@ -280,9 +357,15 @@ class FirestoreService {
         Map<String, dynamic> data = e.data() as Map<String, dynamic>;
         // set inUserStack to true and update to firebase
         data["inUserStack"] = true;
-        updateFlashcardById(deckId, data["id"], data["interval"],
-            data["repetitions"], data["easeFactor"], data["reviewTime"],
-            inUserStack: true, status: 'review');
+        updateFlashcardById(
+            inUserStack: true,
+            status: 'review',
+            deckId: deckId,
+            flashcardId: data["id"],
+            reviewTime: data["reviewTime"],
+            easeFactor: data["easeFactor"],
+            interval: data["interval"],
+            repetitions: data["repetitions"]);
         Flashcard flashcardModel = Flashcard.fromJson(data);
         return flashcardModel;
       }).toList();
@@ -291,9 +374,15 @@ class FirestoreService {
           freshFlashcardListSnap.docs.map((e) {
         Map<String, dynamic> data = e.data() as Map<String, dynamic>;
         data["inUserStack"] = true;
-        updateFlashcardById(deckId, data["id"], data["interval"],
-            data["repetitions"], data["easeFactor"], data["reviewTime"],
-            inUserStack: true, status: 'fresh');
+        updateFlashcardById(
+            inUserStack: true,
+            status: 'fresh',
+            deckId: deckId,
+            flashcardId: data["id"],
+            reviewTime: data["reviewTime"],
+            easeFactor: data["easeFactor"],
+            interval: data["interval"],
+            repetitions: data["repetitions"]);
         Flashcard flashcardModel = Flashcard.fromJson(data);
         return flashcardModel;
       }).toList();
@@ -320,19 +409,19 @@ class FirestoreService {
     }
   }
 
-  Future updateFlashcardById(
-    String deckId,
-    String flashcardId,
-    int interval,
-    int repetitions,
-    double easeFactor,
-    Timestamp reviewTime, {
+  Future updateFlashcardById({
+    required String deckId,
+    required String flashcardId,
+    int interval = 0,
+    int repetitions = 0,
+    double easeFactor = 0.0,
+    required Timestamp reviewTime,
     String status = 'review',
     bool inUserStack = false,
   }) async {
     try {
-      _loggerService.printInfo(
-          header, "updateFlashcardById: updating flashcardId $flashcardId ");
+      _loggerService.printInfo(header,
+          "updateFlashcardById: updating flashcardId $flashcardId interval $interval repetitions $repetitions inUserStack $inUserStack");
 
       // reset the time to 00:00:00
 

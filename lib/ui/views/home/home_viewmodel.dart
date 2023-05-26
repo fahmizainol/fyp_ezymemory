@@ -34,8 +34,9 @@ class HomeViewModel extends StreamViewModel {
   Stream get stream => init();
 
   Stream init() async* {
+    // FIXME: android back button and _navigationService.back() does not trigger this
+    //  IDEA: need something to rebuild this page after a change in data.
     var uid = await _authService.getCurrentUserId();
-    _loggerService.printInfo(header, "init: ${uid}");
     fetchedUserDeckList = await _firestoreService.getUserDeckList();
     fetchedUser = await _firestoreService.getUser(uid);
 
@@ -74,6 +75,10 @@ class HomeViewModel extends StreamViewModel {
     //     "signOut: after disposefetchedUserDeckList $fetchedUserDeckList.toString()");
     await _navigationService.navigateToLoginView();
     dispose();
+  }
+
+  void toImportDeckView() {
+    _navigationService.navigateToImportDeckView().then((value) => initialise());
   }
 
   void toCreateDeckView() {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fyp_ezymemory/app/app.router.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_bottombar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_circular.dart';
@@ -21,7 +22,9 @@ class HomeView extends StackedView<HomeViewModel> {
     HomeViewModel viewModel,
     Widget? child,
   ) {
+    // viewModel.initialise();
     // viewModel.futureToRun();
+    // viewModel.stream();
     // print(viewModel.fetchedUser?.username.toString());
     return EMScaffold(
       appBar: EMAppBar(
@@ -32,10 +35,10 @@ class HomeView extends StackedView<HomeViewModel> {
       // backgroundColor: GFColors.DARK,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+          padding: const EdgeInsets.symmetric(horizontal: 0.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               verticalSpaceTiny,
               Column(
@@ -54,10 +57,13 @@ class HomeView extends StackedView<HomeViewModel> {
                     child: viewModel.isBusy
                         ? const EMCircular()
                         : ListView.builder(
+                            key: UniqueKey(),
                             itemCount: viewModel.fetchedUserDeckList?.length,
                             scrollDirection: Axis.vertical,
                             shrinkWrap: true,
                             itemBuilder: ((context, index) {
+                              // key:
+                              // viewModel.fetchedUserDeckList?[index].id;
                               return GFListTile(
                                   icon: PopupMenuButton<int>(
                                       position: PopupMenuPosition.under,
@@ -91,6 +97,9 @@ class HomeView extends StackedView<HomeViewModel> {
                                                 child: Text("Study deck")),
                                           ]),
                                   color: GFColors.LIGHT,
+                                  // margin: EdgeInsets.fromLTRB(0, -5, 0, -10),
+                                  shadow: BoxShadow(blurRadius: 0),
+                                  // title: Text('tes'),
                                   titleText: viewModel
                                           .fetchedUserDeckList?[index].name ??
                                       "",
@@ -107,9 +116,13 @@ class HomeView extends StackedView<HomeViewModel> {
                 children: [
                   GFButton(
                     color: kcDarkGreyColor,
-                    onPressed: viewModel.signOut,
+                    // onPressed: () async {
+                    //   Navigator.pushNamed(context, Routes.importDeckView)
+                    //       .then((_) => viewModel.initialise());
+                    // },
+                    onPressed: viewModel.toImportDeckView,
                     child: const Text(
-                      'Sign out',
+                      'Import Deck +',
                       style: TextStyle(
                         color: Colors.white,
                       ),

@@ -122,6 +122,10 @@ class EditDeckView extends StackedView<EditDeckViewModel> {
                                 deckId,
                                 viewModel.deckName.toString(),
                                 viewModel.currentDropdownValue.toString());
+
+                            // Navigator.of(context).pop();
+
+                            // viewModel.toHomeView();
                             // if (res) {
                             //   GFToast.showToast('Edit Deck Success!', context,
                             //       toastPosition: GFToastPosition.BOTTOM,

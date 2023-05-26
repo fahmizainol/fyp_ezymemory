@@ -19,6 +19,7 @@ import 'package:fyp_ezymemory/ui/views/session_learning/session_learning_view.da
 import 'package:fyp_ezymemory/ui/views/em_learning_bar/em_learning_bar_view.dart';
 import 'package:fyp_ezymemory/services/sm2_service.dart';
 import 'package:fyp_ezymemory/services/spacedr_service.dart';
+import 'package:fyp_ezymemory/ui/views/import_deck/import_deck_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -34,6 +35,7 @@ import 'package:fyp_ezymemory/services/spacedr_service.dart';
     MaterialRoute(page: SessionChooserView),
     MaterialRoute(page: SessionLearningView),
     MaterialRoute(page: EmLearningBarView),
+    MaterialRoute(page: ImportDeckView),
 // @stacked-route
   ],
   dependencies: [

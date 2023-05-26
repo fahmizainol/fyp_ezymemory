@@ -52,6 +52,7 @@ dependencies:
   flip_card: ^0.7.0
   spaced_repetition: ^0.1.0
   freezed: ^2.3.4
+  easy_search_bar: ^2.5.0
 
 dev_dependencies:
   flutter_test:
