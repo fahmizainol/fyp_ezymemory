@@ -268,14 +268,14 @@ class FirestoreService {
     }
   }
 
-  Future updateDeck(String deckId, String deckName, String category) async {
+  Future updateDeck(
+      String deckId, String deckName, String category, bool isShared) async {
     try {
       _loggerService.printInfo(header,
           "updateDeck: editing deckId $deckId deckName $deckName category $category");
 
-      await _decksCollectionReference
-          .doc(deckId)
-          .update({"name": deckName, "category": category});
+      await _decksCollectionReference.doc(deckId).update(
+          {"name": deckName, "category": category, "isShared": isShared});
 
       return true;
     } catch (e) {}

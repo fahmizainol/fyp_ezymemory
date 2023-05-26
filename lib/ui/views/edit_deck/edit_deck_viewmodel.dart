@@ -23,6 +23,7 @@ class EditDeckViewModel extends FutureViewModel {
   Deck? fetchedDeck;
   String? currentDropdownValue;
   String? deckName;
+  bool isShared = false;
 
   @override
   Future futureToRun() => getDeckById(deckId);
@@ -32,13 +33,15 @@ class EditDeckViewModel extends FutureViewModel {
       fetchedDeck = await _firestoreService.getDeckById(deckId);
       deckName = fetchedDeck!.name;
       currentDropdownValue = fetchedDeck!.category;
+      isShared = fetchedDeck!.isShared;
     } catch (e) {}
   }
 
-  Future<bool> editDeck(String deckId, String deckName, String category) async {
+  Future<bool> editDeck(
+      String deckId, String deckName, String category, bool isShared) async {
     try {
-      var response =
-          await _firestoreService.updateDeck(deckId, deckName, category);
+      var response = await _firestoreService.updateDeck(
+          deckId, deckName, category, isShared);
 
       if (response) {
         // rebuildUi();
@@ -81,6 +84,12 @@ class EditDeckViewModel extends FutureViewModel {
 
   void changeDeckName(newDeckName) {
     deckName = newDeckName;
+    // print(deckName);
+  }
+
+  void changeIsSharedValue(newIsShared) {
+    isShared = newIsShared;
+    print(isShared);
   }
 }
 

@@ -113,6 +113,25 @@ class EditDeckView extends StackedView<EditDeckViewModel> {
                           valueTransformer: (val) => val?.toString(),
                         ),
                         verticalSpaceMedium,
+                        FormBuilderSwitch(
+                          initialValue: viewModel.isShared,
+                          onChanged: (val) {
+                            viewModel.changeIsSharedValue(val);
+                          },
+                          name: "isShared",
+                          // title: Text(
+                          //   'Share deck?',
+                          //   style: const TextStyle(
+                          //     color: GFColors.WHITE,
+                          //   ),
+                          title: GFTypography(
+                              text: '   Share deck?',
+                              showDivider: false,
+                              textColor: GFColors.WHITE,
+                              type: GFTypographyType.typo5,
+                              fontWeight: FontWeight.normal),
+                        ),
+                        verticalSpaceMedium,
                         GFButton(
                           textColor: GFColors.DARK,
                           color: GFColors.LIGHT,
@@ -121,7 +140,8 @@ class EditDeckView extends StackedView<EditDeckViewModel> {
                             var res = await viewModel.editDeck(
                                 deckId,
                                 viewModel.deckName.toString(),
-                                viewModel.currentDropdownValue.toString());
+                                viewModel.currentDropdownValue.toString(),
+                                viewModel.isShared);
 
                             // Navigator.of(context).pop();
 
