@@ -64,16 +64,21 @@ class SessionLearningViewModel extends FutureViewModel {
     print(currDateOnly);
 
     Timestamp reviewTime = Timestamp.fromDate(
-        currDateOnly.add(Duration(days: currentCard.interval)));
+        currDateOnly.add(Duration(days: smResponse.interval)));
+
+    print(reviewTime);
 
     // update database
-    // await _firestoreService.updateFlashcardById(
-    //     deckId,
-    //     currentCard.id,
-    //     smResponse.interval,
-    //     smResponse.repetitions,
-    //     smResponse.easeFactor,
-    //     reviewTime);
+    await _firestoreService.updateFlashcardById(
+      deckId: deckId,
+      flashcardId: currentCard.id,
+      reviewTime: reviewTime,
+      interval: smResponse.interval,
+      easeFactor: smResponse.easeFactor,
+      inUserStack: false,
+      repetitions: smResponse.repetitions,
+      status: 'review',
+    );
 
     nextCard();
   }

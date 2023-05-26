@@ -213,18 +213,27 @@ class FirestoreService {
       final List<Flashcard> importedDeckFlashcardList =
           importedDeckFlashcard.docs.map((e) {
         Map<String, dynamic> data = e.data() as Map<String, dynamic>;
-        print(data["id"]);
-        updateFlashcardById(
-            inUserStack: true,
-            status: 'fresh',
-            deckId: deck.id,
-            flashcardId: data["id"],
-            reviewTime: data["reviewTime"],
-            easeFactor: data["easeFactor"],
-            interval: data["interval"],
-            repetitions: data["repetitions"]);
+        // print(data["id"]);
+        // updateFlashcardById(
+        //     inUserStack: true,
+        //     status: 'fresh',
+        //     deckId: deck.id,
+        //     flashcardId: data["id"],
+        //     reviewTime: data["reviewTime"],
+        //     easeFactor: data["easeFactor"],
+        //     interval: data["interval"],
+        //     repetitions: data["repetitions"]);
+        data['status'] = 'fresh';
+        data['inUserStack'] = false;
+        data['reviewTime'] = Timestamp.now();
+        // print(data[])
+        data['interval'] = 0;
+        data['repetitions'] = 0;
+        data['easeFactor'] = 0;
+        data['id'] = uuid.v4();
 
         Flashcard flashcardModel = Flashcard.fromJson(data);
+        createFlashcardByModel(deck.id, flashcardModel);
         // Flashcard newFlashcardModel = flashcardModel.copyWith
         return flashcardModel;
       }).toList();
@@ -319,6 +328,42 @@ class FirestoreService {
         return false;
       }
       _loggerService.printShout("getUser: ${e.toString()}");
+      return false;
+    }
+  }
+
+  Future createFlashcardByModel(String deckId, Flashcard flashcard) async {
+    try {
+      _loggerService.printInfo(header,
+          "createFlashcardByModel: creating deck in firebase.. ${flashcard.reviewTime}");
+
+      var uuid = const Uuid();
+      // final Flashcard flashcard = Flashcard(
+      //     id: uuid.v4(),
+      //     back: back,
+      //     front: front,
+      //     easeFactor: 0.0,
+      //     interval: 0,
+      //     reviewTime: DateTime.now(),
+      //     repetitions: 0,
+      //     status: 'fresh',
+      //     inUserStack: false);
+
+      await _decksCollectionReference
+          .doc(deckId)
+          .collection('flashcards')
+          .doc(flashcard.id)
+          .set(flashcard.toJson());
+      //     .set(user.copyWith(deckList: currentDeckList).toJson());
+
+      return true;
+      // Need to create in User & Deck collection
+    } catch (e) {
+      if (e is PlatformException) {
+        _loggerService.printShout("createFlashcardByModel: ${e.message}");
+        return false;
+      }
+      _loggerService.printShout("createFlashcardByModel: ${e.toString()}");
       return false;
     }
   }
