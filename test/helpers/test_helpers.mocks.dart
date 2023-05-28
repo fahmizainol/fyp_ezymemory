@@ -6,14 +6,17 @@
 import 'dart:async' as _i7;
 import 'dart:ui' as _i8;
 
-import 'package:cloud_firestore/cloud_firestore.dart' as _i12;
+import 'package:cloud_firestore/cloud_firestore.dart' as _i14;
 import 'package:flutter/material.dart' as _i6;
+import 'package:fyp_ezymemory/models/Deck/Deck.dart' as _i12;
+import 'package:fyp_ezymemory/models/Flashcard/Flashcard.dart' as _i13;
 import 'package:fyp_ezymemory/services/api_service.dart' as _i10;
 import 'package:fyp_ezymemory/services/auth_service.dart' as _i9;
 import 'package:fyp_ezymemory/services/firestore_service.dart' as _i11;
-import 'package:fyp_ezymemory/services/logger_service.dart' as _i13;
-import 'package:fyp_ezymemory/services/sm2_service.dart' as _i14;
-import 'package:fyp_ezymemory/services/spacedr_service.dart' as _i15;
+import 'package:fyp_ezymemory/services/logger_service.dart' as _i15;
+import 'package:fyp_ezymemory/services/point_service.dart' as _i18;
+import 'package:fyp_ezymemory/services/sm2_service.dart' as _i16;
+import 'package:fyp_ezymemory/services/spacedr_service.dart' as _i17;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:simple_logger/simple_logger.dart' as _i2;
 import 'package:spaced_repetition/sm.dart' as _i3;
@@ -773,6 +776,15 @@ class MockFirestoreService extends _i1.Mock implements _i11.FirestoreService {
         returnValueForMissingStub: _i7.Future<dynamic>.value(),
       ) as _i7.Future<dynamic>);
   @override
+  _i7.Future<dynamic> updatePoints(double? points) => (super.noSuchMethod(
+        Invocation.method(
+          #updatePoints,
+          [points],
+        ),
+        returnValue: _i7.Future<dynamic>.value(),
+        returnValueForMissingStub: _i7.Future<dynamic>.value(),
+      ) as _i7.Future<dynamic>);
+  @override
   _i7.Future<bool> createDeck(
     String? deckName,
     String? category,
@@ -800,7 +812,7 @@ class MockFirestoreService extends _i1.Mock implements _i11.FirestoreService {
   @override
   _i7.Future<dynamic> getSharedDeckList() => (super.noSuchMethod(
         Invocation.method(
-          #getDeckList,
+          #getSharedDeckList,
           [],
         ),
         returnValue: _i7.Future<dynamic>.value(),
@@ -816,10 +828,21 @@ class MockFirestoreService extends _i1.Mock implements _i11.FirestoreService {
         returnValueForMissingStub: _i7.Future<dynamic>.value(),
       ) as _i7.Future<dynamic>);
   @override
+  _i7.Future<dynamic> importUserDeck(_i12.Deck? importedDeck) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #importUserDeck,
+          [importedDeck],
+        ),
+        returnValue: _i7.Future<dynamic>.value(),
+        returnValueForMissingStub: _i7.Future<dynamic>.value(),
+      ) as _i7.Future<dynamic>);
+  @override
   _i7.Future<dynamic> updateDeck(
     String? deckId,
     String? deckName,
     String? category,
+    bool? isShared,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -828,6 +851,7 @@ class MockFirestoreService extends _i1.Mock implements _i11.FirestoreService {
             deckId,
             deckName,
             category,
+            isShared,
           ],
         ),
         returnValue: _i7.Future<dynamic>.value(),
@@ -861,6 +885,22 @@ class MockFirestoreService extends _i1.Mock implements _i11.FirestoreService {
         returnValueForMissingStub: _i7.Future<dynamic>.value(),
       ) as _i7.Future<dynamic>);
   @override
+  _i7.Future<dynamic> createFlashcardByModel(
+    String? deckId,
+    _i13.Flashcard? flashcard,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #createFlashcardByModel,
+          [
+            deckId,
+            flashcard,
+          ],
+        ),
+        returnValue: _i7.Future<dynamic>.value(),
+        returnValueForMissingStub: _i7.Future<dynamic>.value(),
+      ) as _i7.Future<dynamic>);
+  @override
   _i7.Future<dynamic> getFlashcardListById(
     String? deckId, {
     int? freshLimit = 10,
@@ -875,28 +915,27 @@ class MockFirestoreService extends _i1.Mock implements _i11.FirestoreService {
         returnValueForMissingStub: _i7.Future<dynamic>.value(),
       ) as _i7.Future<dynamic>);
   @override
-  _i7.Future<dynamic> updateFlashcardById(
-    String? deckId,
-    String? flashcardId,
-    int? interval,
-    int? repetitions,
-    double? easeFactor,
-    _i12.Timestamp? reviewTime, {
+  _i7.Future<dynamic> updateFlashcardById({
+    required String? deckId,
+    required String? flashcardId,
+    int? interval = 0,
+    int? repetitions = 0,
+    double? easeFactor = 0.0,
+    required _i14.Timestamp? reviewTime,
     String? status = r'review',
     bool? inUserStack = false,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateFlashcardById,
-          [
-            deckId,
-            flashcardId,
-            interval,
-            repetitions,
-            easeFactor,
-            reviewTime,
-          ],
+          [],
           {
+            #deckId: deckId,
+            #flashcardId: flashcardId,
+            #interval: interval,
+            #repetitions: repetitions,
+            #easeFactor: easeFactor,
+            #reviewTime: reviewTime,
             #status: status,
             #inUserStack: inUserStack,
           },
@@ -919,7 +958,7 @@ class MockFirestoreService extends _i1.Mock implements _i11.FirestoreService {
 /// A class which mocks [LoggerService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLoggerService extends _i1.Mock implements _i13.LoggerService {
+class MockLoggerService extends _i1.Mock implements _i15.LoggerService {
   @override
   _i2.SimpleLogger get logger => (super.noSuchMethod(
         Invocation.getter(#logger),
@@ -976,7 +1015,7 @@ class MockLoggerService extends _i1.Mock implements _i13.LoggerService {
 /// A class which mocks [Sm2Service].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSm2Service extends _i1.Mock implements _i14.Sm2Service {
+class MockSm2Service extends _i1.Mock implements _i16.Sm2Service {
   @override
   _i3.Sm get sm => (super.noSuchMethod(
         Invocation.getter(#sm),
@@ -1042,7 +1081,7 @@ class MockSm2Service extends _i1.Mock implements _i14.Sm2Service {
 /// A class which mocks [SpacedrService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSpacedrService extends _i1.Mock implements _i15.SpacedrService {
+class MockSpacedrService extends _i1.Mock implements _i17.SpacedrService {
   @override
   _i3.Sm get sm => (super.noSuchMethod(
         Invocation.getter(#sm),
@@ -1103,4 +1142,25 @@ class MockSpacedrService extends _i1.Mock implements _i15.SpacedrService {
           ),
         ),
       ) as _i4.SmResponse);
+}
+
+/// A class which mocks [PointService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockPointService extends _i1.Mock implements _i18.PointService {
+  @override
+  List<String> get header => (super.noSuchMethod(
+        Invocation.getter(#header),
+        returnValue: <String>[],
+        returnValueForMissingStub: <String>[],
+      ) as List<String>);
+  @override
+  _i7.Future<dynamic> addPoints(int? activity) => (super.noSuchMethod(
+        Invocation.method(
+          #addPoints,
+          [activity],
+        ),
+        returnValue: _i7.Future<dynamic>.value(),
+        returnValueForMissingStub: _i7.Future<dynamic>.value(),
+      ) as _i7.Future<dynamic>);
 }

@@ -10,6 +10,7 @@ import 'package:fyp_ezymemory/models/User/User.dart';
 import 'package:fyp_ezymemory/services/auth_service.dart';
 import 'package:fyp_ezymemory/services/firestore_service.dart';
 import 'package:fyp_ezymemory/services/logger_service.dart';
+import 'package:fyp_ezymemory/services/point_service.dart';
 import 'package:fyp_ezymemory/ui/common/app_strings.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -21,6 +22,7 @@ class HomeViewModel extends StreamViewModel {
   final FirestoreService _firestoreService = locator<FirestoreService>();
   final AuthService _authService = locator<AuthService>();
   final LoggerService _loggerService = locator<LoggerService>();
+  final PointService _pointService = locator<PointService>();
 
   final header = "[home_view]";
 
@@ -34,8 +36,6 @@ class HomeViewModel extends StreamViewModel {
   Stream get stream => init();
 
   Stream init() async* {
-    // FIXME: android back button and _navigationService.back() does not trigger this
-    //  IDEA: need something to rebuild this page after a change in data.
     var uid = await _authService.getCurrentUserId();
     fetchedUserDeckList = await _firestoreService.getUserDeckList();
     fetchedUser = await _firestoreService.getUser(uid);
@@ -75,6 +75,11 @@ class HomeViewModel extends StreamViewModel {
     //     "signOut: after disposefetchedUserDeckList $fetchedUserDeckList.toString()");
     await _navigationService.navigateToLoginView();
     dispose();
+  }
+
+  Future addPoints(int activity) async {
+    // TODO: add logic for checking in
+    await _pointService.addPoints(activity);
   }
 
   void toImportDeckView() {

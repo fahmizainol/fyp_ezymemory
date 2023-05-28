@@ -20,6 +20,7 @@ import 'package:fyp_ezymemory/ui/views/em_learning_bar/em_learning_bar_view.dart
 import 'package:fyp_ezymemory/services/sm2_service.dart';
 import 'package:fyp_ezymemory/services/spacedr_service.dart';
 import 'package:fyp_ezymemory/ui/views/import_deck/import_deck_view.dart';
+import 'package:fyp_ezymemory/services/point_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -48,6 +49,7 @@ import 'package:fyp_ezymemory/ui/views/import_deck/import_deck_view.dart';
     LazySingleton(classType: LoggerService),
     LazySingleton(classType: Sm2Service),
     LazySingleton(classType: SpacedrService),
+    LazySingleton(classType: PointService),
 // @stacked-service
   ],
   bottomsheets: [

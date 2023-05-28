@@ -15,6 +15,7 @@ import '../services/api_service.dart';
 import '../services/auth_service.dart';
 import '../services/firestore_service.dart';
 import '../services/logger_service.dart';
+import '../services/point_service.dart';
 import '../services/sm2_service.dart';
 import '../services/spacedr_service.dart';
 
@@ -38,4 +39,5 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => LoggerService());
   locator.registerLazySingleton(() => Sm2Service());
   locator.registerLazySingleton(() => SpacedrService());
+  locator.registerLazySingleton(() => PointService());
 }

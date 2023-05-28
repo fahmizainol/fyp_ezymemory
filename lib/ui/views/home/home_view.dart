@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fyp_ezymemory/app/app.router.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
-import 'package:fyp_ezymemory/ui/widgets/em_bottombar.dart';
+import 'package:fyp_ezymemory/ui/widgets/em_bottombar/em_bottombar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_circular.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_scaffold.dart';
 import 'package:popover/popover.dart';
@@ -27,11 +27,14 @@ class HomeView extends StackedView<HomeViewModel> {
     // viewModel.stream();
     // print(viewModel.fetchedUser?.username.toString());
     return EMScaffold(
+      floatingButton: FloatingActionButton.small(onPressed: () {
+        viewModel.addPoints(0);
+      }),
       appBar: EMAppBar(
           title: viewModel.isBusy
               ? "Welcome, null!"
               : "Welcome, ${viewModel.fetchedUser?.username}!"),
-      bottomNavigationBar: const EMBottomBar(),
+      bottomNavigationBar: EMBottomBar(),
       // backgroundColor: GFColors.DARK,
       body: SafeArea(
         child: Padding(

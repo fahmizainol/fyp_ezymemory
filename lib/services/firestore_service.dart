@@ -25,7 +25,10 @@ class FirestoreService {
   // final User _currentUser = _authService.currentUser.uid()
   final header = "[firestore_service]";
 
-  // USER
+  /// ===========================================================================
+  ///                            USER
+  /// ===========================================================================
+
   Future createUser(String username, String email) async {
     try {
       _loggerService.printInfo(
@@ -77,7 +80,25 @@ class FirestoreService {
     }
   }
 
-  // DECK
+  Future updatePoints(double points) async {
+    try {
+      var uid = await _authService.getCurrentUserId();
+      _loggerService.printInfo(
+          header, "updatePoints: adding $points to user $uid ..");
+
+      await _usersCollectionReference
+          .doc(uid)
+          .update({"currentPoints": points});
+
+      _loggerService.printInfo(
+          header, "updatePoints: added $points to user $uid..");
+    } catch (e) {}
+  }
+
+  /// ===========================================================================
+  ///                            DECK
+  /// ===========================================================================
+
   Future<bool> createDeck(String deckName, String category) async {
     try {
       var uid = await _authService.getCurrentUserId();
@@ -197,7 +218,6 @@ class FirestoreService {
       _loggerService.printInfo(
           header, "importUserDeck: importing deck to user...");
 
-      // TODO: query the flashcard oso
       var importedDeckFlashcard = await _decksCollectionReference
           .doc(importedDeck.id)
           .collection('flashcards')
@@ -294,7 +314,10 @@ class FirestoreService {
     } catch (e) {}
   }
 
-  // FLASHCARD
+  /// ===========================================================================
+  ///                            FLASHCARD
+  /// ===========================================================================
+
   Future createFlashcard(String deckId, String front, String back) async {
     try {
       _loggerService.printInfo(

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fyp_ezymemory/ui/common/app_colors.dart';
 import 'package:fyp_ezymemory/ui/common/ui_helpers.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
-import 'package:fyp_ezymemory/ui/widgets/em_bottombar.dart';
+import 'package:fyp_ezymemory/ui/widgets/em_bottombar/em_bottombar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_circular.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_scaffold.dart';
 import 'package:getwidget/getwidget.dart';
@@ -14,8 +14,6 @@ import 'import_deck_viewmodel.dart';
 class ImportDeckView extends StackedView<ImportDeckViewModel> {
   const ImportDeckView({Key? key}) : super(key: key);
 
-  // IDEA: https://stackoverflow.com/questions/49356664/how-to-override-the-back-button-in-flutter
-  // - fix the back button
   @override
   Widget builder(
     BuildContext context,
