@@ -3,7 +3,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:fyp_ezymemory/ui/common/ui_helpers.dart';
 import 'package:fyp_ezymemory/ui/views/create_deck/create_deck_view.form.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
-import 'package:fyp_ezymemory/ui/widgets/em_bottombar.dart';
+import 'package:fyp_ezymemory/ui/widgets/em_bottombar/em_bottombar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_scaffold.dart';
 import 'package:getwidget/colors/gf_color.dart';
 import 'package:getwidget/components/typography/gf_typography.dart';

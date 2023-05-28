@@ -21,6 +21,8 @@ import 'package:fyp_ezymemory/services/sm2_service.dart';
 import 'package:fyp_ezymemory/services/spacedr_service.dart';
 import 'package:fyp_ezymemory/ui/views/import_deck/import_deck_view.dart';
 import 'package:fyp_ezymemory/services/point_service.dart';
+import 'package:fyp_ezymemory/ui/views/leaderboard/leaderboard_view.dart';
+import 'package:fyp_ezymemory/ui/views/progress/progress_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -37,6 +39,8 @@ import 'package:fyp_ezymemory/services/point_service.dart';
     MaterialRoute(page: SessionLearningView),
     MaterialRoute(page: EmLearningBarView),
     MaterialRoute(page: ImportDeckView),
+    MaterialRoute(page: LeaderboardView),
+    MaterialRoute(page: ProgressView),
 // @stacked-route
   ],
   dependencies: [

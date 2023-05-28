@@ -11,8 +11,6 @@ _$_User _$$_UserFromJson(Map<String, dynamic> json) => _$_User(
       username: json['username'] as String,
       email: json['email'] as String,
       currentPoints: (json['currentPoints'] as num).toDouble(),
-      deckList:
-          (json['deckList'] as List<dynamic>).map((e) => e as String).toList(),
       badgeList:
           (json['badgeList'] as List<dynamic>).map((e) => e as String).toList(),
       checkInToday: json['checkInToday'] as bool,
@@ -24,7 +22,6 @@ Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
       'username': instance.username,
       'email': instance.email,
       'currentPoints': instance.currentPoints,
-      'deckList': instance.deckList,
       'badgeList': instance.badgeList,
       'checkInToday': instance.checkInToday,
       'userStatsId': instance.userStatsId,

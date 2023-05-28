@@ -39,7 +39,6 @@ class FirestoreService {
         username: username,
         email: email,
         currentPoints: 0,
-        deckList: [],
         badgeList: [],
         checkInToday: false,
         userStatsId: '',
@@ -80,15 +79,41 @@ class FirestoreService {
     }
   }
 
+  Future getUserList() async {
+    try {
+      _loggerService.printInfo(
+          header, "getUserList: getting user list from firebase..");
+
+      var userListSnap = await _usersCollectionReference.get();
+
+      final List<User> userList = userListSnap.docs.map((e) {
+        Map<String, dynamic> data = e.data() as Map<String, dynamic>;
+        print(data);
+        User userModel = User.fromJson(data);
+        return userModel;
+      }).toList();
+      // _loggerService.printInfo(header,
+      //     "getUserList: getting user success! \n userData: ${userData.data()}");
+      return userList;
+    } catch (e) {
+      final List<User> emptyUser = [];
+      return emptyUser;
+    }
+  }
+
   Future updatePoints(double points) async {
     try {
       var uid = await _authService.getCurrentUserId();
       _loggerService.printInfo(
           header, "updatePoints: adding $points to user $uid ..");
 
+      final User user = await getUser(uid);
+
+      double totalPoints = points + user.currentPoints;
+
       await _usersCollectionReference
           .doc(uid)
-          .update({"currentPoints": points});
+          .update({"currentPoints": totalPoints});
 
       _loggerService.printInfo(
           header, "updatePoints: added $points to user $uid..");
@@ -116,14 +141,7 @@ class FirestoreService {
         flashcard: "",
       );
       // var userGet = await getUser(uid);
-      final User user = await getUser(uid);
-
-      var currentDeckList = [...user.deckList, deck.id];
-
       await _decksCollectionReference.doc(deck.id).set(deck.toJson());
-      await _usersCollectionReference
-          .doc(uid)
-          .set(user.copyWith(deckList: currentDeckList).toJson());
 
       return true;
       // Need to create in User & Deck collection

@@ -14,7 +14,6 @@ class User with _$User {
     required String username,
     required String email,
     required double currentPoints,
-    required List<String> deckList,
     required List<String> badgeList,
     required bool checkInToday,
     required String userStatsId,

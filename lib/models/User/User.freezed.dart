@@ -24,7 +24,6 @@ mixin _$User {
   String get username => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   double get currentPoints => throw _privateConstructorUsedError;
-  List<String> get deckList => throw _privateConstructorUsedError;
   List<String> get badgeList => throw _privateConstructorUsedError;
   bool get checkInToday => throw _privateConstructorUsedError;
   String get userStatsId => throw _privateConstructorUsedError;
@@ -44,7 +43,6 @@ abstract class $UserCopyWith<$Res> {
       String username,
       String email,
       double currentPoints,
-      List<String> deckList,
       List<String> badgeList,
       bool checkInToday,
       String userStatsId});
@@ -67,7 +65,6 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? username = null,
     Object? email = null,
     Object? currentPoints = null,
-    Object? deckList = null,
     Object? badgeList = null,
     Object? checkInToday = null,
     Object? userStatsId = null,
@@ -89,10 +86,6 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.currentPoints
           : currentPoints // ignore: cast_nullable_to_non_nullable
               as double,
-      deckList: null == deckList
-          ? _value.deckList
-          : deckList // ignore: cast_nullable_to_non_nullable
-              as List<String>,
       badgeList: null == badgeList
           ? _value.badgeList
           : badgeList // ignore: cast_nullable_to_non_nullable
@@ -120,7 +113,6 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       String username,
       String email,
       double currentPoints,
-      List<String> deckList,
       List<String> badgeList,
       bool checkInToday,
       String userStatsId});
@@ -139,7 +131,6 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
     Object? username = null,
     Object? email = null,
     Object? currentPoints = null,
-    Object? deckList = null,
     Object? badgeList = null,
     Object? checkInToday = null,
     Object? userStatsId = null,
@@ -161,10 +152,6 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
           ? _value.currentPoints
           : currentPoints // ignore: cast_nullable_to_non_nullable
               as double,
-      deckList: null == deckList
-          ? _value._deckList
-          : deckList // ignore: cast_nullable_to_non_nullable
-              as List<String>,
       badgeList: null == badgeList
           ? _value._badgeList
           : badgeList // ignore: cast_nullable_to_non_nullable
@@ -189,12 +176,10 @@ class _$_User with DiagnosticableTreeMixin implements _User {
       required this.username,
       required this.email,
       required this.currentPoints,
-      required final List<String> deckList,
       required final List<String> badgeList,
       required this.checkInToday,
       required this.userStatsId})
-      : _deckList = deckList,
-        _badgeList = badgeList;
+      : _badgeList = badgeList;
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
@@ -206,14 +191,6 @@ class _$_User with DiagnosticableTreeMixin implements _User {
   final String email;
   @override
   final double currentPoints;
-  final List<String> _deckList;
-  @override
-  List<String> get deckList {
-    if (_deckList is EqualUnmodifiableListView) return _deckList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_deckList);
-  }
-
   final List<String> _badgeList;
   @override
   List<String> get badgeList {
@@ -229,7 +206,7 @@ class _$_User with DiagnosticableTreeMixin implements _User {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'User(id: $id, username: $username, email: $email, currentPoints: $currentPoints, deckList: $deckList, badgeList: $badgeList, checkInToday: $checkInToday, userStatsId: $userStatsId)';
+    return 'User(id: $id, username: $username, email: $email, currentPoints: $currentPoints, badgeList: $badgeList, checkInToday: $checkInToday, userStatsId: $userStatsId)';
   }
 
   @override
@@ -241,7 +218,6 @@ class _$_User with DiagnosticableTreeMixin implements _User {
       ..add(DiagnosticsProperty('username', username))
       ..add(DiagnosticsProperty('email', email))
       ..add(DiagnosticsProperty('currentPoints', currentPoints))
-      ..add(DiagnosticsProperty('deckList', deckList))
       ..add(DiagnosticsProperty('badgeList', badgeList))
       ..add(DiagnosticsProperty('checkInToday', checkInToday))
       ..add(DiagnosticsProperty('userStatsId', userStatsId));
@@ -258,7 +234,6 @@ class _$_User with DiagnosticableTreeMixin implements _User {
             (identical(other.email, email) || other.email == email) &&
             (identical(other.currentPoints, currentPoints) ||
                 other.currentPoints == currentPoints) &&
-            const DeepCollectionEquality().equals(other._deckList, _deckList) &&
             const DeepCollectionEquality()
                 .equals(other._badgeList, _badgeList) &&
             (identical(other.checkInToday, checkInToday) ||
@@ -275,7 +250,6 @@ class _$_User with DiagnosticableTreeMixin implements _User {
       username,
       email,
       currentPoints,
-      const DeepCollectionEquality().hash(_deckList),
       const DeepCollectionEquality().hash(_badgeList),
       checkInToday,
       userStatsId);
@@ -300,7 +274,6 @@ abstract class _User implements User {
       required final String username,
       required final String email,
       required final double currentPoints,
-      required final List<String> deckList,
       required final List<String> badgeList,
       required final bool checkInToday,
       required final String userStatsId}) = _$_User;
@@ -315,8 +288,6 @@ abstract class _User implements User {
   String get email;
   @override
   double get currentPoints;
-  @override
-  List<String> get deckList;
   @override
   List<String> get badgeList;
   @override

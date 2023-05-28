@@ -776,6 +776,15 @@ class MockFirestoreService extends _i1.Mock implements _i11.FirestoreService {
         returnValueForMissingStub: _i7.Future<dynamic>.value(),
       ) as _i7.Future<dynamic>);
   @override
+  _i7.Future<dynamic> getUserList() => (super.noSuchMethod(
+        Invocation.method(
+          #getUserList,
+          [],
+        ),
+        returnValue: _i7.Future<dynamic>.value(),
+        returnValueForMissingStub: _i7.Future<dynamic>.value(),
+      ) as _i7.Future<dynamic>);
+  @override
   _i7.Future<dynamic> updatePoints(double? points) => (super.noSuchMethod(
         Invocation.method(
           #updatePoints,

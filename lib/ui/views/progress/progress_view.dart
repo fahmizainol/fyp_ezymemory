@@ -6,15 +6,15 @@ import 'package:fyp_ezymemory/ui/widgets/em_circular.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_scaffold.dart';
 import 'package:stacked/stacked.dart';
 
-import 'counter_viewmodel.dart';
+import 'progress_viewmodel.dart';
 
-class CounterView extends StackedView<CounterViewModel> {
-  const CounterView({Key? key}) : super(key: key);
+class ProgressView extends StackedView<ProgressViewModel> {
+  const ProgressView({Key? key}) : super(key: key);
 
   @override
   Widget builder(
     BuildContext context,
-    CounterViewModel viewModel,
+    ProgressViewModel viewModel,
     Widget? child,
   ) {
     return EMScaffold(
@@ -64,8 +64,8 @@ class CounterView extends StackedView<CounterViewModel> {
   }
 
   @override
-  CounterViewModel viewModelBuilder(
+  ProgressViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      CounterViewModel();
+      ProgressViewModel();
 }

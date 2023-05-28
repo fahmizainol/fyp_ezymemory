@@ -2,7 +2,7 @@ import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:fyp_ezymemory/ui/common/ui_helpers.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
-import 'package:fyp_ezymemory/ui/widgets/em_bottombar.dart';
+import 'package:fyp_ezymemory/ui/widgets/em_bottombar/em_bottombar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_circular.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_learning_bottombar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_scaffold.dart';

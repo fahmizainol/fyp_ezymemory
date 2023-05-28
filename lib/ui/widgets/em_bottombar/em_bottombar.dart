@@ -34,7 +34,7 @@ class EMBottomBar extends StackedView<EMBottomBarModel> {
           backgroundColor: Colors.white,
         ),
       ],
-      currentIndex: viewModel.selectedIndex,
+      currentIndex: EMBottomBarModel.selectedIndex,
       // selectedItemColor: Colors.black,
       selectedItemColor: Colors.amber[800],
       onTap: (value) {

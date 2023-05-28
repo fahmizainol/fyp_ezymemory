@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fyp_ezymemory/ui/views/session_chooser/session_chooser_viewmodel.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
-import 'package:fyp_ezymemory/ui/widgets/em_bottombar.dart';
+import 'package:fyp_ezymemory/ui/widgets/em_bottombar/em_bottombar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_circular.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_scaffold.dart';
 import 'package:popover/popover.dart';

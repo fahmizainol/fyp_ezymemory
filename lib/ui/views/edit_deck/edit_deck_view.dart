@@ -4,7 +4,7 @@ import 'package:fyp_ezymemory/ui/common/ui_helpers.dart';
 import 'package:fyp_ezymemory/ui/views/create_deck/create_deck_view.form.dart';
 import 'package:fyp_ezymemory/ui/views/edit_deck/edit_deck_viewmodel.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
-import 'package:fyp_ezymemory/ui/widgets/em_bottombar.dart';
+import 'package:fyp_ezymemory/ui/widgets/em_bottombar/em_bottombar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_circular.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_scaffold.dart';
 import 'package:getwidget/getwidget.dart';
