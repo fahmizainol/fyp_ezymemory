@@ -8,8 +8,6 @@ class PointService {
 
   final header = ['point_service'];
 
-  // TODO: define points for sign in, flashcard, memory game
-
   Future addPoints(int activity) async {
     double points = 0;
     switch (activity) {

@@ -19,9 +19,9 @@ class EMBottomBar extends StackedView<EMBottomBarModel> {
       backgroundColor: Colors.black38,
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Icon(Icons.business),
-          label: 'Business',
-          backgroundColor: Colors.red,
+          icon: Icon(Icons.refresh),
+          label: 'Progress',
+          backgroundColor: Colors.white,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.home),

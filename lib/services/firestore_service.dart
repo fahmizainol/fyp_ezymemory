@@ -69,7 +69,6 @@ class FirestoreService {
       //     "getUser: getting user success! \n userData: ${userData.data()}");
       return user;
     } catch (e) {
-      // TODO: Find or create a way to repeat error handling without so much repeated code
       if (e is PlatformException) {
         _loggerService.printShout("getUser: ${e.message}");
         return e.message;
@@ -417,9 +416,6 @@ class FirestoreService {
       // TODO: if (count<limit)
       //          if (date has changed from lastFetchTime)
 
-      // IDEA: add a field to flashcard session to indicate
-      print(Timestamp.now().toDate());
-      // FIXME: not working reviewTime
       var reviewFlashcardListSnap = await _decksCollectionReference
           .doc(deckId)
           .collection('flashcards')

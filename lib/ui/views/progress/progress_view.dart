@@ -4,6 +4,7 @@ import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_bottombar/em_bottombar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_circular.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_scaffold.dart';
+import 'package:getwidget/components/typography/gf_typography.dart';
 import 'package:stacked/stacked.dart';
 
 import 'progress_viewmodel.dart';
@@ -18,43 +19,76 @@ class ProgressView extends StackedView<ProgressViewModel> {
     Widget? child,
   ) {
     return EMScaffold(
-      appBar: EMAppBar(title: 'title'),
-      bottomNavigationBar: EMBottomBar(),
+      appBar: const EMAppBar(title: 'Progress'),
+      bottomNavigationBar: const EMBottomBar(),
 
       // backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 0.0),
+          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
           child: Column(
             // mainAxisSize: MainAxisSize.max,
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               verticalSpaceTiny,
-              Column(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(15, 0, 0, 10),
-                    // child: GFTypography(
-                    //   dividerColor: GFColors.WHITE,
-                    //   type: GFTypographyType.typo2,
-                    //   text: "Shared Decks",
-                    //   textColor: GFColors.WHITE,
-                    // ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  child: viewModel.isBusy
+                      ? const EMCircular()
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          // mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                              verticalSpaceMedium,
+                              Text(
+                                'Current Points',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                              verticalSpaceMedium,
+                              Container(
+                                height: 200,
+                                width: 200,
+                                decoration: BoxDecoration(
+                                  // color: Colors.green,
+                                  borderRadius: BorderRadius.circular(100),
+                                  border: Border.all(
+                                    width: 5,
+                                    color: Colors.green,
+                                    style: BorderStyle.solid,
+                                  ),
+                                  //more than 50% of width makes circle
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    '${viewModel.fetchedUser!.currentPoints.toString()}',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ]),
+                  width: 350,
+                  height: 300,
+                  // child: Text('fff'),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    color: Colors.blueGrey.withOpacity(0.25),
                   ),
-                  // Container(
-                  //   height: 70,
-                  //   width: 200,
-                  //   child: EasySearchBar(
-                  //     // leading: Icon(Icons.abc),
-                  //     title: Text('ff'),
-                  //     onSearch: (value) {},
-                  //     backgroundColor: GFColors.WHITE,
-                  //   ),
-                  // ),
-                  SizedBox(
-                    height: 500,
-                  )
-                ],
+                ),
+              ),
+              verticalSpaceMedium,
+              Expanded(
+                flex: 1,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    color: Colors.blueGrey.withOpacity(0.25),
+                  ),
+                ),
               ),
             ],
           ),
