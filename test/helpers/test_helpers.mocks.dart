@@ -867,9 +867,29 @@ class MockFirestoreService extends _i1.Mock implements _i11.FirestoreService {
         returnValueForMissingStub: _i7.Future<dynamic>.value(),
       ) as _i7.Future<dynamic>);
   @override
+  _i7.Future<dynamic> updateDeckLastFetchedTime(String? deckId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateDeckLastFetchedTime,
+          [deckId],
+        ),
+        returnValue: _i7.Future<dynamic>.value(),
+        returnValueForMissingStub: _i7.Future<dynamic>.value(),
+      ) as _i7.Future<dynamic>);
+  @override
   _i7.Future<dynamic> deleteDeck(String? deckId) => (super.noSuchMethod(
         Invocation.method(
           #deleteDeck,
+          [deckId],
+        ),
+        returnValue: _i7.Future<dynamic>.value(),
+        returnValueForMissingStub: _i7.Future<dynamic>.value(),
+      ) as _i7.Future<dynamic>);
+  @override
+  _i7.Future<dynamic> calculateTimeDifference(String? deckId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #calculateTimeDifference,
           [deckId],
         ),
         returnValue: _i7.Future<dynamic>.value(),
@@ -919,6 +939,29 @@ class MockFirestoreService extends _i1.Mock implements _i11.FirestoreService {
           #getFlashcardListById,
           [deckId],
           {#freshLimit: freshLimit},
+        ),
+        returnValue: _i7.Future<dynamic>.value(),
+        returnValueForMissingStub: _i7.Future<dynamic>.value(),
+      ) as _i7.Future<dynamic>);
+  @override
+  _i7.Future<dynamic> getFreshFlashcardListById(
+    String? deckId, {
+    int? freshLimit = 3,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getFreshFlashcardListById,
+          [deckId],
+          {#freshLimit: freshLimit},
+        ),
+        returnValue: _i7.Future<dynamic>.value(),
+        returnValueForMissingStub: _i7.Future<dynamic>.value(),
+      ) as _i7.Future<dynamic>);
+  @override
+  _i7.Future<dynamic> checkFreshFetch(String? deckId) => (super.noSuchMethod(
+        Invocation.method(
+          #checkFreshFetch,
+          [deckId],
         ),
         returnValue: _i7.Future<dynamic>.value(),
         returnValueForMissingStub: _i7.Future<dynamic>.value(),

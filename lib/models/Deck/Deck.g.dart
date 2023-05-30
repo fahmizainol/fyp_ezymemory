@@ -14,7 +14,8 @@ _$_Deck _$$_DeckFromJson(Map<String, dynamic> json) => _$_Deck(
       isShared: json['isShared'] as bool,
       category: json['category'] as String,
       flashcard: json['flashcard'] as String,
-      lastFetchedTime: DateTime.parse(json['lastFetchedTime'] as String),
+      lastFetchedTime:
+          const TimestampSerializer().fromJson(json['lastFetchedTime']),
     );
 
 Map<String, dynamic> _$$_DeckToJson(_$_Deck instance) => <String, dynamic>{
@@ -25,5 +26,6 @@ Map<String, dynamic> _$$_DeckToJson(_$_Deck instance) => <String, dynamic>{
       'isShared': instance.isShared,
       'category': instance.category,
       'flashcard': instance.flashcard,
-      'lastFetchedTime': instance.lastFetchedTime.toIso8601String(),
+      'lastFetchedTime':
+          const TimestampSerializer().toJson(instance.lastFetchedTime),
     };

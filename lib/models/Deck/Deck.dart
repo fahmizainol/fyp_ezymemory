@@ -17,8 +17,18 @@ class Deck with _$Deck {
     required bool isShared,
     required String category,
     required String flashcard,
-    required DateTime lastFetchedTime,
+    @TimestampSerializer() required DateTime lastFetchedTime,
   }) = _Deck;
 
   factory Deck.fromJson(Map<String, Object?> json) => _$DeckFromJson(json);
+}
+
+class TimestampSerializer implements JsonConverter<DateTime, dynamic> {
+  const TimestampSerializer();
+
+  @override
+  DateTime fromJson(dynamic timestamp) => timestamp.toDate();
+
+  @override
+  Timestamp toJson(DateTime date) => Timestamp.fromDate(date);
 }

@@ -27,6 +27,7 @@ mixin _$Deck {
   bool get isShared => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
   String get flashcard => throw _privateConstructorUsedError;
+  @TimestampSerializer()
   DateTime get lastFetchedTime => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,7 +48,7 @@ abstract class $DeckCopyWith<$Res> {
       bool isShared,
       String category,
       String flashcard,
-      DateTime lastFetchedTime});
+      @TimestampSerializer() DateTime lastFetchedTime});
 }
 
 /// @nodoc
@@ -123,7 +124,7 @@ abstract class _$$_DeckCopyWith<$Res> implements $DeckCopyWith<$Res> {
       bool isShared,
       String category,
       String flashcard,
-      DateTime lastFetchedTime});
+      @TimestampSerializer() DateTime lastFetchedTime});
 }
 
 /// @nodoc
@@ -192,7 +193,7 @@ class _$_Deck with DiagnosticableTreeMixin implements _Deck {
       required this.isShared,
       required this.category,
       required this.flashcard,
-      required this.lastFetchedTime});
+      @TimestampSerializer() required this.lastFetchedTime});
 
   factory _$_Deck.fromJson(Map<String, dynamic> json) => _$$_DeckFromJson(json);
 
@@ -211,6 +212,7 @@ class _$_Deck with DiagnosticableTreeMixin implements _Deck {
   @override
   final String flashcard;
   @override
+  @TimestampSerializer()
   final DateTime lastFetchedTime;
 
   @override
@@ -274,14 +276,15 @@ class _$_Deck with DiagnosticableTreeMixin implements _Deck {
 
 abstract class _Deck implements Deck {
   const factory _Deck(
-      {required final String id,
-      required final String user_id,
-      required final String name,
-      required final DateTime createDate,
-      required final bool isShared,
-      required final String category,
-      required final String flashcard,
-      required final DateTime lastFetchedTime}) = _$_Deck;
+          {required final String id,
+          required final String user_id,
+          required final String name,
+          required final DateTime createDate,
+          required final bool isShared,
+          required final String category,
+          required final String flashcard,
+          @TimestampSerializer() required final DateTime lastFetchedTime}) =
+      _$_Deck;
 
   factory _Deck.fromJson(Map<String, dynamic> json) = _$_Deck.fromJson;
 
@@ -300,6 +303,7 @@ abstract class _Deck implements Deck {
   @override
   String get flashcard;
   @override
+  @TimestampSerializer()
   DateTime get lastFetchedTime;
   @override
   @JsonKey(ignore: true)
