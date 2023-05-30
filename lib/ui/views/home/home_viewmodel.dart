@@ -30,6 +30,7 @@ class HomeViewModel extends StreamViewModel {
 
   User? fetchedUser;
   List<Deck>? fetchedUserDeckList;
+  int fetchedUserDeckListLength = 0;
   TabController? tabController;
 
   @override
@@ -38,6 +39,7 @@ class HomeViewModel extends StreamViewModel {
   Stream init() async* {
     var uid = await _authService.getCurrentUserId();
     fetchedUserDeckList = await _firestoreService.getUserDeckList();
+    fetchedUserDeckListLength = fetchedUserDeckList!.length;
     fetchedUser = await _firestoreService.getUser(uid);
 
     // _loggerService.printInfo(header, "test: ${fetchedUserDeckList!}");

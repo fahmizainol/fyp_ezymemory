@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fyp_ezymemory/ui/common/app_text.dart';
 import 'package:fyp_ezymemory/ui/views/session_chooser/session_chooser_viewmodel.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_bottombar/em_bottombar.dart';
@@ -30,96 +31,106 @@ class SessionChooserView extends StackedView<SessionChooserViewModel> {
       // backgroundColor: GFColors.DARK,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
           child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            // mainAxisSize: MainAxisSize.max,
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // verticalSpaceMedium,
-              // GFTypography(
-              //   text: "Deck: $deckName",
-              //   showDivider: false,
-              // ),
-              // verticalSpaceTiny,
-              Column(
-                children: [
-                  verticalSpaceTiny,
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 16, 0, 0),
-                    child: GFTypography(
-                      text: "Deck: $deckName",
-                      showDivider: false,
-                      textColor: GFColors.WHITE,
-                      type: GFTypographyType.typo6,
-                    ),
+              Text(
+                'Deck: ${viewModel.deckName}',
+                style: kcNormalText,
+              ),
+              verticalSpaceTiny,
+              Expanded(
+                flex: 1,
+                child: Container(
+                  width: 400,
+                  height: 200,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    color: kcCardColor,
                   ),
-                  // verticalSpaceTiny,
-                  // Padding(
-                  //   padding: const EdgeInsets.fromLTRB(16, 16, 0, 0),
-                  //   child: GFTypography(
-                  //     text: "Deck : $deckName",
-                  //     showDivider: false,
-                  //     textColor: GFColors.WHITE,
-                  //     type: GFTypographyType.typo6,
-                  //   ),
-                  // ),
-
-                  SizedBox(
-                    height: 250,
-                    child: GFCard(
-                      boxFit: BoxFit.cover,
-                      image: Image.asset('your asset image'),
-                      title: GFListTile(
-                        // avatar: GFAvatar(
-                        //   backgroundImage: AssetImage('your asset image'),
-                        // ),
-                        titleText: "Learning session",
-                        // title: Text('Card Title'),
-                        // subTitle: Text('Card Sub Title'),
-                      ),
-                      content:
-                          Text("Some quick example text to build on the card"),
-                      buttonBar: GFButtonBar(
-                        children: <Widget>[
-                          GFButton(
-                            onPressed: () {
-                              viewModel.toSessionLearningView(deckId);
-                            },
-                            text: 'Start learning',
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Text(
+                              'Learning Session',
+                              style: kcTitleText,
+                            ),
                           ),
-                        ],
-                      ),
-                    ),
+                          Expanded(
+                            flex: 1,
+                            child: Text(
+                              'Last sassion: Yesterday \nPending cards: {placeholder} \nReview cards: {placeholder}',
+                              style: kcNormalText,
+                            ),
+                          ),
+                          Expanded(
+                              flex: 1,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  GFButton(
+                                    // color: Colors.,
+                                    onPressed: () {},
+                                    text: 'START LEARNING >',
+                                    textStyle: kcNormalText,
+                                  ),
+                                ],
+                              ))
+                        ]),
                   ),
-                  SizedBox(
-                    height: 250,
-                    child: GFCard(
-                      boxFit: BoxFit.cover,
-                      image: Image.asset('your asset image'),
-                      title: GFListTile(
-                        // avatar: GFAvatar(
-                        //   backgroundImage: AssetImage('your asset image'),
-                        // ),
-                        title: Text('Card Title'),
-                        subTitle: Text('Card Sub Title'),
-                      ),
-                      content:
-                          Text("Some quick example text to build on the card"),
-                      buttonBar: GFButtonBar(
-                        children: <Widget>[
-                          GFButton(
-                            onPressed: () {},
-                            text: 'Buy',
+                ),
+              ),
+              verticalSpaceMedium,
+              Expanded(
+                flex: 1,
+                child: Container(
+                  width: 400,
+                  height: 200,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    color: kcCardColor,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Text(
+                              'Memory Games',
+                              style: kcTitleText,
+                            ),
                           ),
-                          GFButton(
-                            onPressed: () {},
-                            text: 'Cancel',
+                          Expanded(
+                            flex: 1,
+                            child: Text(
+                              'Last sassion: Yesterday \nPending cards: {placeholder} \nReview cards: {placeholder}',
+                              style: kcNormalText,
+                            ),
                           ),
-                        ],
-                      ),
-                    ),
-                  )
-                ],
+                          Expanded(
+                              flex: 1,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  GFButton(
+                                    // color: Colors.,
+                                    onPressed: () {},
+                                    text: 'START PLAYING >',
+                                    textStyle: kcNormalText,
+                                  ),
+                                ],
+                              ))
+                        ]),
+                  ),
+                ),
               ),
             ],
           ),

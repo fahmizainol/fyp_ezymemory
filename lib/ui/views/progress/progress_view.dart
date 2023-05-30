@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fyp_ezymemory/ui/common/app_colors.dart';
 import 'package:fyp_ezymemory/ui/common/ui_helpers.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_bottombar/em_bottombar.dart';
@@ -39,7 +40,7 @@ class ProgressView extends StackedView<ProgressViewModel> {
                   // child: Text('fff'),
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    color: Colors.blueGrey.withOpacity(0.25),
+                    color: kcCardColor,
                   ),
                   child: viewModel.isBusy
                       ? const EMCircular()

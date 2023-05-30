@@ -83,7 +83,9 @@ class FirestoreService {
       _loggerService.printInfo(
           header, "getUserList: getting user list from firebase..");
 
-      var userListSnap = await _usersCollectionReference.get();
+      var userListSnap = await _usersCollectionReference
+          .orderBy('currentPoints', descending: true)
+          .get();
 
       final List<User> userList = userListSnap.docs.map((e) {
         Map<String, dynamic> data = e.data() as Map<String, dynamic>;
