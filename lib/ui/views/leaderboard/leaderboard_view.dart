@@ -70,7 +70,7 @@ class LeaderboardView extends StackedView<LeaderboardViewModel> {
                                               DataColumn(
                                                 label: Expanded(
                                                   child: Text(
-                                                    'Top 100 User \nAll Time',
+                                                    'Top 100 User \nAll Time\n',
                                                     style: kcTitleText,
                                                   ),
                                                 ),

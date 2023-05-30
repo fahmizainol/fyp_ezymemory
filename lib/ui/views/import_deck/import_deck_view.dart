@@ -1,6 +1,7 @@
 import 'package:easy_search_bar/easy_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:fyp_ezymemory/ui/common/app_colors.dart';
+import 'package:fyp_ezymemory/ui/common/app_text.dart';
 import 'package:fyp_ezymemory/ui/common/ui_helpers.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_bottombar/em_bottombar.dart';
@@ -23,7 +24,8 @@ class ImportDeckView extends StackedView<ImportDeckViewModel> {
     return EMScaffold(
       appBar: EasySearchBar(
         // leading: Icon(Icons.abc),
-        title: Text('Import Deck', style: TextStyle(color: GFColors.WHITE)),
+        title: Text('Import Deck', style: kcAppBarText),
+        iconTheme: IconThemeData(color: Colors.white),
         searchCursorColor: GFColors.WHITE,
         // foregroundColor: GFColors.DARK,
         searchBackgroundColor: GFColors.WHITE,
@@ -36,65 +38,80 @@ class ImportDeckView extends StackedView<ImportDeckViewModel> {
       // backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 0.0),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
           child: Column(
             // mainAxisSize: MainAxisSize.max,
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              verticalSpaceTiny,
-              Column(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(15, 0, 0, 10),
-                    // child: GFTypography(
-                    //   dividerColor: GFColors.WHITE,
-                    //   type: GFTypographyType.typo2,
-                    //   text: "Shared Decks",
-                    //   textColor: GFColors.WHITE,
-                    // ),
+              // verticalSpaceMedium,
+              Expanded(
+                flex: 1,
+                child: Container(
+                  width: 400,
+                  height: 300,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    color: kcCardColor,
                   ),
-                  // Container(
-                  //   height: 70,
-                  //   width: 200,
-                  //   child: EasySearchBar(
-                  //     // leading: Icon(Icons.abc),
-                  //     title: Text('ff'),
-                  //     onSearch: (value) {},
-                  //     backgroundColor: GFColors.WHITE,
-                  //   ),
-                  // ),
-                  SizedBox(
-                    height: 500,
-                    child: viewModel.isBusy
-                        ? const EMCircular()
-                        : ListView.builder(
-                            itemCount: viewModel.fetchedDeckList?.length,
-                            scrollDirection: Axis.vertical,
-                            shrinkWrap: true,
-                            itemBuilder: ((context, index) {
-                              return GFListTile(
-                                  icon: IconButton(
-                                    icon: Icon(Icons.add),
-                                    onPressed: () async {
-                                      await viewModel.importDeck(
-                                          viewModel.fetchedDeckList![index]);
-                                      // Navigator.pop(context);
-                                    },
+                  child: viewModel.isBusy
+                      ? const EMCircular()
+                      : Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                              // mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                verticalSpaceSmall,
+                                DataTable(
+                                  columns: const <DataColumn>[
+                                    DataColumn(
+                                      label: Expanded(
+                                        child: Text(
+                                          'Community Deck                                ',
+                                          style: kcTitleText,
+                                        ),
+                                      ),
+                                    ),
+                                    DataColumn(
+                                      label: Expanded(
+                                        child: Text(
+                                          '',
+                                          style: kcTitleText,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                  // REF: https://api.flutter.dev/flutter/material/DataTable-class.html
+                                  rows: List<DataRow>.generate(
+                                    viewModel.fetchedDeckListLength,
+                                    (int index) => DataRow(
+                                      // color: MaterialStateProperty.resolveWith<
+                                      //     Color?>((Set<MaterialState> states) {
+                                      //   return kcCardColor;
+                                      //   // Use default value for other states and odd rows.
+                                      // }),
+                                      cells: <DataCell>[
+                                        DataCell(Text(
+                                            '${viewModel.fetchedDeckList?[index].name}',
+                                            style: kcNormalText)),
+                                        DataCell(IconButton(
+                                          color: Colors.amber,
+                                          icon: Icon(Icons.add),
+                                          onPressed: () {
+                                            viewModel.importDeck(viewModel
+                                                .fetchedDeckList![index]);
+                                          },
+                                        )),
+                                      ],
+                                    ),
                                   ),
-                                  color: GFColors.LIGHT,
-                                  // margin: EdgeInsets.fromLTRB(0, -5, 0, -10),
-                                  shadow: BoxShadow(blurRadius: 0),
-                                  // title: Text('tes'),
-                                  titleText:
-                                      viewModel.fetchedDeckList?[index].name ??
-                                          "",
-                                  subTitleText: viewModel
-                                          .fetchedDeckList?[index].category ??
-                                      "");
-                            })),
-                  )
-                ],
+                                ),
+                                // verticalSpaceMassive,
+                              ]),
+                        ),
+                ),
               ),
+              verticalSpaceTiny,
             ],
           ),
         ),

@@ -28,9 +28,9 @@ class HomeView extends StackedView<HomeViewModel> {
     // viewModel.stream();
     // print(viewModel.fetchedUser?.username.toString());
     return EMScaffold(
-      floatingButton: FloatingActionButton.small(onPressed: () {
-        viewModel.addPoints(0);
-      }),
+      // floatingButton: FloatingActionButton.small(onPressed: () {
+      //   viewModel.addPoints(0);
+      // }),
       appBar: EMAppBar(
           title: viewModel.isBusy
               ? "Welcome, !"
@@ -63,87 +63,83 @@ class HomeView extends StackedView<HomeViewModel> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 verticalSpaceSmall,
-                                DataTable(
-                                  columns: const <DataColumn>[
-                                    DataColumn(
-                                      label: Expanded(
-                                        child: Text(
-                                          'Your Deck',
-                                          style: kcTitleText,
+                                Expanded(
+                                  flex: 5,
+                                  child: DataTable(
+                                    columns: const <DataColumn>[
+                                      DataColumn(
+                                        label: Expanded(
+                                          child: Text(
+                                            'Your Deck                                   ',
+                                            style: kcTitleText,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    DataColumn(
-                                      label: Expanded(
-                                        child: Text(
-                                          '',
-                                          style: kcTitleText,
+                                      DataColumn(
+                                        label: Expanded(
+                                          child: Text(
+                                            '',
+                                            style: kcTitleText,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                  // REF: https://api.flutter.dev/flutter/material/DataTable-class.html
-                                  rows: List<DataRow>.generate(
-                                    viewModel.fetchedUserDeckListLength,
-                                    (int index) => DataRow(
-                                      // color: MaterialStateProperty.resolveWith<
-                                      //     Color?>((Set<MaterialState> states) {
-                                      //   return kcCardColor;
-                                      //   // Use default value for other states and odd rows.
-                                      // }),
-                                      cells: <DataCell>[
-                                        DataCell(Text(
-                                            '${viewModel.fetchedUserDeckList?[index].name}',
-                                            style: kcNormalText)),
-                                        DataCell(
-                                          PopupMenuButton<int>(
-                                              color: Colors.amber,
-                                              position: PopupMenuPosition.under,
-                                              onSelected: (int value) {
-                                                viewModel.popupMenuLogic(
-                                                    value,
-                                                    viewModel
-                                                            .fetchedUserDeckList?[
-                                                                index]
-                                                            .id ??
-                                                        "",
-                                                    viewModel
-                                                            .fetchedUserDeckList?[
-                                                                index]
-                                                            .name ??
-                                                        "");
-                                              },
-                                              itemBuilder: (context) => [
-                                                    const PopupMenuItem<int>(
-                                                        value: 0,
-                                                        child:
-                                                            Text("Edit deck")),
-                                                    const PopupMenuItem<int>(
-                                                        value: 1,
-                                                        child: Text(
-                                                            "Delete deck")),
-                                                    const PopupMenuItem<int>(
-                                                        value: 3,
-                                                        child:
-                                                            Text("Add cards")),
-                                                    const PopupMenuItem<int>(
-                                                        value: 4,
-                                                        child:
-                                                            Text("Study deck")),
-                                                  ]),
-                                        ),
-                                      ],
-                                      // selected: selected[index],
-                                      // onSelectChanged: (bool? value) {
-                                      //   setState(() {
-                                      //     selected[index] = value!;
-                                      //   });
-                                      // },
+                                    ],
+                                    // REF: https://api.flutter.dev/flutter/material/DataTable-class.html
+                                    rows: List<DataRow>.generate(
+                                      viewModel.fetchedUserDeckListLength,
+                                      (int index) => DataRow(
+                                        // color: MaterialStateProperty.resolveWith<
+                                        //     Color?>((Set<MaterialState> states) {
+                                        //   return kcCardColor;
+                                        //   // Use default value for other states and odd rows.
+                                        // }),
+                                        cells: <DataCell>[
+                                          DataCell(Text(
+                                              '${viewModel.fetchedUserDeckList?[index].name}',
+                                              style: kcNormalText)),
+                                          DataCell(
+                                            PopupMenuButton<int>(
+                                                color: Colors.amber,
+                                                position:
+                                                    PopupMenuPosition.under,
+                                                onSelected: (int value) {
+                                                  viewModel.popupMenuLogic(
+                                                      value,
+                                                      viewModel
+                                                              .fetchedUserDeckList?[
+                                                                  index]
+                                                              .id ??
+                                                          "",
+                                                      viewModel
+                                                              .fetchedUserDeckList?[
+                                                                  index]
+                                                              .name ??
+                                                          "");
+                                                },
+                                                itemBuilder: (context) => [
+                                                      const PopupMenuItem<int>(
+                                                          value: 0,
+                                                          child: Text(
+                                                              "Edit deck")),
+                                                      const PopupMenuItem<int>(
+                                                          value: 1,
+                                                          child: Text(
+                                                              "Delete deck")),
+                                                      const PopupMenuItem<int>(
+                                                          value: 3,
+                                                          child: Text(
+                                                              "Add cards")),
+                                                      const PopupMenuItem<int>(
+                                                          value: 4,
+                                                          child: Text(
+                                                              "Study deck")),
+                                                    ]),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
-                                verticalSpaceMassive,
-                                verticalSpaceMassive,
                                 // verticalSpaceMassive,
                                 Row(
                                   mainAxisAlignment:
@@ -158,9 +154,7 @@ class HomeView extends StackedView<HomeViewModel> {
                                       onPressed: viewModel.toImportDeckView,
                                       child: const Text(
                                         'Import Deck +',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                        ),
+                                        style: kcNormalText,
                                       ),
                                     ),
                                     GFButton(
@@ -168,9 +162,7 @@ class HomeView extends StackedView<HomeViewModel> {
                                       onPressed: viewModel.toCreateDeckView,
                                       child: const Text(
                                         'Create Deck +',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                        ),
+                                        style: kcNormalText,
                                       ),
                                     ),
                                   ],
@@ -180,97 +172,6 @@ class HomeView extends StackedView<HomeViewModel> {
                 ),
               ),
               verticalSpaceTiny,
-              // Column(
-              //   children: [
-
-              // SizedBox(
-              //   height: 500,
-              //   child: viewModel.isBusy
-              //       ? const EMCircular()
-              //       : ListView.builder(
-              //           key: UniqueKey(),
-              //           itemCount: viewModel.fetchedUserDeckList?.length,
-              //           scrollDirection: Axis.vertical,
-              //           shrinkWrap: true,
-              //           itemBuilder: ((context, index) {
-              //             // key:
-              //             // viewModel.fetchedUserDeckList?[index].id;
-              //             return GFListTile(
-              //                 icon: PopupMenuButton<int>(
-              //                     position: PopupMenuPosition.under,
-              //                     onSelected: (int value) {
-              //                       viewModel.popupMenuLogic(
-              //                           value,
-              //                           viewModel
-              //                                   .fetchedUserDeckList?[index]
-              //                                   .id ??
-              //                               "",
-              //                           viewModel
-              //                                   .fetchedUserDeckList?[index]
-              //                                   .name ??
-              //                               "");
-              //                     },
-              //                     itemBuilder: (context) => [
-              //                           const PopupMenuItem<int>(
-              //                               value: 0,
-              //                               child: Text("Edit deck")),
-              //                           const PopupMenuItem<int>(
-              //                               value: 1,
-              //                               child: Text("Delete deck")),
-              //                           const PopupMenuItem<int>(
-              //                               value: 2,
-              //                               child: Text("Share deck")),
-              //                           const PopupMenuItem<int>(
-              //                               value: 3,
-              //                               child: Text("Add cards")),
-              //                           const PopupMenuItem<int>(
-              //                               value: 4,
-              //                               child: Text("Study deck")),
-              //                         ]),
-              //                 color: GFColors.LIGHT,
-              //                 // margin: EdgeInsets.fromLTRB(0, -5, 0, -10),
-              //                 shadow: BoxShadow(blurRadius: 0),
-              //                 // title: Text('tes'),
-              //                 titleText: viewModel
-              //                         .fetchedUserDeckList?[index].name ??
-              //                     "",
-              //                 subTitleText: viewModel
-              //                         .fetchedUserDeckList?[index]
-              //                         .category ??
-              //                     "");
-              //           })),
-              // )
-              //   ],
-              // ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     GFButton(
-              //       color: kcDarkGreyColor,
-              //       // onPressed: () async {
-              //       //   Navigator.pushNamed(context, Routes.importDeckView)
-              //       //       .then((_) => viewModel.initialise());
-              //       // },
-              //       onPressed: viewModel.toImportDeckView,
-              //       child: const Text(
-              //         'Import Deck +',
-              //         style: TextStyle(
-              //           color: Colors.white,
-              //         ),
-              //       ),
-              //     ),
-              //     GFButton(
-              //       color: kcDarkGreyColor,
-              //       onPressed: viewModel.toCreateDeckView,
-              //       child: const Text(
-              //         'Create Deck +',
-              //         style: TextStyle(
-              //           color: Colors.white,
-              //         ),
-              //       ),
-              //     ),
-              //   ],
-              // )
             ],
           ),
         ),

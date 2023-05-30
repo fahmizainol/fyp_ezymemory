@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:fyp_ezymemory/ui/common/app_text.dart';
 import 'package:fyp_ezymemory/ui/common/ui_helpers.dart';
 import 'package:fyp_ezymemory/ui/views/create_deck/create_deck_view.form.dart';
 import 'package:fyp_ezymemory/ui/views/edit_deck/edit_deck_viewmodel.dart';
@@ -44,17 +45,18 @@ class EditDeckView extends StackedView<EditDeckViewModel> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         verticalSpaceMedium,
-                        const GFTypography(
-                            text: "Please edit the deck name and category",
-                            textColor: GFColors.WHITE,
-                            showDivider: false),
+                        const Text(
+                          'Please edit the deck name and category',
+                          style: kcTitleText,
+                        ),
                         verticalSpaceMedium,
                         FormBuilderTextField(
-                          style: const TextStyle(color: GFColors.WHITE),
+                          // enabled: false,
+                          style: kcNormalText,
                           // initialValue: viewModel.isBusy ? "" : viewModel.deckName,
                           decoration: const InputDecoration(
-                            labelText: 'Deck Name',
-                            labelStyle: TextStyle(color: GFColors.WHITE),
+                            labelText: 'Deck Name:',
+                            labelStyle: kcNormalText,
                             // fillColor: GFColors.WHITE,
 
                             filled: true,
@@ -77,8 +79,8 @@ class EditDeckView extends StackedView<EditDeckViewModel> {
                           initialValue: viewModel.currentDropdownValue,
                           name: 'category',
                           decoration: const InputDecoration(
-                            labelText: 'Category',
-                            labelStyle: TextStyle(color: GFColors.WHITE),
+                            labelText: 'Category:',
+                            labelStyle: kcNormalText,
                             // fillColor: GFColors.WHITE,
 
                             filled: true,
@@ -99,7 +101,10 @@ class EditDeckView extends StackedView<EditDeckViewModel> {
                               .map((gender) => DropdownMenuItem(
                                     // alignment: Alignment.bottomLeft,
                                     value: gender,
-                                    child: Text(gender),
+                                    child: Text(
+                                      gender,
+                                      style: kcNormalText,
+                                    ),
                                   ))
                               .toList(),
                           onChanged: (val) {
@@ -125,13 +130,30 @@ class EditDeckView extends StackedView<EditDeckViewModel> {
                           //     color: GFColors.WHITE,
                           //   ),
                           title: GFTypography(
-                              text: '   Share deck?',
+                              text: '   Share deck?:',
                               showDivider: false,
                               textColor: GFColors.WHITE,
                               type: GFTypographyType.typo5,
                               fontWeight: FontWeight.normal),
                         ),
                         verticalSpaceMedium,
+                        FormBuilderTextField(
+                          style: kcNormalText,
+                          // initialValue: viewModel.isBusy ? "" : viewModel.deckName,
+                          decoration: const InputDecoration(
+                            labelText: 'Deck Count:',
+                            labelStyle: TextStyle(color: GFColors.WHITE),
+                            // fillColor: GFColors.WHITE,
+
+                            filled: true,
+                            // suffixIcon: _ageHasError
+                            //     ? const Icon(Icons.error, color: Colors.red)
+                            //     : const Icon(Icons.check, color: Colors.green),
+                          ),
+                          name: 'deckCount',
+                          initialValue: viewModel.deckCount.toString(),
+                          enabled: false,
+                        ),
                         GFButton(
                           textColor: GFColors.DARK,
                           color: GFColors.LIGHT,

@@ -10,12 +10,14 @@ class ImportDeckViewModel extends FutureViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
 
   List<Deck>? fetchedDeckList;
+  int fetchedDeckListLength = 0;
 
   @override
   Future futureToRun() => getDeckList();
 
   Future getDeckList() async {
     fetchedDeckList = await _firestoreService.getSharedDeckList();
+    fetchedDeckListLength = fetchedDeckList!.length;
   }
 
   Future importDeck(Deck importedDeck) async {

@@ -23,6 +23,7 @@ class EditDeckViewModel extends FutureViewModel {
   Deck? fetchedDeck;
   String? currentDropdownValue;
   String? deckName;
+  int deckCount = 0;
   bool isShared = false;
 
   @override
@@ -31,6 +32,7 @@ class EditDeckViewModel extends FutureViewModel {
   Future getDeckById(String deckId) async {
     try {
       fetchedDeck = await _firestoreService.getDeckById(deckId);
+      deckCount = await _firestoreService.getFlashcardsCountByDeckId(deckId);
       deckName = fetchedDeck!.name;
       currentDropdownValue = fetchedDeck!.category;
       isShared = fetchedDeck!.isShared;

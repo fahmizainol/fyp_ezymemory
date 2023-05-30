@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fyp_ezymemory/app/app.locator.dart';
 import 'package:fyp_ezymemory/models/Flashcard/Flashcard.dart';
 import 'package:fyp_ezymemory/services/firestore_service.dart';
+import 'package:fyp_ezymemory/services/point_service.dart';
 import 'package:fyp_ezymemory/services/sm2_service.dart';
 import 'package:fyp_ezymemory/services/spacedr_service.dart';
 import 'package:spaced_repetition/SmResponse.dart';
@@ -16,6 +17,7 @@ class SessionLearningViewModel extends FutureViewModel {
   final FirestoreService _firestoreService = locator<FirestoreService>();
   final DialogService _dialogService = locator<DialogService>();
   final Sm2Service _sm2Service = locator<Sm2Service>();
+  final PointService _pointService = locator<PointService>();
 
   // final Sm sm = Sm();
 
@@ -50,11 +52,6 @@ class SessionLearningViewModel extends FutureViewModel {
         .where((element) => element.status.contains("review"))
         .toList()
         .length;
-
-    // int count = await _firestoreService.checkFreshInUserStackCount(deckId);
-    // print(count);
-
-    // fetchedFlashcardsList!.sort((a, b) => a.reviewTime.compareTo(b.reviewTime));
   }
 
   Future updateFlashcard(int quality) async {
@@ -70,12 +67,8 @@ class SessionLearningViewModel extends FutureViewModel {
     DateTime currTime = DateTime.now();
     DateTime currDateOnly = currTime.copyWith(hour: 0, minute: 0, second: 0);
 
-    print(currDateOnly);
-
     Timestamp reviewTime = Timestamp.fromDate(
         currDateOnly.add(Duration(days: smResponse.interval)));
-
-    print(reviewTime);
 
     // update database
     await _firestoreService.updateFlashcardById(
@@ -92,35 +85,22 @@ class SessionLearningViewModel extends FutureViewModel {
     nextCard();
   }
 
-  // TODO: fetch 20 fresh cards and all due cards every single day.
-  // - store userLastLogin timestamp
-  // - compare with current time
-
-  // - use local storage store 20 cards
-  // - if < 20 cards then make request to firebase
-
-  // - add bool inUserStack in flashcards collection to indicate whether the card is curr inside the user stack
-  // - say user finishes 10/20 fresh cards, the next day they login check inUserStack < 20 (10). then fetch the next non-review 10 from firebase\
-  // - only when user clicks on 'study deck'
-  // - add fetchTime for the card to compare and check how many days have passed since last fetch. e.g: fetchTime 20/5, user log in 22/5.
-  //   2 days have passed. there should be 40 cards added.
-
-  // - store lastLoginTime in deck
-  // - if (timestamp.now() - lastLoginTime >= 1 day)
-  // - fetch limit - requiredCountToReachLimit
-
   void showAns() {
     frontVisible = false;
     rebuildUi();
   }
 
-  void nextCard() {
+  Future nextCard() async {
     if (count < (fetchedFlashcardsList!.length - 1)) {
       count++;
       frontVisible = true;
       rebuildUi();
     } else {
-      _dialogService.showDialog(title: 'your last card!');
+      // TODO add points to the user
+      await _pointService.addPoints(1);
+      _dialogService.showDialog(
+          title:
+              'Congrats you have received 400pts for finishing the learning session for today!');
     }
   }
 

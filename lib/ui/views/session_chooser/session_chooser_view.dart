@@ -76,7 +76,9 @@ class SessionChooserView extends StackedView<SessionChooserViewModel> {
                                 children: [
                                   GFButton(
                                     // color: Colors.,
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      viewModel.toSessionLearningView(deckId);
+                                    },
                                     text: 'START LEARNING >',
                                     textStyle: kcNormalText,
                                   ),

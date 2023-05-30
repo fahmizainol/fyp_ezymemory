@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fyp_ezymemory/ui/common/app_colors.dart';
+import 'package:fyp_ezymemory/ui/common/app_text.dart';
 import 'package:fyp_ezymemory/ui/common/ui_helpers.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_bottombar/em_bottombar.dart';
@@ -51,9 +52,7 @@ class ProgressView extends StackedView<ProgressViewModel> {
                               verticalSpaceMedium,
                               const Text(
                                 'Current Points',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
+                                style: kcTitleText,
                               ),
                               verticalSpaceMedium,
                               Container(
@@ -72,9 +71,7 @@ class ProgressView extends StackedView<ProgressViewModel> {
                                 child: Center(
                                   child: Text(
                                     '${viewModel.fetchedUser!.currentPoints.toString()}',
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                    ),
+                                    style: kcTitleText,
                                   ),
                                 ),
                               ),

@@ -606,6 +606,20 @@ class FirestoreService {
     }
   }
 
+  Future getFlashcardsCountByDeckId(String deckId) async {
+    try {
+      var flashcardSnap = await _decksCollectionReference
+          .doc(deckId)
+          .collection('flashcards')
+          .count()
+          .get();
+
+      int flashcardsCount = flashcardSnap.count;
+
+      return flashcardsCount;
+    } catch (e) {}
+  }
+
   Future checkFreshFetch(String deckId) async {
     try {
       // TODO: if (count<limit)
@@ -646,9 +660,10 @@ class FirestoreService {
       // }
 
       // print(limit);
-      _loggerService.printInfo(
-          header, "checkFreshFetch:  flashcard limit for $deckId is $limit");
-      if (limit == 0 || duration.inDays >= 1)
+      _loggerService.printInfo(header,
+          "checkFreshFetch: limit is $limit and duration is ${duration.inDays}");
+      if (limit == 0 && duration.inDays >= 1) return true;
+      if (duration.inDays >= 1)
         return true;
       else
         return false;
