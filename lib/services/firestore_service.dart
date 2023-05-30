@@ -138,6 +138,7 @@ class FirestoreService {
         isShared: false,
         category: category,
         flashcard: "",
+        lastFetchedTime: DateTime.now(),
       );
       // var userGet = await getUser(uid);
       await _decksCollectionReference.doc(deck.id).set(deck.toJson());
@@ -331,6 +332,10 @@ class FirestoreService {
     } catch (e) {}
   }
 
+  Future calculateTimeDifference(String deckId) async {
+    // calculate time
+  }
+
   /// ===========================================================================
   ///                            FLASHCARD
   /// ===========================================================================
@@ -413,8 +418,11 @@ class FirestoreService {
       _loggerService.printInfo(
           header, "getFlashcardList: getting flashcard list $deckId ...");
 
-      // TODO: if (count<limit)
-      //          if (date has changed from lastFetchTime)
+      // freshLimit = await getFlashcardLimit(deckId);
+      // print('getFlashcardListbyId $freshLimit');
+
+      // if (freshLimit == 0 )
+      // TODO: update Deck lastFetchedTime
 
       var reviewFlashcardListSnap = await _decksCollectionReference
           .doc(deckId)
@@ -425,14 +433,31 @@ class FirestoreService {
           // .where('repetitions', isNotEqualTo: 0)
           .get();
 
+      // FIXME: order of cards got mixed up
+
+      // var inUserStackCount = await getFlashcardLimit(deckId);
+      // var freshFlashcardListSnap;
+
       var freshFlashcardListSnap = await _decksCollectionReference
           .doc(deckId)
           .collection('flashcards')
+          // .orderBy('reviewTime', descending: false)
           .where('status', isEqualTo: 'fresh')
-          .limit(freshLimit)
+          .where('inUserStack', isEqualTo: true)
           .get();
 
-      // TODO: set the inUserStack = freshLimit in Deck to firebase
+      // IDEA: if count for freshInsuserStack = 0 then fetch new ones need to finish the 20 first
+
+      //IDEA:  if more than a day then just simply fetch 20 casrds no need to check for anyrthinmg
+
+      // if (freshInUserStackFlashcardListSnap.count < 20) {
+
+      // }
+
+      // fetch freshInUserStackFlashcardList
+      // TODO: first fetch fresh inUserStack from
+      // if count < 20 && > 1 day
+      // fetch fresh card where freshCount = 20-  freshInUserStackCount
 
       final List<Flashcard> reviewFlashcards =
           reviewFlashcardListSnap.docs.map((e) {
@@ -452,7 +477,100 @@ class FirestoreService {
         return flashcardModel;
       }).toList();
 
-      final List<Flashcard> freshFlashcards =
+      final List<Flashcard> freshInUserStackFlashcard =
+          freshFlashcardListSnap.docs.map((e) {
+        Map<String, dynamic> data = e.data() as Map<String, dynamic>;
+        Flashcard flashcardModel = Flashcard.fromJson(data);
+        return flashcardModel;
+      }).toList();
+
+      _loggerService.printInfo(header,
+          "getFlashcardList: getting due review flashcard list success! ${reviewFlashcards.toString()}");
+
+      _loggerService.printInfo(header,
+          "getFlashcardList: getting fresh flashcard list success! ${freshInUserStackFlashcard.toString()}");
+
+      // combine the lists
+      final List<Flashcard> flashcards = [
+        ...reviewFlashcards,
+        ...freshInUserStackFlashcard
+      ];
+
+      _loggerService.printInfo(header,
+          "getFlashcardList: getting session flashcard list success! ${flashcards.toString()}");
+
+      return flashcards;
+    } catch (e) {
+      final List<Flashcard> emptyFlashcard = [];
+      return emptyFlashcard;
+    }
+  }
+
+  Future getFreshFlashcardListById(String deckId, {int freshLimit = 3}) async {
+    try {
+      _loggerService.printInfo(header,
+          "getFreshFlashcardListById: getting flashcard list $deckId ...");
+
+      // freshLimit = await getFlashcardLimit(deckId);
+      // print('getFlashcardListbyId $freshLimit');
+
+      // if (freshLimit == 0 )
+      // TODO: update Deck lastFetchedTime
+
+      var reviewFlashcardListSnap = await _decksCollectionReference
+          .doc(deckId)
+          .collection('flashcards')
+          .where('status', isEqualTo: 'review')
+          // .where('reviewTime', isLessThan: Timestamp.now())
+          .where('reviewTime', isLessThanOrEqualTo: Timestamp.now())
+          // .where('repetitions', isNotEqualTo: 0)
+          .get();
+
+      // FIXME: order of cards got mixed up
+
+      // var inUserStackCount = await getFlashcardLimit(deckId);
+      // var freshFlashcardListSnap;
+
+      var freshFlashcardListSnap = await _decksCollectionReference
+          .doc(deckId)
+          .collection('flashcards')
+          // .orderBy('reviewTime', descending: false)
+          .where('status', isEqualTo: 'fresh')
+          .limit(freshLimit)
+          .get();
+
+      // IDEA: if count for freshInsuserStack = 0 then fetch new ones need to finish the 20 first
+
+      //IDEA:  if more than a day then just simply fetch 20 casrds no need to check for anyrthinmg
+
+      // if (freshInUserStackFlashcardListSnap.count < 20) {
+
+      // }
+
+      // fetch freshInUserStackFlashcardList
+      // TODO: first fetch fresh inUserStack from
+      // if count < 20 && > 1 day
+      // fetch fresh card where freshCount = 20-  freshInUserStackCount
+
+      final List<Flashcard> reviewFlashcards =
+          reviewFlashcardListSnap.docs.map((e) {
+        Map<String, dynamic> data = e.data() as Map<String, dynamic>;
+        // set inUserStack to true and update to firebase
+        data["inUserStack"] = true;
+        updateFlashcardById(
+            inUserStack: true,
+            status: 'review',
+            deckId: deckId,
+            flashcardId: data["id"],
+            reviewTime: data["reviewTime"],
+            easeFactor: data["easeFactor"],
+            interval: data["interval"],
+            repetitions: data["repetitions"]);
+        Flashcard flashcardModel = Flashcard.fromJson(data);
+        return flashcardModel;
+      }).toList();
+
+      final List<Flashcard> freshInUserStackFlashcard =
           freshFlashcardListSnap.docs.map((e) {
         Map<String, dynamic> data = e.data() as Map<String, dynamic>;
         data["inUserStack"] = true;
@@ -466,29 +584,79 @@ class FirestoreService {
             interval: data["interval"],
             repetitions: data["repetitions"]);
         Flashcard flashcardModel = Flashcard.fromJson(data);
+
         return flashcardModel;
       }).toList();
 
       _loggerService.printInfo(header,
-          "getFlashcardList: getting due review flashcard list success! ${reviewFlashcards.toString()}");
+          "getFreshFlashcardListById: getting due review flashcard list success! ${reviewFlashcards.toString()}");
 
       _loggerService.printInfo(header,
-          "getFlashcardList: getting fresh flashcard list success! ${freshFlashcards.toString()}");
+          "getFreshFlashcardListById: getting fresh flashcard list success! ${freshInUserStackFlashcard.toString()}");
 
       // combine the lists
       final List<Flashcard> flashcards = [
         ...reviewFlashcards,
-        ...freshFlashcards
+        ...freshInUserStackFlashcard
       ];
 
       _loggerService.printInfo(header,
-          "getFlashcardList: getting session flashcard list success! ${flashcards.toString()}");
+          "getFreshFlashcardListById: getting session flashcard list success! ${flashcards.toString()}");
 
       return flashcards;
     } catch (e) {
       final List<Flashcard> emptyFlashcard = [];
       return emptyFlashcard;
     }
+  }
+
+  Future checkFreshFetch(String deckId) async {
+    try {
+      // TODO: if (count<limit)
+      // if inUserStack = 20 dont refetch
+      // if inUserStack < 20 refetch && DateTime.now() - lastFetchedTime > 1 day refetch. eg: inUserStack = 15 and already > 1 day, refetch 5 more cards to make it 20
+      // if inUserStack < 20 refetch && DateTime.now() - lastFetchedTime < 1 day dont refetch. eg: inUserStack = 15 but < 1day, fetch only the 15
+
+      _loggerService.printInfo(
+          header, "checkFreshFetch: getting flashcard limit for $deckId");
+
+      var freshFlashcardListSnap = await _decksCollectionReference
+          .doc(deckId)
+          .collection('flashcards')
+          .where('status', isEqualTo: 'fresh')
+          .where('inUserStack', isEqualTo: true)
+          .count()
+          .get();
+
+      _loggerService.printInfo(header,
+          "checkFreshFetch: gfreshFlashcardListSnap.count ${freshFlashcardListSnap.count}");
+
+      // if (freshFlashcardListSnap.count == 0) {
+      //   return 10; // FIXME hardcoded change it later
+      // }
+      int limit = freshFlashcardListSnap.count;
+
+      // TODO: Add date checking
+
+      // Deck currentDeck = await getDeckById(deckId);
+
+      // Duration duration =
+      //     DateTime.now().difference(currentDeck.lastFetchedTime);
+
+      // print(duration.inDays);
+      // print(limit);
+      // if (duration.inDays >= 1) {
+      //   limit = 20;
+      // }
+
+      // print(limit);
+      _loggerService.printInfo(
+          header, "checkFreshFetch:  flashcard limit for $deckId is $limit");
+      if (limit == 0)
+        return true;
+      else
+        return false;
+    } catch (e) {}
   }
 
   Future updateFlashcardById({

@@ -25,7 +25,7 @@ class ProgressView extends StackedView<ProgressViewModel> {
       // backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
           child: Column(
             // mainAxisSize: MainAxisSize.max,
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -34,6 +34,13 @@ class ProgressView extends StackedView<ProgressViewModel> {
               Expanded(
                 flex: 1,
                 child: Container(
+                  width: 350,
+                  height: 300,
+                  // child: Text('fff'),
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    color: Colors.blueGrey.withOpacity(0.25),
+                  ),
                   child: viewModel.isBusy
                       ? const EMCircular()
                       : Column(
@@ -41,7 +48,7 @@ class ProgressView extends StackedView<ProgressViewModel> {
                           // mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                               verticalSpaceMedium,
-                              Text(
+                              const Text(
                                 'Current Points',
                                 style: TextStyle(
                                   color: Colors.white,
@@ -64,20 +71,13 @@ class ProgressView extends StackedView<ProgressViewModel> {
                                 child: Center(
                                   child: Text(
                                     '${viewModel.fetchedUser!.currentPoints.toString()}',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.white,
                                     ),
                                   ),
                                 ),
                               ),
                             ]),
-                  width: 350,
-                  height: 300,
-                  // child: Text('fff'),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    color: Colors.blueGrey.withOpacity(0.25),
-                  ),
                 ),
               ),
               verticalSpaceMedium,
@@ -85,7 +85,7 @@ class ProgressView extends StackedView<ProgressViewModel> {
                 flex: 1,
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
                     color: Colors.blueGrey.withOpacity(0.25),
                   ),
                 ),

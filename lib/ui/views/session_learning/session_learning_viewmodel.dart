@@ -30,8 +30,17 @@ class SessionLearningViewModel extends FutureViewModel {
   Future futureToRun() => getFlashcardsList(deckId);
 
   Future getFlashcardsList(String deckId) async {
-    fetchedFlashcardsList =
-        await _firestoreService.getFlashcardListById(deckId);
+    var checkFreshFetch = await _firestoreService.checkFreshFetch(deckId);
+
+    if (checkFreshFetch) {
+      print('if');
+      fetchedFlashcardsList =
+          await _firestoreService.getFreshFlashcardListById(deckId);
+    } else {
+      print('e;se');
+      fetchedFlashcardsList =
+          await _firestoreService.getFlashcardListById(deckId);
+    }
 
     freshFlashcardsCount = fetchedFlashcardsList!
         .where((element) => element.status.contains("fresh"))
@@ -96,7 +105,7 @@ class SessionLearningViewModel extends FutureViewModel {
   // - add fetchTime for the card to compare and check how many days have passed since last fetch. e.g: fetchTime 20/5, user log in 22/5.
   //   2 days have passed. there should be 40 cards added.
 
-  // - store lastLoginTime in User
+  // - store lastLoginTime in deck
   // - if (timestamp.now() - lastLoginTime >= 1 day)
   // - fetch limit - requiredCountToReachLimit
 

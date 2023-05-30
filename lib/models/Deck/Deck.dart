@@ -17,6 +17,7 @@ class Deck with _$Deck {
     required bool isShared,
     required String category,
     required String flashcard,
+    required DateTime lastFetchedTime,
   }) = _Deck;
 
   factory Deck.fromJson(Map<String, Object?> json) => _$DeckFromJson(json);

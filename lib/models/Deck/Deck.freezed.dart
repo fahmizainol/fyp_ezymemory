@@ -27,6 +27,7 @@ mixin _$Deck {
   bool get isShared => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
   String get flashcard => throw _privateConstructorUsedError;
+  DateTime get lastFetchedTime => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,7 +46,8 @@ abstract class $DeckCopyWith<$Res> {
       DateTime createDate,
       bool isShared,
       String category,
-      String flashcard});
+      String flashcard,
+      DateTime lastFetchedTime});
 }
 
 /// @nodoc
@@ -68,6 +70,7 @@ class _$DeckCopyWithImpl<$Res, $Val extends Deck>
     Object? isShared = null,
     Object? category = null,
     Object? flashcard = null,
+    Object? lastFetchedTime = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -98,6 +101,10 @@ class _$DeckCopyWithImpl<$Res, $Val extends Deck>
           ? _value.flashcard
           : flashcard // ignore: cast_nullable_to_non_nullable
               as String,
+      lastFetchedTime: null == lastFetchedTime
+          ? _value.lastFetchedTime
+          : lastFetchedTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ) as $Val);
   }
 }
@@ -115,7 +122,8 @@ abstract class _$$_DeckCopyWith<$Res> implements $DeckCopyWith<$Res> {
       DateTime createDate,
       bool isShared,
       String category,
-      String flashcard});
+      String flashcard,
+      DateTime lastFetchedTime});
 }
 
 /// @nodoc
@@ -134,6 +142,7 @@ class __$$_DeckCopyWithImpl<$Res> extends _$DeckCopyWithImpl<$Res, _$_Deck>
     Object? isShared = null,
     Object? category = null,
     Object? flashcard = null,
+    Object? lastFetchedTime = null,
   }) {
     return _then(_$_Deck(
       id: null == id
@@ -164,6 +173,10 @@ class __$$_DeckCopyWithImpl<$Res> extends _$DeckCopyWithImpl<$Res, _$_Deck>
           ? _value.flashcard
           : flashcard // ignore: cast_nullable_to_non_nullable
               as String,
+      lastFetchedTime: null == lastFetchedTime
+          ? _value.lastFetchedTime
+          : lastFetchedTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -178,7 +191,8 @@ class _$_Deck with DiagnosticableTreeMixin implements _Deck {
       required this.createDate,
       required this.isShared,
       required this.category,
-      required this.flashcard});
+      required this.flashcard,
+      required this.lastFetchedTime});
 
   factory _$_Deck.fromJson(Map<String, dynamic> json) => _$$_DeckFromJson(json);
 
@@ -196,10 +210,12 @@ class _$_Deck with DiagnosticableTreeMixin implements _Deck {
   final String category;
   @override
   final String flashcard;
+  @override
+  final DateTime lastFetchedTime;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Deck(id: $id, user_id: $user_id, name: $name, createDate: $createDate, isShared: $isShared, category: $category, flashcard: $flashcard)';
+    return 'Deck(id: $id, user_id: $user_id, name: $name, createDate: $createDate, isShared: $isShared, category: $category, flashcard: $flashcard, lastFetchedTime: $lastFetchedTime)';
   }
 
   @override
@@ -213,7 +229,8 @@ class _$_Deck with DiagnosticableTreeMixin implements _Deck {
       ..add(DiagnosticsProperty('createDate', createDate))
       ..add(DiagnosticsProperty('isShared', isShared))
       ..add(DiagnosticsProperty('category', category))
-      ..add(DiagnosticsProperty('flashcard', flashcard));
+      ..add(DiagnosticsProperty('flashcard', flashcard))
+      ..add(DiagnosticsProperty('lastFetchedTime', lastFetchedTime));
   }
 
   @override
@@ -231,13 +248,15 @@ class _$_Deck with DiagnosticableTreeMixin implements _Deck {
             (identical(other.category, category) ||
                 other.category == category) &&
             (identical(other.flashcard, flashcard) ||
-                other.flashcard == flashcard));
+                other.flashcard == flashcard) &&
+            (identical(other.lastFetchedTime, lastFetchedTime) ||
+                other.lastFetchedTime == lastFetchedTime));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, user_id, name, createDate,
-      isShared, category, flashcard);
+      isShared, category, flashcard, lastFetchedTime);
 
   @JsonKey(ignore: true)
   @override
@@ -261,7 +280,8 @@ abstract class _Deck implements Deck {
       required final DateTime createDate,
       required final bool isShared,
       required final String category,
-      required final String flashcard}) = _$_Deck;
+      required final String flashcard,
+      required final DateTime lastFetchedTime}) = _$_Deck;
 
   factory _Deck.fromJson(Map<String, dynamic> json) = _$_Deck.fromJson;
 
@@ -279,6 +299,8 @@ abstract class _Deck implements Deck {
   String get category;
   @override
   String get flashcard;
+  @override
+  DateTime get lastFetchedTime;
   @override
   @JsonKey(ignore: true)
   _$$_DeckCopyWith<_$_Deck> get copyWith => throw _privateConstructorUsedError;
