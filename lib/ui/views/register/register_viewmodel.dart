@@ -8,7 +8,7 @@ import 'package:stacked_services/stacked_services.dart';
 class RegisterViewModel extends FormViewModel {
   final _authService = locator<AuthService>();
   final FirestoreService _firestoreService = locator<FirestoreService>();
-  final _navigationService = locator<NavigationService>();
+  final NavigationService _navigationService = locator<NavigationService>();
 
   Future<void> signUpWithEmail(
       String email, String password, String username) async {
@@ -21,6 +21,10 @@ class RegisterViewModel extends FormViewModel {
     } catch (e) {
       e.toString();
     }
+  }
+
+  void toLogInView() {
+    _navigationService.navigateToLoginView();
   }
 }
 

@@ -1,5 +1,7 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:fyp_ezymemory/ui/common/app_text.dart';
 import 'package:fyp_ezymemory/ui/views/register/register_view.form.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_scaffold.dart';
@@ -41,7 +43,6 @@ class RegisterView extends StackedView<RegisterViewModel> with $RegisterView {
     Widget? child,
   ) {
     return EMScaffold(
-      appBar: EMAppBar(title: 'EzyMemory register'),
       body: Container(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0),
         child: SingleChildScrollView(
@@ -52,22 +53,31 @@ class RegisterView extends StackedView<RegisterViewModel> with $RegisterView {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 verticalSpaceMedium,
-                const GFTypography(
-                  text: "Register",
-                  textColor: GFColors.LIGHT,
-                  type: GFTypographyType.typo2,
-                  showDivider: false,
+                Center(
+                  child: Image(image: AssetImage('images/image1.png')),
                 ),
                 verticalSpaceMedium,
+                Center(
+                  child: Text(
+                    'SIGN UP',
+                    style: kcAppBarText2,
+                  ),
+                ),
+                verticalSpaceMedium,
+                const Text(
+                  'USERNAME',
+                  style: kcNormalText2,
+                ),
+                verticalSpaceTiny,
                 FormBuilderTextField(
                   focusNode: usernameFocusNode,
-                  style: const TextStyle(color: GFColors.WHITE),
+                  style: kcNormalTextBlack,
                   controller: usernameController,
                   // initialValue: viewModel.isBusy ? "" : viewModel.deckName,
                   decoration: const InputDecoration(
-                    labelText: 'Username',
-                    labelStyle: TextStyle(color: GFColors.WHITE),
-                    // fillColor: GFColors.WHITE,
+                    hintText: 'Type username...',
+                    hintStyle: kcHintText,
+                    fillColor: GFColors.WHITE,
 
                     filled: true,
                     // suffixIcon: _ageHasError
@@ -78,15 +88,20 @@ class RegisterView extends StackedView<RegisterViewModel> with $RegisterView {
                   validator: RegisterValidators.validateUsername,
                 ),
                 verticalSpaceMedium,
+                const Text(
+                  'EMAIL',
+                  style: kcNormalText2,
+                ),
+                verticalSpaceTiny,
                 FormBuilderTextField(
                   focusNode: emailFocusNode,
-                  style: const TextStyle(color: GFColors.WHITE),
+                  style: kcNormalTextBlack,
                   controller: emailController,
                   // initialValue: viewModel.isBusy ? "" : viewModel.deckName,
                   decoration: const InputDecoration(
-                    labelText: 'Email',
-                    labelStyle: TextStyle(color: GFColors.WHITE),
-                    // fillColor: GFColors.WHITE,
+                    hintText: 'Type email...',
+                    hintStyle: kcHintText,
+                    fillColor: GFColors.WHITE,
 
                     filled: true,
                     // suffixIcon: _ageHasError
@@ -97,16 +112,21 @@ class RegisterView extends StackedView<RegisterViewModel> with $RegisterView {
                   validator: RegisterValidators.validateEmail,
                 ),
                 verticalSpaceMedium,
+                const Text(
+                  'PASSWORD',
+                  style: kcNormalText2,
+                ),
+                verticalSpaceTiny,
                 FormBuilderTextField(
                   focusNode: passwordFocusNode,
-                  style: const TextStyle(color: GFColors.WHITE),
+                  style: kcNormalTextBlack,
                   controller: passwordController,
                   // initialValue: viewModel.isBusy ? "" : viewModel.deckName,
                   obscureText: true,
                   decoration: const InputDecoration(
-                    labelText: 'Password',
-                    labelStyle: TextStyle(color: GFColors.WHITE),
-                    // fillColor: GFColors.WHITE,
+                    hintText: 'Type password...',
+                    hintStyle: kcHintText,
+                    fillColor: GFColors.WHITE,
 
                     filled: true,
                     // suffixIcon: _ageHasError
@@ -117,16 +137,21 @@ class RegisterView extends StackedView<RegisterViewModel> with $RegisterView {
                   validator: RegisterValidators.validatePassword,
                 ),
                 verticalSpaceMedium,
+                const Text(
+                  'CONFIRM PASSWORD',
+                  style: kcNormalText2,
+                ),
+                verticalSpaceTiny,
                 FormBuilderTextField(
                   focusNode: confirmPasswordFocusNode,
-                  style: const TextStyle(color: GFColors.WHITE),
+                  style: kcNormalTextBlack,
                   controller: confirmPasswordController,
                   // initialValue: viewModel.isBusy ? "" : viewModel.deckName,
                   obscureText: true,
                   decoration: const InputDecoration(
-                    labelText: 'Confirm Password',
-                    labelStyle: TextStyle(color: GFColors.WHITE),
-                    // fillColor: GFColors.WHITE,
+                    hintText: 'Confirm password...',
+                    hintStyle: kcHintText,
+                    fillColor: GFColors.WHITE,
 
                     filled: true,
                     // suffixIcon: _ageHasError
@@ -139,25 +164,38 @@ class RegisterView extends StackedView<RegisterViewModel> with $RegisterView {
                           value, passwordController.text),
                 ),
                 verticalSpaceMedium,
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState?.saveAndValidate(
-                            focusOnInvalid: false,
-                            autoScrollWhenFocusOnInvalid: true) ??
-                        false) {
-                      viewModel.signUpWithEmail(emailController.text,
-                          passwordController.text, usernameController.text);
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    textStyle: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                    ),
+                Center(
+                  child: GFButton(
+                      onPressed: () {
+                        if (_formKey.currentState?.saveAndValidate(
+                                focusOnInvalid: false,
+                                autoScrollWhenFocusOnInvalid: true) ??
+                            false) {
+                          viewModel.signUpWithEmail(emailController.text,
+                              passwordController.text, usernameController.text);
+                        }
+                      },
+                      color: Colors.amber,
+                      text: 'REGISTER',
+                      textStyle: kcNormalText2),
+                ),
+                Center(
+                  child: RichText(
+                    text: TextSpan(children: [
+                      const TextSpan(
+                        text: 'Already have account? ',
+                        style: kcNormalText2,
+                      ),
+                      TextSpan(
+                          text: 'Sign in',
+                          style: kcNavigateText,
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              viewModel.toLogInView();
+                            }),
+                    ]),
                   ),
-                  child: const Text('Register'),
-                )
+                ),
               ],
             ),
           ),

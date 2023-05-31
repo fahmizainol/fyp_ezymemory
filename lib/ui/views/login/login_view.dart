@@ -1,5 +1,7 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:fyp_ezymemory/ui/common/app_text.dart';
 import 'package:fyp_ezymemory/ui/common/ui_helpers.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_scaffold.dart';
@@ -32,7 +34,7 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
     Widget? child,
   ) {
     return EMScaffold(
-      appBar: EMAppBar(title: "EzyMemory Login"),
+      // appBar: EMAppBar(title: "EzyMemory Login"),
       body: Container(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0),
         child: SingleChildScrollView(
@@ -42,22 +44,34 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // verticalSpaceLarge,
                 verticalSpaceMedium,
-                const GFTypography(
-                  text: "Login",
-                  textColor: GFColors.LIGHT,
-                  type: GFTypographyType.typo2,
-                  showDivider: false,
+                const Center(
+                  child: Image(image: AssetImage('images/image1.png')),
                 ),
-                verticalSpaceMedium,
+                verticalSpaceLarge,
+                const Center(
+                  child: Text(
+                    'SIGN IN',
+                    style: kcAppBarText2,
+                  ),
+                ),
+                verticalSpaceLarge,
+                const Text(
+                  'EMAIL',
+                  style: kcNormalText2,
+                ),
+                verticalSpaceTiny,
                 FormBuilderTextField(
-                  style: const TextStyle(color: GFColors.WHITE),
+                  style: kcNormalTextBlack,
                   controller: emailController,
                   // initialValue: viewModel.isBusy ? "" : viewModel.deckName,
                   decoration: const InputDecoration(
-                    labelText: 'Your email',
-                    labelStyle: TextStyle(color: GFColors.WHITE),
-                    // fillColor: GFColors.WHITE,
+                    hintText: 'Your email...',
+                    hintStyle: kcHintText,
+                    // labelText: 'Your email',
+                    // labelStyle: TextStyle(color: GFColors.WHITE),
+                    fillColor: GFColors.WHITE,
 
                     filled: true,
                     // suffixIcon: _ageHasError
@@ -68,14 +82,24 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
                   validator: LoginValidators.validateEmail,
                 ),
                 verticalSpaceMedium,
+                // Text('data')
+                const Text(
+                  'PASSWORD',
+                  style: kcNormalText2,
+                ),
+                verticalSpaceTiny,
                 FormBuilderTextField(
                   obscureText: true,
-                  style: const TextStyle(color: GFColors.WHITE),
+
+                  style: kcNormalTextBlack,
                   controller: passwordController,
                   // initialValue: viewModel.isBusy ? "" : viewModel.deckName,
                   decoration: const InputDecoration(
-                    labelText: 'Your password',
-                    labelStyle: TextStyle(color: GFColors.WHITE),
+                    hintText: 'Your password...',
+                    hintStyle: kcHintText,
+                    fillColor: Colors.white,
+                    // labelText: 'Your password',
+                    // labelStyle: TextStyle(color: GFColors.WHITE),
                     // fillColor: GFColors.WHITE,
 
                     filled: true,
@@ -87,37 +111,46 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
                   validator: LoginValidators.validatePassword,
                 ),
                 verticalSpaceMedium,
-                ElevatedButton(
-                  onPressed: () {
-                    // Implement login functionality here
-                    if (_formKey.currentState!.validate()) {
-                      viewModel.logInWithEmail(
-                          emailController.text, passwordController.text);
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    textStyle: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                    ),
-                  ),
-                  child: const Text('Login'),
+                verticalSpaceMedium,
+                Center(
+                  child: GFButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          viewModel.logInWithEmail(
+                              emailController.text, passwordController.text);
+                        }
+                      },
+                      color: Colors.amber,
+                      text: 'SIGN IN',
+                      textStyle: kcNormalText2),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    // Implement login functionality here
-                    viewModel.toRegisterView();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    textStyle: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                    ),
+
+                Center(
+                  child: GFButton(
+                      onPressed: () {
+                        viewModel.toRegisterView();
+                      },
+                      color: Colors.amber,
+                      text: 'SIGN IN WITH GOOGLE',
+                      textStyle: kcNormalText2),
+                ),
+                Center(
+                  child: RichText(
+                    text: TextSpan(children: [
+                      const TextSpan(
+                        text: 'No account yet? ',
+                        style: kcNormalText2,
+                      ),
+                      TextSpan(
+                          text: 'Sign up',
+                          style: kcNavigateText,
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              viewModel.toRegisterView();
+                            }),
+                    ]),
                   ),
-                  child: const Text('go to register'),
-                )
+                ),
               ],
             ),
           ),

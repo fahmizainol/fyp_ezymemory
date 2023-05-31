@@ -82,9 +82,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - images/image1.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -112,6 +111,10 @@ flutter:
         - asset: fonts/Montserrat-VariableFont_wght.ttf
         - asset: fonts/Montserrat-Italic-VariableFont_wght.ttf
           style: italic
+        - asset: fonts/Montserrat-Bold.ttf
+          weight: 700
+        - asset: fonts/Montserrat-ExtraBold.ttf
+          weight: 900
 
   #
   # For details regarding fonts from package dependencies,

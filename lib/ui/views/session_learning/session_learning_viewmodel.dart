@@ -96,7 +96,7 @@ class SessionLearningViewModel extends FutureViewModel {
       frontVisible = true;
       rebuildUi();
     } else {
-      // TODO add points to the user
+      // add points to the user
       await _pointService.addPoints(1);
       _dialogService.showDialog(
           title:
