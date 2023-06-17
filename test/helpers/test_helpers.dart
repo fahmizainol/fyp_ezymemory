@@ -9,6 +9,7 @@ import 'package:fyp_ezymemory/services/logger_service.dart';
 import 'package:fyp_ezymemory/services/sm2_service.dart';
 import 'package:fyp_ezymemory/services/spacedr_service.dart';
 import 'package:fyp_ezymemory/services/point_service.dart';
+import 'package:fyp_ezymemory/services/notification_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -24,6 +25,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<Sm2Service>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<SpacedrService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<PointService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<NotificationService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -37,6 +39,7 @@ void registerServices() {
   getAndRegisterSm2Service();
   getAndRegisterSpacedrService();
   getAndRegisterPointService();
+  getAndRegisterNotificationService();
 // @stacked-mock-register
 }
 
@@ -136,6 +139,13 @@ MockPointService getAndRegisterPointService() {
   _removeRegistrationIfExists<PointService>();
   final service = MockPointService();
   locator.registerSingleton<PointService>(service);
+  return service;
+}
+
+MockNotificationService getAndRegisterNotificationService() {
+  _removeRegistrationIfExists<NotificationService>();
+  final service = MockNotificationService();
+  locator.registerSingleton<NotificationService>(service);
   return service;
 }
 // @stacked-mock-create

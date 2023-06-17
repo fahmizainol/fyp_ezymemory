@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -14,6 +16,7 @@ import 'package:fyp_ezymemory/services/point_service.dart';
 import 'package:fyp_ezymemory/ui/common/app_strings.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class HomeViewModel extends StreamViewModel {
   final _dialogService = locator<DialogService>();
@@ -23,6 +26,8 @@ class HomeViewModel extends StreamViewModel {
   final AuthService _authService = locator<AuthService>();
   final LoggerService _loggerService = locator<LoggerService>();
   final PointService _pointService = locator<PointService>();
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
 
   final header = "[home_view]";
 
@@ -32,11 +37,14 @@ class HomeViewModel extends StreamViewModel {
   List<Deck>? fetchedUserDeckList;
   int fetchedUserDeckListLength = 0;
   TabController? tabController;
+  bool _notificationsEnabled = false;
 
   @override
   Stream get stream => init();
 
   Stream init() async* {
+    _isAndroidPermissionGranted();
+    _requestPermissions();
     var uid = await _authService.getCurrentUserId();
     fetchedUserDeckList = await _firestoreService.getUserDeckList();
     fetchedUserDeckListLength = fetchedUserDeckList!.length;
@@ -82,6 +90,46 @@ class HomeViewModel extends StreamViewModel {
   Future addPoints(int activity) async {
     // TODO: add logic for checking in
     await _pointService.addPoints(activity);
+  }
+
+  Future<void> _isAndroidPermissionGranted() async {
+    if (Platform.isAndroid) {
+      final bool granted = await flutterLocalNotificationsPlugin
+              .resolvePlatformSpecificImplementation<
+                  AndroidFlutterLocalNotificationsPlugin>()
+              ?.areNotificationsEnabled() ??
+          false;
+
+      _notificationsEnabled = granted;
+    }
+  }
+
+  Future<void> _requestPermissions() async {
+    if (Platform.isIOS || Platform.isMacOS) {
+      await flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<
+              IOSFlutterLocalNotificationsPlugin>()
+          ?.requestPermissions(
+            alert: true,
+            badge: true,
+            sound: true,
+          );
+      await flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<
+              MacOSFlutterLocalNotificationsPlugin>()
+          ?.requestPermissions(
+            alert: true,
+            badge: true,
+            sound: true,
+          );
+    } else if (Platform.isAndroid) {
+      final AndroidFlutterLocalNotificationsPlugin? androidImplementation =
+          flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<
+              AndroidFlutterLocalNotificationsPlugin>();
+
+      final bool? granted = await androidImplementation?.requestPermission();
+      _notificationsEnabled = granted ?? false;
+    }
   }
 
   void toImportDeckView() {

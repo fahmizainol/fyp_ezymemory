@@ -14,6 +14,7 @@ import 'package:fyp_ezymemory/services/api_service.dart' as _i10;
 import 'package:fyp_ezymemory/services/auth_service.dart' as _i9;
 import 'package:fyp_ezymemory/services/firestore_service.dart' as _i11;
 import 'package:fyp_ezymemory/services/logger_service.dart' as _i15;
+import 'package:fyp_ezymemory/services/notification_service.dart' as _i19;
 import 'package:fyp_ezymemory/services/point_service.dart' as _i18;
 import 'package:fyp_ezymemory/services/sm2_service.dart' as _i16;
 import 'package:fyp_ezymemory/services/spacedr_service.dart' as _i17;
@@ -958,6 +959,16 @@ class MockFirestoreService extends _i1.Mock implements _i11.FirestoreService {
         returnValueForMissingStub: _i7.Future<dynamic>.value(),
       ) as _i7.Future<dynamic>);
   @override
+  _i7.Future<dynamic> getFlashcardsCountByDeckId(String? deckId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getFlashcardsCountByDeckId,
+          [deckId],
+        ),
+        returnValue: _i7.Future<dynamic>.value(),
+        returnValueForMissingStub: _i7.Future<dynamic>.value(),
+      ) as _i7.Future<dynamic>);
+  @override
   _i7.Future<dynamic> checkFreshFetch(String? deckId) => (super.noSuchMethod(
         Invocation.method(
           #checkFreshFetch,
@@ -1216,3 +1227,9 @@ class MockPointService extends _i1.Mock implements _i18.PointService {
         returnValueForMissingStub: _i7.Future<dynamic>.value(),
       ) as _i7.Future<dynamic>);
 }
+
+/// A class which mocks [NotificationService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockNotificationService extends _i1.Mock
+    implements _i19.NotificationService {}

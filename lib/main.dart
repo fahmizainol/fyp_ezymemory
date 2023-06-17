@@ -4,6 +4,7 @@ import 'package:fyp_ezymemory/app/app.bottomsheets.dart';
 import 'package:fyp_ezymemory/app/app.dialogs.dart';
 import 'package:fyp_ezymemory/app/app.locator.dart';
 import 'package:fyp_ezymemory/app/app.router.dart';
+import 'package:fyp_ezymemory/services/notification_service.dart';
 import 'package:fyp_ezymemory/ui/common/app_colors.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -12,6 +13,8 @@ Future<void> main() async {
   setupDialogUi();
   setupBottomSheetUi();
   WidgetsFlutterBinding.ensureInitialized();
+  await NotificationService().init();
+  await NotificationService().schedulePeriodicNotifications();
   await Firebase.initializeApp();
 
   runApp(const MyApp());

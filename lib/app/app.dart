@@ -23,6 +23,8 @@ import 'package:fyp_ezymemory/ui/views/import_deck/import_deck_view.dart';
 import 'package:fyp_ezymemory/services/point_service.dart';
 import 'package:fyp_ezymemory/ui/views/leaderboard/leaderboard_view.dart';
 import 'package:fyp_ezymemory/ui/views/progress/progress_view.dart';
+import 'package:fyp_ezymemory/ui/views/user_settings/user_settings_view.dart';
+import 'package:fyp_ezymemory/services/notification_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -41,6 +43,7 @@ import 'package:fyp_ezymemory/ui/views/progress/progress_view.dart';
     MaterialRoute(page: ImportDeckView),
     MaterialRoute(page: LeaderboardView),
     MaterialRoute(page: ProgressView),
+    MaterialRoute(page: UserSettingsView),
 // @stacked-route
   ],
   dependencies: [
@@ -54,6 +57,7 @@ import 'package:fyp_ezymemory/ui/views/progress/progress_view.dart';
     LazySingleton(classType: Sm2Service),
     LazySingleton(classType: SpacedrService),
     LazySingleton(classType: PointService),
+    LazySingleton(classType: NotificationService),
 // @stacked-service
   ],
   bottomsheets: [

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:fyp_ezymemory/ui/widgets/em_drawer.dart';
 import 'package:getwidget/colors/gf_color.dart';
+
+import 'em_drawer/em_drawer.dart';
 
 class EMScaffold extends StatelessWidget {
   // final String title;
