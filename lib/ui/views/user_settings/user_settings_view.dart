@@ -45,6 +45,11 @@ class UserSettingsView extends StackedView<UserSettingsViewModel> {
                           style: kcTitleText,
                         ),
                         verticalSpaceMedium,
+                        Text(
+                          'You will be reminded everyday at the time you have chosen',
+                          style: kcNormalText,
+                        ),
+                        verticalSpaceMedium,
                         // FormBuilderDateTimePicker(name: 'name', initialValue: ,),
                         FormBuilderDateTimePicker(
                           style: kcNormalText,
@@ -60,8 +65,8 @@ class UserSettingsView extends StackedView<UserSettingsViewModel> {
                             //     ? const Icon(Icons.error, color: Colors.red)
                             //     : const Icon(Icons.check, color: Colors.green),
                           ),
-                          //                          initialValue: viewModel.deckName,
-                          // onChanged: (val) => viewModel.changeDeckName(val),
+                          initialValue: viewModel.reminderTime,
+                          onChanged: (val) => viewModel.changeReminderTime(val),
                           // validator: CreateDeckValidators.validateDeckName,
                         ),
 
@@ -76,7 +81,7 @@ class UserSettingsView extends StackedView<UserSettingsViewModel> {
                             //     viewModel.deckName.toString(),
                             //     viewModel.currentDropdownValue.toString(),
                             //     viewModel.isShared);
-                            viewModel.testNotiButton();
+                            viewModel.updateReminder();
                           },
                           child: Text('Update Reminder Time'),
                         )

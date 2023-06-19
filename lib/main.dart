@@ -14,7 +14,7 @@ Future<void> main() async {
   setupBottomSheetUi();
   WidgetsFlutterBinding.ensureInitialized();
   await NotificationService().init();
-  await NotificationService().schedulePeriodicNotifications();
+  // await NotificationService().schedulePeriodicNotifications();
   await Firebase.initializeApp();
 
   runApp(const MyApp());

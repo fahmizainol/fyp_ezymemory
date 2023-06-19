@@ -1,4 +1,5 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -7,10 +8,14 @@ class NotificationService {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
+  SharedPreferences? prefs;
+
   Future<void> init() async {
     //Initialization Settings for Android
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
+
+    prefs = await SharedPreferences.getInstance();
 
     //Initializing settings for both platforms (Android & iOS)
     const InitializationSettings initializationSettings =
@@ -21,6 +26,12 @@ class NotificationService {
     tz.initializeTimeZones();
 
     await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+    if (prefs!.containsKey('hour') && prefs!.containsKey('minute')) {
+      await schedulePeriodicNotifications(
+          hour: prefs!.getInt('hour'), minute: prefs!.getInt('minute'));
+    }
+
+    // bool CheckValue = prefs.containsKey('value');
   }
 
   // void onDidReceiveNotificationResponse(
@@ -73,16 +84,20 @@ class NotificationService {
         .show(0, null, 'plain body', notificationDetails, payload: 'item x');
   }
 
-  Future<void> schedulePeriodicNotifications({id, title, body, payload}) async {
+  Future<void> schedulePeriodicNotifications({hour, minute}) async {
     // var dt = DateTime(DateTime.now().year, DateTime.now().month,
     //     DateTime.now().day, 22, 17, 0);
     // var dte = tz.TZDateTime.from(dt, tz.local);
+    // if (hour.isNull || minute.isNull) {
+    //   hour = 0;
+    //   minute = 0;
+    // }
     await flutterLocalNotificationsPlugin.zonedSchedule(
         0,
-        'daily scheduled notification title',
-        'daily scheduled notification body',
+        'It\'s time for your daily lesson!',
+        'Don\'t miss out on your daily lesson!',
         // _nextInstanceOfTenAM(),
-        tz.TZDateTime.from(_nextInstanceOfTime(), tz.local),
+        tz.TZDateTime.from(_nextInstanceOfTime(hour, minute), tz.local),
         // tz.TZDateTime.from(dt, tz.local),
         // dt,
         const NotificationDetails(
@@ -99,28 +114,16 @@ class NotificationService {
         androidAllowWhileIdle: true);
   }
 
-  DateTime _nextInstanceOfTime() {
+  DateTime _nextInstanceOfTime(hour, minute) {
     DateTime dtNow = DateTime.now();
     DateTime dtScheduled = DateTime(DateTime.now().year, DateTime.now().month,
-        DateTime.now().day, 22, 25, 0);
+        DateTime.now().day, hour, minute, 0);
 
     if (dtScheduled.isBefore(dtNow)) {
       dtScheduled = dtScheduled.add(const Duration(days: 1));
     }
 
     return dtScheduled;
-  }
-
-  tz.TZDateTime _nextInstanceOfTenAM() {
-    final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
-    tz.TZDateTime scheduledDate =
-        tz.TZDateTime(tz.local, now.year, now.month, now.day, 22, 19, 0);
-    // print(scheduledDate);
-    // var test = DateTime(year)
-    if (scheduledDate.isBefore(now)) {
-      scheduledDate = scheduledDate.add(const Duration(days: 1));
-    }
-    return scheduledDate;
   }
 
   //   Future<void> _scheduleDailyTenAMLastYearNotification() async {
