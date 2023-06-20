@@ -3,22 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:fyp_ezymemory/ui/common/app_colors.dart';
 import 'package:fyp_ezymemory/ui/common/app_text.dart';
 import 'package:fyp_ezymemory/ui/common/ui_helpers.dart';
-import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_bottombar/em_bottombar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_circular.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_scaffold.dart';
-import 'package:getwidget/getwidget.dart';
+import 'package:getwidget/colors/gf_color.dart';
 import 'package:stacked/stacked.dart';
 
-import 'import_deck_viewmodel.dart';
+import 'admin_moderate_viewmodel.dart';
 
-class ImportDeckView extends StackedView<ImportDeckViewModel> {
-  const ImportDeckView({Key? key}) : super(key: key);
+class AdminModerateView extends StackedView<AdminModerateViewModel> {
+  const AdminModerateView({Key? key}) : super(key: key);
 
   @override
   Widget builder(
     BuildContext context,
-    ImportDeckViewModel viewModel,
+    AdminModerateViewModel viewModel,
     Widget? child,
   ) {
     return EMScaffold(
@@ -95,14 +94,32 @@ class ImportDeckView extends StackedView<ImportDeckViewModel> {
                                           DataCell(Text(
                                               '${viewModel.fetchedDeckList?[index].name}',
                                               style: kcNormalText)),
-                                          DataCell(IconButton(
-                                            color: Colors.amber,
-                                            icon: Icon(Icons.add),
-                                            onPressed: () {
-                                              viewModel.importDeck(viewModel
-                                                  .fetchedDeckList![index]);
-                                            },
-                                          )),
+                                          DataCell(
+                                            PopupMenuButton<int>(
+                                                color: Colors.amber,
+                                                position:
+                                                    PopupMenuPosition.under,
+                                                onSelected: (int value) {
+                                                  viewModel.popupMenuLogic(
+                                                      value,
+                                                      viewModel
+                                                              .fetchedDeckList?[
+                                                                  index]
+                                                              .id ??
+                                                          "",
+                                                      viewModel
+                                                              .fetchedDeckList?[
+                                                                  index]
+                                                              .name ??
+                                                          "");
+                                                },
+                                                itemBuilder: (context) => [
+                                                      const PopupMenuItem<int>(
+                                                          value: 0,
+                                                          child: Text(
+                                                              "Delete deck")),
+                                                    ]),
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -122,8 +139,8 @@ class ImportDeckView extends StackedView<ImportDeckViewModel> {
   }
 
   @override
-  ImportDeckViewModel viewModelBuilder(
+  AdminModerateViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      ImportDeckViewModel();
+      AdminModerateViewModel();
 }

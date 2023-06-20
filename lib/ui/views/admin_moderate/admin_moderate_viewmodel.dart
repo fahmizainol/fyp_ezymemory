@@ -1,13 +1,13 @@
-import 'package:flutter/material.dart';
 import 'package:fyp_ezymemory/app/app.locator.dart';
 import 'package:fyp_ezymemory/models/Deck/Deck.dart';
 import 'package:fyp_ezymemory/services/firestore_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class ImportDeckViewModel extends FutureViewModel {
+class AdminModerateViewModel extends FutureViewModel {
   final FirestoreService _firestoreService = locator<FirestoreService>();
   final NavigationService _navigationService = locator<NavigationService>();
+  final _dialogService = locator<DialogService>();
 
   List<Deck>? fetchedDeckList;
   int fetchedDeckListLength = 0;
@@ -30,5 +30,31 @@ class ImportDeckViewModel extends FutureViewModel {
     // notifyListeners()
   }
 
-  // TODO: filtering function based on categories
+  Future<void> deleteDeck(String deckId, String deckName) async {
+    var res = await _dialogService.showConfirmationDialog(
+      barrierDismissible: true,
+      title: "⚠️ Delete Operation",
+      description:
+          "Are you sure you want to delete $deckName ? This action cannot be undone",
+    );
+
+    if (res!.confirmed) {
+      await _firestoreService.deleteDeck(deckId);
+      await _dialogService.showDialog(title: "Delete deck success!");
+      notifySourceChanged();
+      // notifySourceChanged();
+      // notifyListeners();
+    } else {
+      print(" not nc");
+    }
+  }
+
+  void popupMenuLogic(int value, String deckId, String deckName) {
+    switch (value) {
+      case 0:
+        deleteDeck(deckId, deckName);
+        break;
+      default:
+    }
+  }
 }

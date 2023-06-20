@@ -17,4 +17,6 @@ class ProgressViewModel extends FutureViewModel {
     var uid = await _authService.getCurrentUserId();
     fetchedUser = await _firestoreService.getUser(uid);
   }
+
+  // TODO: add user study duration stats
 }

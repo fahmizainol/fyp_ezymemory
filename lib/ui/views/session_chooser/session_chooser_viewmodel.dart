@@ -8,11 +8,11 @@ class SessionChooserViewModel extends BaseViewModel {
   final String deckName;
   SessionChooserViewModel(this.deckName, {required this.deckId});
 
-  // TODO run the future for learning session here
-
   final NavigationService _navigationService = locator<NavigationService>();
 
   void toSessionLearningView(String deckId) {
     _navigationService.navigateToSessionLearningView(deckId: deckId);
   }
+
+  // TODO: pull the futureToRun from session learning to here
 }

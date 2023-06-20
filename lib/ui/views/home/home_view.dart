@@ -23,28 +23,17 @@ class HomeView extends StackedView<HomeViewModel> {
     HomeViewModel viewModel,
     Widget? child,
   ) {
-    // viewModel.initialise();
-    // viewModel.futureToRun();
-    // viewModel.stream();
-    // print(viewModel.fetchedUser?.username.toString());
     return EMScaffold(
-      // floatingButton: FloatingActionButton.small(onPressed: () {
-      //   viewModel.addPoints(0);
-      // }),
       appBar: EMAppBar(
           title: viewModel.isBusy
               ? "Welcome, !"
               : "Welcome, ${viewModel.fetchedUser?.username}!"),
       bottomNavigationBar: EMBottomBar(),
-      // backgroundColor: GFColors.DARK,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
           child: Column(
-            // mainAxisSize: MainAxisSize.max,
-            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // verticalSpaceMedium,
               Expanded(
                 flex: 1,
                 child: Container(
@@ -59,6 +48,7 @@ class HomeView extends StackedView<HomeViewModel> {
                       : Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Column(
+                              //TODO: make it scrollable to avoid overflow
                               // mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -88,11 +78,6 @@ class HomeView extends StackedView<HomeViewModel> {
                                     rows: List<DataRow>.generate(
                                       viewModel.fetchedUserDeckListLength,
                                       (int index) => DataRow(
-                                        // color: MaterialStateProperty.resolveWith<
-                                        //     Color?>((Set<MaterialState> states) {
-                                        //   return kcCardColor;
-                                        //   // Use default value for other states and odd rows.
-                                        // }),
                                         cells: <DataCell>[
                                           DataCell(Text(
                                               '${viewModel.fetchedUserDeckList?[index].name}',

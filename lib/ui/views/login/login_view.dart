@@ -21,8 +21,6 @@ import 'login_view.form.dart';
     name: 'password',
   ),
 ])
-
-// TODO: add login with google function
 class LoginView extends StackedView<LoginViewModel> with $LoginView {
   LoginView({Key? key}) : super(key: key);
   final _formKey = GlobalKey<FormBuilderState>();

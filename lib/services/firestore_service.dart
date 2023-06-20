@@ -619,8 +619,6 @@ class FirestoreService {
       // }
       int limit = freshFlashcardListSnap.count;
 
-      // TODO: Add date checking
-
       Deck currentDeck = await getDeckById(deckId);
 
       Duration duration =

@@ -14,7 +14,12 @@ class LoginViewModel extends FormViewModel {
     try {
       var res =
           await _authService.loginWithEmail(email: email, password: password);
-      _navigationService.navigateToHomeView();
+      if (email == 'admin@em.com') {
+        _navigationService.navigateToHomeAdminView();
+      } else {
+        _navigationService.navigateToHomeView();
+      }
+
       print('object');
     } catch (e) {
       _dialogService.showDialog(

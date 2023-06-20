@@ -116,4 +116,6 @@ class SessionLearningViewModel extends FutureViewModel {
       default:
     }
   }
+
+  // TODO: add image to the cards
 }

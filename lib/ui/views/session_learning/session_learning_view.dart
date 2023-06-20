@@ -47,13 +47,12 @@ class SessionLearningView extends StackedView<SessionLearningViewModel> {
                 ],
               )
       ]),
-      // bottomNavigationBar: const EMLearningBottomBar(),
-      // backgroundColor: Theme.of(context).colorScheme.background,
       body: Container(
           padding: const EdgeInsets.only(left: 25.0, right: 25.0),
           child: Stack(
             children: [
               Visibility(
+                // TODO: change the card color of the front and back cards
                 visible: viewModel.frontVisible,
                 child: Column(
                   children: [

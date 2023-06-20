@@ -149,7 +149,6 @@ class HomeViewModel extends StreamViewModel {
         key: UniqueKey(), deckId: deckId, deckName: deckName);
   }
 
-  // TODO: add cards count
   void toSessionChooserView(String deckId, String deckName) {
     _navigationService.navigateToSessionChooserView(
         key: UniqueKey(), deckId: deckId, deckName: deckName);
