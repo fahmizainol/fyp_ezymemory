@@ -4,7 +4,7 @@ import 'package:fyp_ezymemory/services/firestore_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class AdminModerateViewModel extends FutureViewModel {
+class AdminModerateViewModel extends StreamViewModel {
   final FirestoreService _firestoreService = locator<FirestoreService>();
   final NavigationService _navigationService = locator<NavigationService>();
   final _dialogService = locator<DialogService>();
@@ -13,11 +13,14 @@ class AdminModerateViewModel extends FutureViewModel {
   int fetchedDeckListLength = 0;
 
   @override
-  Future futureToRun() => getDeckList();
+  // TODO: implement stream
+  Stream get stream => init();
 
-  Future getDeckList() async {
+  Stream init() async* {
     fetchedDeckList = await _firestoreService.getSharedDeckList();
     fetchedDeckListLength = fetchedDeckList!.length;
+
+    yield fetchedDeckList;
   }
 
   Future importDeck(Deck importedDeck) async {
