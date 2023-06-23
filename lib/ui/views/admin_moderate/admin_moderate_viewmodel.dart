@@ -13,7 +13,6 @@ class AdminModerateViewModel extends StreamViewModel {
   int fetchedDeckListLength = 0;
 
   @override
-  // TODO: implement stream
   Stream get stream => init();
 
   Stream init() async* {

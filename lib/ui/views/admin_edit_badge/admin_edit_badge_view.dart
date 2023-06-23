@@ -116,6 +116,11 @@ class AdminEditBadgeView extends StackedView<AdminEditBadgeViewModel> {
                             // Implement login functionality here
 
                             // Navigator.of(context).pop();
+                            viewModel.editBadge(
+                              badgeId,
+                              viewModel.name.toString(),
+                              viewModel.description.toString(),
+                            );
 
                             // viewModel.toHomeView();
                             // if (res) {

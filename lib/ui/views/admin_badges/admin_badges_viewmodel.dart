@@ -14,7 +14,6 @@ class AdminBadgesViewModel extends StreamViewModel {
   int fetchedBadgeListLength = 0;
 
   @override
-  // TODO: implement stream
   Stream get stream => init();
 
   Stream init() async* {
