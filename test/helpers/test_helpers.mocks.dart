@@ -1030,6 +1030,71 @@ class MockFirestoreService extends _i1.Mock implements _i12.FirestoreService {
         returnValue: _i8.Future<dynamic>.value(),
         returnValueForMissingStub: _i8.Future<dynamic>.value(),
       ) as _i8.Future<dynamic>);
+  @override
+  _i8.Future<dynamic> uploadImg(dynamic badgeImg) => (super.noSuchMethod(
+        Invocation.method(
+          #uploadImg,
+          [badgeImg],
+        ),
+        returnValue: _i8.Future<dynamic>.value(),
+        returnValueForMissingStub: _i8.Future<dynamic>.value(),
+      ) as _i8.Future<dynamic>);
+  @override
+  _i8.Future<bool> createBadge(
+    String? image,
+    String? name,
+    String? description,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #createBadge,
+          [
+            image,
+            name,
+            description,
+          ],
+        ),
+        returnValue: _i8.Future<bool>.value(false),
+        returnValueForMissingStub: _i8.Future<bool>.value(false),
+      ) as _i8.Future<bool>);
+  @override
+  _i8.Future<dynamic> getBadgeList() => (super.noSuchMethod(
+        Invocation.method(
+          #getBadgeList,
+          [],
+        ),
+        returnValue: _i8.Future<dynamic>.value(),
+        returnValueForMissingStub: _i8.Future<dynamic>.value(),
+      ) as _i8.Future<dynamic>);
+  @override
+  _i8.Future<dynamic> updateBadge(
+    String? badgeId,
+    String? name,
+    String? image,
+    String? description,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateBadge,
+          [
+            badgeId,
+            name,
+            image,
+            description,
+          ],
+        ),
+        returnValue: _i8.Future<dynamic>.value(),
+        returnValueForMissingStub: _i8.Future<dynamic>.value(),
+      ) as _i8.Future<dynamic>);
+  @override
+  _i8.Future<dynamic> deleteBadge(String? badgeId) => (super.noSuchMethod(
+        Invocation.method(
+          #deleteBadge,
+          [badgeId],
+        ),
+        returnValue: _i8.Future<dynamic>.value(),
+        returnValueForMissingStub: _i8.Future<dynamic>.value(),
+      ) as _i8.Future<dynamic>);
 }
 
 /// A class which mocks [LoggerService].

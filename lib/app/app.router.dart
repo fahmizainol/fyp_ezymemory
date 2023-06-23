@@ -5,10 +5,14 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/material.dart' as _i20;
+import 'package:flutter/material.dart' as _i22;
 import 'package:flutter/material.dart';
 import 'package:fyp_ezymemory/ui/views/admin_badges/admin_badges_view.dart'
     as _i18;
+import 'package:fyp_ezymemory/ui/views/admin_create_badge/admin_create_badge_view.dart'
+    as _i20;
+import 'package:fyp_ezymemory/ui/views/admin_edit_badge/admin_edit_badge_view.dart'
+    as _i21;
 import 'package:fyp_ezymemory/ui/views/admin_moderate/admin_moderate_view.dart'
     as _i19;
 import 'package:fyp_ezymemory/ui/views/counter/counter_view.dart' as _i4;
@@ -36,7 +40,7 @@ import 'package:fyp_ezymemory/ui/views/startup/startup_view.dart' as _i3;
 import 'package:fyp_ezymemory/ui/views/user_settings/user_settings_view.dart'
     as _i16;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i21;
+import 'package:stacked_services/stacked_services.dart' as _i23;
 
 class Routes {
   static const homeView = '/home-view';
@@ -75,6 +79,10 @@ class Routes {
 
   static const adminModerateView = '/admin-moderate-view';
 
+  static const adminCreateBadgeView = '/admin-create-badge-view';
+
+  static const adminEditBadgeView = '/admin-edit-badge-view';
+
   static const all = <String>{
     homeView,
     startupView,
@@ -94,6 +102,8 @@ class Routes {
     homeAdminView,
     adminBadgesView,
     adminModerateView,
+    adminCreateBadgeView,
+    adminEditBadgeView,
   };
 }
 
@@ -171,23 +181,31 @@ class StackedRouter extends _i1.RouterBase {
       Routes.adminModerateView,
       page: _i19.AdminModerateView,
     ),
+    _i1.RouteDef(
+      Routes.adminCreateBadgeView,
+      page: _i20.AdminCreateBadgeView,
+    ),
+    _i1.RouteDef(
+      Routes.adminEditBadgeView,
+      page: _i21.AdminEditBadgeView,
+    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.HomeView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i22.MaterialPageRoute<dynamic>(
         builder: (context) => const _i2.HomeView(),
         settings: data,
       );
     },
     _i3.StartupView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i22.MaterialPageRoute<dynamic>(
         builder: (context) => const _i3.StartupView(),
         settings: data,
       );
     },
     _i4.CounterView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i22.MaterialPageRoute<dynamic>(
         builder: (context) => const _i4.CounterView(),
         settings: data,
       );
@@ -196,7 +214,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<LoginViewArguments>(
         orElse: () => const LoginViewArguments(),
       );
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i22.MaterialPageRoute<dynamic>(
         builder: (context) => _i5.LoginView(key: args.key),
         settings: data,
       );
@@ -205,7 +223,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<RegisterViewArguments>(
         orElse: () => const RegisterViewArguments(),
       );
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i22.MaterialPageRoute<dynamic>(
         builder: (context) => _i6.RegisterView(key: args.key),
         settings: data,
       );
@@ -214,21 +232,21 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<CreateDeckViewArguments>(
         orElse: () => const CreateDeckViewArguments(),
       );
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i22.MaterialPageRoute<dynamic>(
         builder: (context) => _i7.CreateDeckView(key: args.key),
         settings: data,
       );
     },
     _i8.EditDeckView: (data) {
       final args = data.getArgs<EditDeckViewArguments>(nullOk: false);
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i22.MaterialPageRoute<dynamic>(
         builder: (context) => _i8.EditDeckView(args.deckId, key: args.key),
         settings: data,
       );
     },
     _i9.CreateFlashcardView: (data) {
       final args = data.getArgs<CreateFlashcardViewArguments>(nullOk: false);
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i22.MaterialPageRoute<dynamic>(
         builder: (context) =>
             _i9.CreateFlashcardView(args.deckId, args.deckName, key: args.key),
         settings: data,
@@ -236,7 +254,7 @@ class StackedRouter extends _i1.RouterBase {
     },
     _i10.SessionChooserView: (data) {
       final args = data.getArgs<SessionChooserViewArguments>(nullOk: false);
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i22.MaterialPageRoute<dynamic>(
         builder: (context) =>
             _i10.SessionChooserView(args.deckId, args.deckName, key: args.key),
         settings: data,
@@ -244,32 +262,32 @@ class StackedRouter extends _i1.RouterBase {
     },
     _i11.SessionLearningView: (data) {
       final args = data.getArgs<SessionLearningViewArguments>(nullOk: false);
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i22.MaterialPageRoute<dynamic>(
         builder: (context) =>
             _i11.SessionLearningView(args.deckId, key: args.key),
         settings: data,
       );
     },
     _i12.EmLearningBarView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i22.MaterialPageRoute<dynamic>(
         builder: (context) => const _i12.EmLearningBarView(),
         settings: data,
       );
     },
     _i13.ImportDeckView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i22.MaterialPageRoute<dynamic>(
         builder: (context) => const _i13.ImportDeckView(),
         settings: data,
       );
     },
     _i14.LeaderboardView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i22.MaterialPageRoute<dynamic>(
         builder: (context) => const _i14.LeaderboardView(),
         settings: data,
       );
     },
     _i15.ProgressView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i22.MaterialPageRoute<dynamic>(
         builder: (context) => const _i15.ProgressView(),
         settings: data,
       );
@@ -278,26 +296,46 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<UserSettingsViewArguments>(
         orElse: () => const UserSettingsViewArguments(),
       );
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i22.MaterialPageRoute<dynamic>(
         builder: (context) => _i16.UserSettingsView(key: args.key),
         settings: data,
       );
     },
     _i17.HomeAdminView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i22.MaterialPageRoute<dynamic>(
         builder: (context) => const _i17.HomeAdminView(),
         settings: data,
       );
     },
     _i18.AdminBadgesView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i18.AdminBadgesView(),
+      final args = data.getArgs<AdminBadgesViewArguments>(
+        orElse: () => const AdminBadgesViewArguments(),
+      );
+      return _i22.MaterialPageRoute<dynamic>(
+        builder: (context) => _i18.AdminBadgesView(key: args.key),
         settings: data,
       );
     },
     _i19.AdminModerateView: (data) {
-      return _i20.MaterialPageRoute<dynamic>(
+      return _i22.MaterialPageRoute<dynamic>(
         builder: (context) => const _i19.AdminModerateView(),
+        settings: data,
+      );
+    },
+    _i20.AdminCreateBadgeView: (data) {
+      final args = data.getArgs<AdminCreateBadgeViewArguments>(
+        orElse: () => const AdminCreateBadgeViewArguments(),
+      );
+      return _i22.MaterialPageRoute<dynamic>(
+        builder: (context) => _i20.AdminCreateBadgeView(key: args.key),
+        settings: data,
+      );
+    },
+    _i21.AdminEditBadgeView: (data) {
+      final args = data.getArgs<AdminEditBadgeViewArguments>(nullOk: false);
+      return _i22.MaterialPageRoute<dynamic>(
+        builder: (context) =>
+            _i21.AdminEditBadgeView(args.badgeId, key: args.key),
         settings: data,
       );
     },
@@ -312,7 +350,7 @@ class StackedRouter extends _i1.RouterBase {
 class LoginViewArguments {
   const LoginViewArguments({this.key});
 
-  final _i20.Key? key;
+  final _i22.Key? key;
 
   @override
   String toString() {
@@ -334,7 +372,7 @@ class LoginViewArguments {
 class RegisterViewArguments {
   const RegisterViewArguments({this.key});
 
-  final _i20.Key? key;
+  final _i22.Key? key;
 
   @override
   String toString() {
@@ -356,7 +394,7 @@ class RegisterViewArguments {
 class CreateDeckViewArguments {
   const CreateDeckViewArguments({this.key});
 
-  final _i20.Key? key;
+  final _i22.Key? key;
 
   @override
   String toString() {
@@ -383,7 +421,7 @@ class EditDeckViewArguments {
 
   final String deckId;
 
-  final _i20.Key? key;
+  final _i22.Key? key;
 
   @override
   String toString() {
@@ -413,7 +451,7 @@ class CreateFlashcardViewArguments {
 
   final String deckName;
 
-  final _i20.Key? key;
+  final _i22.Key? key;
 
   @override
   String toString() {
@@ -445,7 +483,7 @@ class SessionChooserViewArguments {
 
   final String deckName;
 
-  final _i20.Key? key;
+  final _i22.Key? key;
 
   @override
   String toString() {
@@ -474,7 +512,7 @@ class SessionLearningViewArguments {
 
   final String deckId;
 
-  final _i20.Key? key;
+  final _i22.Key? key;
 
   @override
   String toString() {
@@ -496,7 +534,7 @@ class SessionLearningViewArguments {
 class UserSettingsViewArguments {
   const UserSettingsViewArguments({this.key});
 
-  final _i20.Key? key;
+  final _i22.Key? key;
 
   @override
   String toString() {
@@ -515,7 +553,78 @@ class UserSettingsViewArguments {
   }
 }
 
-extension NavigatorStateExtension on _i21.NavigationService {
+class AdminBadgesViewArguments {
+  const AdminBadgesViewArguments({this.key});
+
+  final _i22.Key? key;
+
+  @override
+  String toString() {
+    return '{"key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant AdminBadgesViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode;
+  }
+}
+
+class AdminCreateBadgeViewArguments {
+  const AdminCreateBadgeViewArguments({this.key});
+
+  final _i22.Key? key;
+
+  @override
+  String toString() {
+    return '{"key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant AdminCreateBadgeViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode;
+  }
+}
+
+class AdminEditBadgeViewArguments {
+  const AdminEditBadgeViewArguments({
+    required this.badgeId,
+    this.key,
+  });
+
+  final String badgeId;
+
+  final _i22.Key? key;
+
+  @override
+  String toString() {
+    return '{"badgeId": "$badgeId", "key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant AdminEditBadgeViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.badgeId == badgeId && other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return badgeId.hashCode ^ key.hashCode;
+  }
+}
+
+extension NavigatorStateExtension on _i23.NavigationService {
   Future<dynamic> navigateToHomeView([
     int? routerId,
     bool preventDuplicates = true,
@@ -559,7 +668,7 @@ extension NavigatorStateExtension on _i21.NavigationService {
   }
 
   Future<dynamic> navigateToLoginView({
-    _i20.Key? key,
+    _i22.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -575,7 +684,7 @@ extension NavigatorStateExtension on _i21.NavigationService {
   }
 
   Future<dynamic> navigateToRegisterView({
-    _i20.Key? key,
+    _i22.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -591,7 +700,7 @@ extension NavigatorStateExtension on _i21.NavigationService {
   }
 
   Future<dynamic> navigateToCreateDeckView({
-    _i20.Key? key,
+    _i22.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -608,7 +717,7 @@ extension NavigatorStateExtension on _i21.NavigationService {
 
   Future<dynamic> navigateToEditDeckView({
     required String deckId,
-    _i20.Key? key,
+    _i22.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -626,7 +735,7 @@ extension NavigatorStateExtension on _i21.NavigationService {
   Future<dynamic> navigateToCreateFlashcardView({
     required String deckId,
     required String deckName,
-    _i20.Key? key,
+    _i22.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -645,7 +754,7 @@ extension NavigatorStateExtension on _i21.NavigationService {
   Future<dynamic> navigateToSessionChooserView({
     required String deckId,
     required String deckName,
-    _i20.Key? key,
+    _i22.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -663,7 +772,7 @@ extension NavigatorStateExtension on _i21.NavigationService {
 
   Future<dynamic> navigateToSessionLearningView({
     required String deckId,
-    _i20.Key? key,
+    _i22.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -735,7 +844,7 @@ extension NavigatorStateExtension on _i21.NavigationService {
   }
 
   Future<dynamic> navigateToUserSettingsView({
-    _i20.Key? key,
+    _i22.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -764,14 +873,16 @@ extension NavigatorStateExtension on _i21.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToAdminBadgesView([
+  Future<dynamic> navigateToAdminBadgesView({
+    _i22.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(Routes.adminBadgesView,
+        arguments: AdminBadgesViewArguments(key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -786,6 +897,39 @@ extension NavigatorStateExtension on _i21.NavigationService {
         transition,
   ]) async {
     return navigateTo<dynamic>(Routes.adminModerateView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToAdminCreateBadgeView({
+    _i22.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo<dynamic>(Routes.adminCreateBadgeView,
+        arguments: AdminCreateBadgeViewArguments(key: key),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToAdminEditBadgeView({
+    required String badgeId,
+    _i22.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo<dynamic>(Routes.adminEditBadgeView,
+        arguments: AdminEditBadgeViewArguments(badgeId: badgeId, key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -835,7 +979,7 @@ extension NavigatorStateExtension on _i21.NavigationService {
   }
 
   Future<dynamic> replaceWithLoginView({
-    _i20.Key? key,
+    _i22.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -851,7 +995,7 @@ extension NavigatorStateExtension on _i21.NavigationService {
   }
 
   Future<dynamic> replaceWithRegisterView({
-    _i20.Key? key,
+    _i22.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -867,7 +1011,7 @@ extension NavigatorStateExtension on _i21.NavigationService {
   }
 
   Future<dynamic> replaceWithCreateDeckView({
-    _i20.Key? key,
+    _i22.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -884,7 +1028,7 @@ extension NavigatorStateExtension on _i21.NavigationService {
 
   Future<dynamic> replaceWithEditDeckView({
     required String deckId,
-    _i20.Key? key,
+    _i22.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -902,7 +1046,7 @@ extension NavigatorStateExtension on _i21.NavigationService {
   Future<dynamic> replaceWithCreateFlashcardView({
     required String deckId,
     required String deckName,
-    _i20.Key? key,
+    _i22.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -921,7 +1065,7 @@ extension NavigatorStateExtension on _i21.NavigationService {
   Future<dynamic> replaceWithSessionChooserView({
     required String deckId,
     required String deckName,
-    _i20.Key? key,
+    _i22.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -939,7 +1083,7 @@ extension NavigatorStateExtension on _i21.NavigationService {
 
   Future<dynamic> replaceWithSessionLearningView({
     required String deckId,
-    _i20.Key? key,
+    _i22.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1011,7 +1155,7 @@ extension NavigatorStateExtension on _i21.NavigationService {
   }
 
   Future<dynamic> replaceWithUserSettingsView({
-    _i20.Key? key,
+    _i22.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1040,14 +1184,16 @@ extension NavigatorStateExtension on _i21.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithAdminBadgesView([
+  Future<dynamic> replaceWithAdminBadgesView({
+    _i22.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(Routes.adminBadgesView,
+        arguments: AdminBadgesViewArguments(key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -1062,6 +1208,39 @@ extension NavigatorStateExtension on _i21.NavigationService {
         transition,
   ]) async {
     return replaceWith<dynamic>(Routes.adminModerateView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithAdminCreateBadgeView({
+    _i22.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return replaceWith<dynamic>(Routes.adminCreateBadgeView,
+        arguments: AdminCreateBadgeViewArguments(key: key),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithAdminEditBadgeView({
+    required String badgeId,
+    _i22.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return replaceWith<dynamic>(Routes.adminEditBadgeView,
+        arguments: AdminEditBadgeViewArguments(badgeId: badgeId, key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

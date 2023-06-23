@@ -28,6 +28,8 @@ import 'package:fyp_ezymemory/services/notification_service.dart';
 import 'package:fyp_ezymemory/ui/views/home_admin/home_admin_view.dart';
 import 'package:fyp_ezymemory/ui/views/admin_badges/admin_badges_view.dart';
 import 'package:fyp_ezymemory/ui/views/admin_moderate/admin_moderate_view.dart';
+import 'package:fyp_ezymemory/ui/views/admin_create_badge/admin_create_badge_view.dart';
+import 'package:fyp_ezymemory/ui/views/admin_edit_badge/admin_edit_badge_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -50,6 +52,8 @@ import 'package:fyp_ezymemory/ui/views/admin_moderate/admin_moderate_view.dart';
     MaterialRoute(page: HomeAdminView),
     MaterialRoute(page: AdminBadgesView),
     MaterialRoute(page: AdminModerateView),
+    MaterialRoute(page: AdminCreateBadgeView),
+    MaterialRoute(page: AdminEditBadgeView),
 // @stacked-route
   ],
   dependencies: [

@@ -15,6 +15,7 @@ class Badge with _$Badge {
   const factory Badge({
     required String id,
     required String name,
+    required String description,
     required String image,
   }) = _Badge;
 

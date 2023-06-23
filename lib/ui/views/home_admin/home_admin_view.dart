@@ -55,7 +55,9 @@ class HomeAdminView extends StackedView<HomeAdminViewModel> {
                         ),
                         verticalSpaceMedium,
                         GFButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              viewModel.toManageBadgesView();
+                            },
                             color: Colors.amber,
                             text: 'Manage Badges',
                             textStyle: kcTitleText),

@@ -9,4 +9,8 @@ class HomeAdminViewModel extends BaseViewModel {
   void toModerateContentView() {
     _navigationService.navigateToAdminModerateView();
   }
+
+  void toManageBadgesView() {
+    _navigationService.navigateToAdminBadgesView();
+  }
 }

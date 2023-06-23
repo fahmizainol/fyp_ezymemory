@@ -1,11 +1,15 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
+import 'package:fyp_ezymemory/models/Badge/Badge.dart';
 import 'package:fyp_ezymemory/models/Deck/Deck.dart';
 import 'package:fyp_ezymemory/models/Flashcard/Flashcard.dart';
 import 'package:fyp_ezymemory/services/auth_service.dart';
 import 'package:fyp_ezymemory/services/logger_service.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:uuid/uuid.dart';
 
 import '../app/app.locator.dart';
@@ -16,6 +20,8 @@ class FirestoreService {
       FirebaseFirestore.instance.collection('users');
   final CollectionReference _decksCollectionReference =
       FirebaseFirestore.instance.collection('decks');
+  final CollectionReference _badgesCollectionReference =
+      FirebaseFirestore.instance.collection('badges');
   // final CollectionReference _flashcardsCollectionReference =
   //     FirebaseFirestore.instance.collection('decks').;
 
@@ -696,6 +702,141 @@ class FirestoreService {
           "checkFreshInUserStackCount:  count for $deckId is $freshInUserStackCount");
 
       return freshInUserStackCount;
+    } catch (e) {}
+  }
+
+  /// ===========================================================================
+  ///                            FLASHCARD
+  /// ===========================================================================
+
+  Future uploadImg(badgeImg) async {
+    _loggerService.printInfo(header, "uploadImg: creating badge in firebase..");
+
+    final _firebaseStorage = FirebaseStorage.instance;
+    String uniqueFileName = DateTime.now().millisecondsSinceEpoch.toString();
+
+    // final _imagePicker = ImagePicker();
+    // PickedFile image;
+    //Check Permissions
+    await Permission.storage.request();
+
+    // var permissionStatus = await Permission.photos.status;
+    var permissionStatus = await Permission.storage.status;
+    try {
+      if (permissionStatus.isGranted) {
+//Get a reference to storage root
+        Reference referenceRoot = FirebaseStorage.instance.ref();
+        Reference referenceDirImages = referenceRoot.child('badges');
+
+        //Create a reference for the image to be stored
+        Reference referenceImageToUpload =
+            referenceDirImages.child(uniqueFileName);
+
+        //Handle errors/success
+
+        //Store the file
+        await referenceImageToUpload.putFile(File(badgeImg));
+        //Success: get the download URL
+        var imageUrl = await referenceImageToUpload.getDownloadURL();
+        print(imageUrl);
+        return imageUrl;
+      } else {
+        print('Permission not granted. Try Again with permission access');
+      }
+    } catch (e) {}
+  }
+
+  Future<bool> createBadge(
+      String image, String name, String description) async {
+    try {
+      _loggerService.printInfo(
+          header, "createBadge: creating badge in firebase..");
+
+      var uuid = const Uuid();
+
+      final Badge badge = Badge(
+        id: uuid.v4(),
+        image: image,
+        name: name,
+        description: description,
+      );
+      // var userGet = await getUser(uid);
+      await _badgesCollectionReference.doc(badge.id).set(badge.toJson());
+
+      return true;
+      // Need to create in User & Deck collection
+    } catch (e) {
+      if (e is PlatformException) {
+        _loggerService.printShout("createBadge: ${e.message}");
+        return false;
+      }
+      _loggerService.printShout("createBadge: ${e.toString()}");
+      return false;
+    }
+  }
+
+  Future getBadgeList() async {
+    try {
+      _loggerService.printInfo(header, "getBadgeList: getting badge list ...");
+
+      var badgeListSnap = await _badgesCollectionReference.get();
+
+      final List<Badge> badges = badgeListSnap.docs.map((e) {
+        Map<String, dynamic> data = e.data() as Map<String, dynamic>;
+        Badge badgeModel = Badge.fromJson(data);
+        return badgeModel;
+      }).toList();
+
+      // _loggerService.printInfo(
+      //     header, "getBadgeList: ${badges.toString()} ...");
+
+      return badges;
+    } catch (e) {
+      final List<Badge> emptyDeck = [];
+      return emptyDeck;
+    }
+  }
+
+  Future getBadgeById(String badgeId) async {
+    try {
+      _loggerService.printInfo(
+          header, "getBadgeById: getting badge with the id $badgeId ...");
+
+      final Badge badge =
+          await _badgesCollectionReference.doc(badgeId).get().then((value) {
+        Map<String, dynamic> badgeMap = value.data() as Map<String, dynamic>;
+        return Badge.fromJson(badgeMap);
+      });
+
+      _loggerService.printInfo(header, "getBadgeById: ${badge.toString()} ...");
+      return badge;
+    } catch (e) {}
+  }
+
+  Future updateBadge(
+      String badgeId, String name, String image, String description) async {
+    try {
+      _loggerService.printInfo(header,
+          "updateBadge: editing badgeId $badgeId image $image description $description");
+
+      await _badgesCollectionReference
+          .doc(badgeId)
+          .update({"name": name, "image": image, "description": description});
+
+      return true;
+    } catch (e) {}
+  }
+
+  Future deleteBadge(
+    String badgeId,
+  ) async {
+    try {
+      _loggerService.printInfo(
+          header, "deleteBadge: deleting badgeId $badgeId ... ");
+
+      await _badgesCollectionReference.doc(badgeId).delete();
+
+      return true;
     } catch (e) {}
   }
 }

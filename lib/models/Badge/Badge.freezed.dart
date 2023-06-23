@@ -22,6 +22,7 @@ Badge _$BadgeFromJson(Map<String, dynamic> json) {
 mixin _$Badge {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
   String get image => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -34,7 +35,7 @@ abstract class $BadgeCopyWith<$Res> {
   factory $BadgeCopyWith(Badge value, $Res Function(Badge) then) =
       _$BadgeCopyWithImpl<$Res, Badge>;
   @useResult
-  $Res call({String id, String name, String image});
+  $Res call({String id, String name, String description, String image});
 }
 
 /// @nodoc
@@ -52,6 +53,7 @@ class _$BadgeCopyWithImpl<$Res, $Val extends Badge>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? description = null,
     Object? image = null,
   }) {
     return _then(_value.copyWith(
@@ -62,6 +64,10 @@ class _$BadgeCopyWithImpl<$Res, $Val extends Badge>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
       image: null == image
           ? _value.image
@@ -77,7 +83,7 @@ abstract class _$$_BadgeCopyWith<$Res> implements $BadgeCopyWith<$Res> {
       __$$_BadgeCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name, String image});
+  $Res call({String id, String name, String description, String image});
 }
 
 /// @nodoc
@@ -91,6 +97,7 @@ class __$$_BadgeCopyWithImpl<$Res> extends _$BadgeCopyWithImpl<$Res, _$_Badge>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? description = null,
     Object? image = null,
   }) {
     return _then(_$_Badge(
@@ -101,6 +108,10 @@ class __$$_BadgeCopyWithImpl<$Res> extends _$BadgeCopyWithImpl<$Res, _$_Badge>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
       image: null == image
           ? _value.image
@@ -113,7 +124,11 @@ class __$$_BadgeCopyWithImpl<$Res> extends _$BadgeCopyWithImpl<$Res, _$_Badge>
 /// @nodoc
 @JsonSerializable()
 class _$_Badge with DiagnosticableTreeMixin implements _Badge {
-  const _$_Badge({required this.id, required this.name, required this.image});
+  const _$_Badge(
+      {required this.id,
+      required this.name,
+      required this.description,
+      required this.image});
 
   factory _$_Badge.fromJson(Map<String, dynamic> json) =>
       _$$_BadgeFromJson(json);
@@ -123,11 +138,13 @@ class _$_Badge with DiagnosticableTreeMixin implements _Badge {
   @override
   final String name;
   @override
+  final String description;
+  @override
   final String image;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Badge(id: $id, name: $name, image: $image)';
+    return 'Badge(id: $id, name: $name, description: $description, image: $image)';
   }
 
   @override
@@ -137,6 +154,7 @@ class _$_Badge with DiagnosticableTreeMixin implements _Badge {
       ..add(DiagnosticsProperty('type', 'Badge'))
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('name', name))
+      ..add(DiagnosticsProperty('description', description))
       ..add(DiagnosticsProperty('image', image));
   }
 
@@ -147,12 +165,14 @@ class _$_Badge with DiagnosticableTreeMixin implements _Badge {
             other is _$_Badge &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
             (identical(other.image, image) || other.image == image));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, image);
+  int get hashCode => Object.hash(runtimeType, id, name, description, image);
 
   @JsonKey(ignore: true)
   @override
@@ -172,6 +192,7 @@ abstract class _Badge implements Badge {
   const factory _Badge(
       {required final String id,
       required final String name,
+      required final String description,
       required final String image}) = _$_Badge;
 
   factory _Badge.fromJson(Map<String, dynamic> json) = _$_Badge.fromJson;
@@ -180,6 +201,8 @@ abstract class _Badge implements Badge {
   String get id;
   @override
   String get name;
+  @override
+  String get description;
   @override
   String get image;
   @override

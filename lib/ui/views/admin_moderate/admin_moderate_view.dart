@@ -23,7 +23,7 @@ class AdminModerateView extends StackedView<AdminModerateViewModel> {
     return EMScaffold(
       appBar: EasySearchBar(
         // leading: Icon(Icons.abc),
-        title: Text('Import Deck', style: kcAppBarText),
+        title: Text('Moderate Content', style: kcAppBarText),
         iconTheme: IconThemeData(color: Colors.white),
         searchCursorColor: GFColors.WHITE,
         // foregroundColor: GFColors.DARK,
