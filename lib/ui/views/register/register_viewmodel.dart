@@ -36,7 +36,7 @@ class RegisterValidators {
     if (value.length < 5) {
       return 'Username must be at least 5 characters long';
     }
-    if (value!.isNotEmpty && !value.contains(RegExp(r'^[a-zA-Z0-9]+$'))) {
+    if (value.isNotEmpty && !value.contains(RegExp(r'^[a-zA-Z0-9]+$'))) {
       return 'Only A-z and 0-9 are allowed';
     }
     return null;
@@ -47,7 +47,7 @@ class RegisterValidators {
       return 'Email field must not be null';
     }
 
-    if (value!.isNotEmpty &&
+    if (value.isNotEmpty &&
         !value.contains(RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$'))) {
       return 'Please enter a valid email';
     }

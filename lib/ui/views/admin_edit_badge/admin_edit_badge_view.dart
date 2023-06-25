@@ -94,10 +94,10 @@ class AdminEditBadgeView extends StackedView<AdminEditBadgeViewModel> {
                                 filled: true),
                             maxImages: 1,
                             onChanged: (value) {
-                              value!.forEach((element) {
+                              for (var element in value!) {
                                 // print(element);
                                 viewModel.changeImageValue(element);
-                              });
+                              }
                               // viewModel.changeImageValue(value);
                               // print(value);
                             },

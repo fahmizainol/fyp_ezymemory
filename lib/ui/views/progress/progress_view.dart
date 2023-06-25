@@ -6,7 +6,6 @@ import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_bottombar/em_bottombar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_circular.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_scaffold.dart';
-import 'package:getwidget/components/typography/gf_typography.dart';
 import 'package:stacked/stacked.dart';
 
 import 'progress_viewmodel.dart';
@@ -70,7 +69,7 @@ class ProgressView extends StackedView<ProgressViewModel> {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    '${viewModel.fetchedUser!.currentPoints.toString()}',
+                                    viewModel.fetchedUser!.currentPoints.toString(),
                                     style: kcTitleText,
                                   ),
                                 ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:fyp_ezymemory/ui/common/app_text.dart';
 import 'package:fyp_ezymemory/ui/common/ui_helpers.dart';
-import 'package:fyp_ezymemory/ui/views/create_deck/create_deck_view.form.dart';
 import 'package:fyp_ezymemory/ui/views/edit_deck/edit_deck_viewmodel.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_bottombar/em_bottombar.dart';
@@ -10,9 +9,7 @@ import 'package:fyp_ezymemory/ui/widgets/em_circular.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_scaffold.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked/stacked_annotations.dart';
 
-import 'edit_deck_viewmodel.dart';
 
 class EditDeckView extends StackedView<EditDeckViewModel> {
   final String deckId;
@@ -129,7 +126,7 @@ class EditDeckView extends StackedView<EditDeckViewModel> {
                           //   style: const TextStyle(
                           //     color: GFColors.WHITE,
                           //   ),
-                          title: GFTypography(
+                          title: const GFTypography(
                               text: '   Share deck?:',
                               showDivider: false,
                               textColor: GFColors.WHITE,

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:fyp_ezymemory/ui/common/app_text.dart';
 import 'package:fyp_ezymemory/ui/views/register/register_view.form.dart';
-import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_scaffold.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:stacked/stacked.dart';
@@ -53,11 +52,11 @@ class RegisterView extends StackedView<RegisterViewModel> with $RegisterView {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 verticalSpaceMedium,
-                Center(
+                const Center(
                   child: Image(image: AssetImage('images/image1.png')),
                 ),
                 verticalSpaceMedium,
-                Center(
+                const Center(
                   child: Text(
                     'SIGN UP',
                     style: kcAppBarText2,

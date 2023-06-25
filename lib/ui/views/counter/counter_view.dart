@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:fyp_ezymemory/ui/common/ui_helpers.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_bottombar/em_bottombar.dart';
-import 'package:fyp_ezymemory/ui/widgets/em_circular.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_scaffold.dart';
 import 'package:stacked/stacked.dart';
 
@@ -18,13 +17,13 @@ class CounterView extends StackedView<CounterViewModel> {
     Widget? child,
   ) {
     return EMScaffold(
-      appBar: EMAppBar(title: 'title'),
-      bottomNavigationBar: EMBottomBar(),
+      appBar: const EMAppBar(title: 'title'),
+      bottomNavigationBar: const EMBottomBar(),
 
       // backgroundColor: Theme.of(context).colorScheme.background,
-      body: SafeArea(
+      body: const SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 0.0),
+          padding: EdgeInsets.symmetric(horizontal: 0.0),
           child: Column(
             // mainAxisSize: MainAxisSize.max,
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -32,7 +31,7 @@ class CounterView extends StackedView<CounterViewModel> {
               verticalSpaceTiny,
               Column(
                 children: [
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.fromLTRB(15, 0, 0, 10),
                     // child: GFTypography(
                     //   dividerColor: GFColors.WHITE,

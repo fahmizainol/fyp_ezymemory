@@ -9,24 +9,24 @@ class DeckListItems extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 1),
       child: ListView(
         padding: const EdgeInsets.all(5),
-        children: [
-          const Divider(),
-          Container(
+        children: const [
+          Divider(),
+          SizedBox(
             height: 20,
             // color: Colors.amber[200],
-            child: const Center(child: Text('Entry B')),
+            child: Center(child: Text('Entry B')),
           ),
-          const Divider(),
-          Container(
+          Divider(),
+          SizedBox(
             height: 20,
             // color: Colors.amber[300],
-            child: const Center(child: Text('Entry C')),
+            child: Center(child: Text('Entry C')),
           ),
-          const Divider(),
-          Container(
+          Divider(),
+          SizedBox(
             height: 20,
             // color: Colors.amber[300],
-            child: const Center(child: Text('Entry C')),
+            child: Center(child: Text('Entry C')),
           ),
         ],
       ),

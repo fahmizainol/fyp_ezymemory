@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:fyp_ezymemory/app/app.router.dart';
 import 'package:fyp_ezymemory/ui/common/app_text.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_bottombar/em_bottombar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_circular.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_scaffold.dart';
-import 'package:popover/popover.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:stacked/stacked.dart';
 import 'package:fyp_ezymemory/ui/common/app_colors.dart';
 import 'package:fyp_ezymemory/ui/common/ui_helpers.dart';
 
 import 'home_viewmodel.dart';
-import 'widgets/gesture_popover.dart';
 
 class HomeView extends StackedView<HomeViewModel> {
   const HomeView({Key? key}) : super(key: key);
@@ -28,7 +25,7 @@ class HomeView extends StackedView<HomeViewModel> {
           title: viewModel.isBusy
               ? "Welcome, !"
               : "Welcome, ${viewModel.fetchedUser?.username}!"),
-      bottomNavigationBar: EMBottomBar(),
+      bottomNavigationBar: const EMBottomBar(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),

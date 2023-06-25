@@ -4,7 +4,6 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:fyp_ezymemory/ui/common/app_colors.dart';
 import 'package:fyp_ezymemory/ui/common/app_text.dart';
 import 'package:fyp_ezymemory/ui/common/ui_helpers.dart';
-import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_bottombar/em_bottombar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_circular.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_scaffold.dart';
@@ -26,8 +25,8 @@ class AdminBadgesView extends StackedView<AdminBadgesViewModel> {
     return EMScaffold(
       appBar: EasySearchBar(
         // leading: Icon(Icons.abc),
-        title: Text('Manage Badges', style: kcAppBarText),
-        iconTheme: IconThemeData(color: Colors.white),
+        title: const Text('Manage Badges', style: kcAppBarText),
+        iconTheme: const IconThemeData(color: Colors.white),
         searchCursorColor: GFColors.WHITE,
         // foregroundColor: GFColors.DARK,
         searchBackgroundColor: GFColors.WHITE,
@@ -35,7 +34,7 @@ class AdminBadgesView extends StackedView<AdminBadgesViewModel> {
         backgroundColor: GFColors.DARK,
         // suggestions: ,
       ),
-      bottomNavigationBar: EMBottomBar(),
+      bottomNavigationBar: const EMBottomBar(),
 
       // backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(

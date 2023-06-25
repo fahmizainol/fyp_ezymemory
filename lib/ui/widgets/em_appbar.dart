@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:fyp_ezymemory/ui/common/app_text.dart';
 import 'package:getwidget/getwidget.dart';
 

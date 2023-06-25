@@ -21,8 +21,8 @@ class LeaderboardView extends StackedView<LeaderboardViewModel> {
     Widget? child,
   ) {
     return EMScaffold(
-        appBar: EMAppBar(title: 'Leaderboard'),
-        bottomNavigationBar: EMBottomBar(),
+        appBar: const EMAppBar(title: 'Leaderboard'),
+        bottomNavigationBar: const EMBottomBar(),
 
         // backgroundColor: Theme.of(context).colorScheme.background,
         body: SafeArea(
@@ -93,17 +93,17 @@ class LeaderboardView extends StackedView<LeaderboardViewModel> {
                                                 cells: <DataCell>[
                                                   DataCell(Text(
                                                     '${index + 1}. ',
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         color: GFColors.LIGHT),
                                                   )),
                                                   DataCell(Text(
-                                                      '${viewModel.fetchedUserList![index].username}',
-                                                      style: TextStyle(
+                                                      viewModel.fetchedUserList![index].username,
+                                                      style: const TextStyle(
                                                           color:
                                                               GFColors.LIGHT))),
                                                   DataCell(Text(
                                                       '${viewModel.fetchedUserList![index].currentPoints} pts',
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                           color: Colors.amber)))
                                                 ],
                                                 // selected: selected[index],

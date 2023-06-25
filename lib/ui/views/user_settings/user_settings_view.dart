@@ -23,8 +23,8 @@ class UserSettingsView extends StackedView<UserSettingsViewModel> {
     Widget? child,
   ) {
     return EMScaffold(
-      appBar: EMAppBar(title: "Set Reminder"),
-      bottomNavigationBar: EMBottomBar(),
+      appBar: const EMAppBar(title: "Set Reminder"),
+      bottomNavigationBar: const EMBottomBar(),
       body: SingleChildScrollView(
         child: FormBuilder(
           key: _formKey,
@@ -32,20 +32,20 @@ class UserSettingsView extends StackedView<UserSettingsViewModel> {
               ? AutovalidateMode.onUserInteraction
               : AutovalidateMode.disabled,
           child: viewModel.isBusy
-              ? EMCircular()
+              ? const EMCircular()
               : SafeArea(
                   child: Padding(
-                    padding: EdgeInsets.all(15.0),
+                    padding: const EdgeInsets.all(15.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         verticalSpaceMedium,
-                        Text(
+                        const Text(
                           'Please configure the time you want to be reminded for lesson',
                           style: kcTitleText,
                         ),
                         verticalSpaceMedium,
-                        Text(
+                        const Text(
                           'You will be reminded everyday at the time you have chosen',
                           style: kcNormalText,
                         ),
@@ -83,7 +83,7 @@ class UserSettingsView extends StackedView<UserSettingsViewModel> {
                             //     viewModel.isShared);
                             viewModel.updateReminder();
                           },
-                          child: Text('Update Reminder Time'),
+                          child: const Text('Update Reminder Time'),
                         )
                       ],
                     ),

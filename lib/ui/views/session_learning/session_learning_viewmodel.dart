@@ -1,11 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:fyp_ezymemory/app/app.locator.dart';
 import 'package:fyp_ezymemory/models/Flashcard/Flashcard.dart';
 import 'package:fyp_ezymemory/services/firestore_service.dart';
 import 'package:fyp_ezymemory/services/point_service.dart';
 import 'package:fyp_ezymemory/services/sm2_service.dart';
-import 'package:fyp_ezymemory/services/spacedr_service.dart';
 import 'package:spaced_repetition/SmResponse.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';

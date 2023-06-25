@@ -1,10 +1,7 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:fyp_ezymemory/app/app.bottomsheets.dart';
-import 'package:fyp_ezymemory/app/app.dialogs.dart';
 import 'package:fyp_ezymemory/app/app.locator.dart';
 import 'package:fyp_ezymemory/app/app.router.dart';
 import 'package:fyp_ezymemory/models/Deck/Deck.dart';

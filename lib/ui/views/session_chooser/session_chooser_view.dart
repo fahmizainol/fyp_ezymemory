@@ -3,9 +3,7 @@ import 'package:fyp_ezymemory/ui/common/app_text.dart';
 import 'package:fyp_ezymemory/ui/views/session_chooser/session_chooser_viewmodel.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_bottombar/em_bottombar.dart';
-import 'package:fyp_ezymemory/ui/widgets/em_circular.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_scaffold.dart';
-import 'package:popover/popover.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:stacked/stacked.dart';
 import 'package:fyp_ezymemory/ui/common/app_colors.dart';
@@ -26,7 +24,7 @@ class SessionChooserView extends StackedView<SessionChooserViewModel> {
     // viewModel.futureToRun();
     // print(viewModel.fetchedUser?.username.toString());
     return EMScaffold(
-      appBar: EMAppBar(title: "Session Chooser"),
+      appBar: const EMAppBar(title: "Session Chooser"),
       bottomNavigationBar: const EMBottomBar(),
       // backgroundColor: GFColors.DARK,
       body: SafeArea(
@@ -55,7 +53,7 @@ class SessionChooserView extends StackedView<SessionChooserViewModel> {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
+                          const Expanded(
                             flex: 1,
                             child: Text(
                               'Learning Session',
@@ -65,7 +63,7 @@ class SessionChooserView extends StackedView<SessionChooserViewModel> {
                           Expanded(
                             flex: 1,
                             child: Text(
-                              'Last sassion: Yesterday \nPending cards: {placeholder} \nReview cards: {placeholder}',
+                              'Last session: Yesterday \nPending cards: ${viewModel.freshFlashcardsCount} \nReview cards: ${viewModel.reviewFlashcardsCount}',
                               style: kcNormalText,
                             ),
                           ),
@@ -103,17 +101,17 @@ class SessionChooserView extends StackedView<SessionChooserViewModel> {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
+                          const Expanded(
                             flex: 1,
                             child: Text(
                               'Memory Games',
                               style: kcTitleText,
                             ),
                           ),
-                          Expanded(
+                          const Expanded(
                             flex: 1,
                             child: Text(
-                              'Last sassion: Yesterday \nPending cards: {placeholder} \nReview cards: {placeholder}',
+                              'Play Memory Test Game with the cards that you have learned!',
                               style: kcNormalText,
                             ),
                           ),
@@ -124,7 +122,9 @@ class SessionChooserView extends StackedView<SessionChooserViewModel> {
                                 children: [
                                   GFButton(
                                     // color: Colors.,
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      viewModel.toGameQuizView();
+                                    },
                                     text: 'START PLAYING >',
                                     textStyle: kcNormalText,
                                   ),

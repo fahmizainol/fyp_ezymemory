@@ -1,12 +1,9 @@
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
 import 'package:fyp_ezymemory/app/app.locator.dart';
 import 'package:fyp_ezymemory/app/app.router.dart';
 import 'package:fyp_ezymemory/services/auth_service.dart';
 import 'package:fyp_ezymemory/services/firestore_service.dart';
 import 'package:fyp_ezymemory/services/logger_service.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 

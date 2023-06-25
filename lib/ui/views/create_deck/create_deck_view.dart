@@ -5,8 +5,6 @@ import 'package:fyp_ezymemory/ui/views/create_deck/create_deck_view.form.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_bottombar/em_bottombar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_scaffold.dart';
-import 'package:getwidget/colors/gf_color.dart';
-import 'package:getwidget/components/typography/gf_typography.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
@@ -32,8 +30,8 @@ class CreateDeckView extends StackedView<CreateDeckViewModel>
     Widget? child,
   ) {
     return EMScaffold(
-      appBar: EMAppBar(title: "Create Deck"),
-      bottomNavigationBar: EMBottomBar(),
+      appBar: const EMAppBar(title: "Create Deck"),
+      bottomNavigationBar: const EMBottomBar(),
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,

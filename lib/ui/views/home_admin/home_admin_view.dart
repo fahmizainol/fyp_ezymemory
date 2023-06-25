@@ -3,8 +3,6 @@ import 'package:fyp_ezymemory/ui/common/app_colors.dart';
 import 'package:fyp_ezymemory/ui/common/app_text.dart';
 import 'package:fyp_ezymemory/ui/common/ui_helpers.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
-import 'package:fyp_ezymemory/ui/widgets/em_bottombar/em_bottombar.dart';
-import 'package:fyp_ezymemory/ui/widgets/em_circular.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_scaffold.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:stacked/stacked.dart';
@@ -48,7 +46,7 @@ class HomeAdminView extends StackedView<HomeAdminViewModel> {
                       // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         verticalSpaceMedium,
-                        Icon(
+                        const Icon(
                           Icons.badge,
                           size: 150,
                           color: GFColors.LIGHT,
@@ -81,7 +79,7 @@ class HomeAdminView extends StackedView<HomeAdminViewModel> {
                       // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         verticalSpaceMedium,
-                        Icon(
+                        const Icon(
                           Icons.supervised_user_circle,
                           size: 150,
                           color: GFColors.LIGHT,

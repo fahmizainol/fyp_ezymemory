@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:getwidget/colors/gf_color.dart';
 
 import 'em_drawer/em_drawer.dart';
@@ -27,7 +25,7 @@ class EMScaffold extends StatelessWidget {
     return Scaffold(
         floatingActionButton: floatingButton,
         appBar: appBar,
-        drawer: EMDrawer(),
+        drawer: const EMDrawer(),
         bottomNavigationBar: bottomNavigationBar,
         backgroundColor: backgroundColor ?? GFColors.DARK,
         body: body);

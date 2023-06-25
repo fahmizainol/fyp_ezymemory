@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:fyp_ezymemory/ui/common/app_text.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:stacked/stacked.dart';
@@ -34,8 +32,8 @@ class EMDrawer extends StackedView<EMDrawerModel> {
           ),
         ),
         ListTile(
-          leading: Icon(Icons.home),
-          title: Text(
+          leading: const Icon(Icons.home),
+          title: const Text(
             "Home",
             style: kcNormalTextBlack,
           ),
@@ -44,8 +42,8 @@ class EMDrawer extends StackedView<EMDrawerModel> {
           },
         ),
         ListTile(
-          leading: Icon(Icons.settings),
-          title: Text(
+          leading: const Icon(Icons.settings),
+          title: const Text(
             "Set reminder",
             style: kcNormalTextBlack,
           ),
@@ -54,8 +52,8 @@ class EMDrawer extends StackedView<EMDrawerModel> {
           },
         ),
         ListTile(
-          leading: Icon(Icons.contacts),
-          title: Text(
+          leading: const Icon(Icons.contacts),
+          title: const Text(
             "Logout",
             style: kcNormalTextBlack,
           ),

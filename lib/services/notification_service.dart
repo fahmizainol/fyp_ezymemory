@@ -59,7 +59,7 @@ class NotificationService {
 
   Future<void> showNotifications({id, title, body, payload}) async {
     AndroidNotificationDetails androidPlatformChannelSpecifics =
-        AndroidNotificationDetails('your channel id', 'your channel name',
+        const AndroidNotificationDetails('your channel id', 'your channel name',
             channelDescription: 'your channel description',
             importance: Importance.max,
             priority: Priority.high,

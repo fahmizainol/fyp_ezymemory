@@ -961,7 +961,7 @@ class MockFirestoreService extends _i1.Mock implements _i12.FirestoreService {
   @override
   _i8.Future<dynamic> getFreshFlashcardListById(
     String? deckId, {
-    int? freshLimit = 3,
+    int? freshLimit = 10,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -1062,6 +1062,15 @@ class MockFirestoreService extends _i1.Mock implements _i12.FirestoreService {
         Invocation.method(
           #getBadgeList,
           [],
+        ),
+        returnValue: _i8.Future<dynamic>.value(),
+        returnValueForMissingStub: _i8.Future<dynamic>.value(),
+      ) as _i8.Future<dynamic>);
+  @override
+  _i8.Future<dynamic> getBadgeById(String? badgeId) => (super.noSuchMethod(
+        Invocation.method(
+          #getBadgeById,
+          [badgeId],
         ),
         returnValue: _i8.Future<dynamic>.value(),
         returnValueForMissingStub: _i8.Future<dynamic>.value(),

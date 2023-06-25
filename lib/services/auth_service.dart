@@ -1,9 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fyp_ezymemory/app/app.locator.dart';
-import 'package:fyp_ezymemory/services/firestore_service.dart';
 import 'package:fyp_ezymemory/services/logger_service.dart';
 
-import '../models/User/User.dart' as UserModel;
 
 // mapping, serialization, deseraliazation done in here.
 class AuthService {
@@ -74,7 +72,7 @@ class AuthService {
 
   Future getCurrentUserId() async {
     try {
-      var res = await _firebaseAuth.currentUser?.uid;
+      var res = _firebaseAuth.currentUser?.uid;
       return res;
     } catch (e) {}
   }

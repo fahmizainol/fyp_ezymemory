@@ -3,7 +3,6 @@ import 'package:fyp_ezymemory/app/app.router.dart';
 import 'package:fyp_ezymemory/services/auth_service.dart';
 import 'package:fyp_ezymemory/services/firestore_service.dart';
 import 'package:fyp_ezymemory/services/logger_service.dart';
-import 'package:simple_logger/simple_logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 

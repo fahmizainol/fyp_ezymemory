@@ -211,7 +211,7 @@ class FirestoreService {
     try {
       var uid = await _authService.getCurrentUserId();
       _loggerService.printInfo(
-          header, "getUserDeckList: getting user ${uid} deck list...");
+          header, "getUserDeckList: getting user $uid deck list...");
 
       var userDeckListSnap = await _decksCollectionReference
           .where('user_id', isEqualTo: uid)
@@ -258,7 +258,7 @@ class FirestoreService {
 
       final List<Flashcard> importedDeckFlashcardList =
           importedDeckFlashcard.docs.map((e) {
-        Map<String, dynamic> data = e.data() as Map<String, dynamic>;
+        Map<String, dynamic> data = e.data();
         // print(data["id"]);
         // updateFlashcardById(
         //     inUserStack: true,
@@ -374,7 +374,7 @@ class FirestoreService {
           front: front,
           easeFactor: 0.0,
           interval: 0,
-          reviewTime: DateTime.now(),
+          reviewTime: DateTime.now().subtract(const Duration(days: 1)),
           repetitions: 0,
           status: 'fresh',
           inUserStack: false);
@@ -459,7 +459,7 @@ class FirestoreService {
 
       final List<Flashcard> reviewFlashcards =
           reviewFlashcardListSnap.docs.map((e) {
-        Map<String, dynamic> data = e.data() as Map<String, dynamic>;
+        Map<String, dynamic> data = e.data();
         // set inUserStack to true and update to firebase
         data["inUserStack"] = true;
         updateFlashcardById(
@@ -477,7 +477,7 @@ class FirestoreService {
 
       final List<Flashcard> freshInUserStackFlashcard =
           freshFlashcardListSnap.docs.map((e) {
-        Map<String, dynamic> data = e.data() as Map<String, dynamic>;
+        Map<String, dynamic> data = e.data();
         Flashcard flashcardModel = Flashcard.fromJson(data);
         return flashcardModel;
       }).toList();
@@ -504,7 +504,7 @@ class FirestoreService {
     }
   }
 
-  Future getFreshFlashcardListById(String deckId, {int freshLimit = 3}) async {
+  Future getFreshFlashcardListById(String deckId, {int freshLimit = 10}) async {
     try {
       _loggerService.printInfo(header,
           "getFreshFlashcardListById: getting flashcard list $deckId ...");
@@ -530,7 +530,7 @@ class FirestoreService {
 
       final List<Flashcard> reviewFlashcards =
           reviewFlashcardListSnap.docs.map((e) {
-        Map<String, dynamic> data = e.data() as Map<String, dynamic>;
+        Map<String, dynamic> data = e.data();
         // set inUserStack to true and update to firebase
         data["inUserStack"] = true;
         updateFlashcardById(
@@ -548,7 +548,7 @@ class FirestoreService {
 
       final List<Flashcard> freshInUserStackFlashcard =
           freshFlashcardListSnap.docs.map((e) {
-        Map<String, dynamic> data = e.data() as Map<String, dynamic>;
+        Map<String, dynamic> data = e.data();
         data["inUserStack"] = true;
         updateFlashcardById(
             inUserStack: true,
@@ -578,6 +578,54 @@ class FirestoreService {
 
       _loggerService.printInfo(header,
           "getFreshFlashcardListById: getting session flashcard list success! ${flashcards.toString()}");
+
+      return flashcards;
+    } catch (e) {
+      final List<Flashcard> emptyFlashcard = [];
+      return emptyFlashcard;
+    }
+  }
+
+  Future getQuizFlashcards(String deckId, {int freshLimit = 10}) async {
+    try {
+      _loggerService.printInfo(
+          header, "getQuizFlashcards: getting flashcard list $deckId ...");
+
+      var freshFlashcardListSnap = await _decksCollectionReference
+          .doc(deckId)
+          .collection('flashcards')
+          // .orderBy('reviewTime', descending: false)
+          .limit(freshLimit)
+          .get();
+
+      await updateDeckLastFetchedTime(deckId);
+
+      final List<Flashcard> freshInUserStackFlashcard =
+          freshFlashcardListSnap.docs.map((e) {
+        Map<String, dynamic> data = e.data();
+        data["inUserStack"] = true;
+        updateFlashcardById(
+            inUserStack: true,
+            status: 'fresh',
+            deckId: deckId,
+            flashcardId: data["id"],
+            reviewTime: data["reviewTime"],
+            easeFactor: data["easeFactor"],
+            interval: data["interval"],
+            repetitions: data["repetitions"]);
+        Flashcard flashcardModel = Flashcard.fromJson(data);
+
+        return flashcardModel;
+      }).toList();
+
+      _loggerService.printInfo(header,
+          "getQuizFlashcards: getting fresh flashcard list success! ${freshInUserStackFlashcard.toString()}");
+
+      // combine the lists
+      final List<Flashcard> flashcards = [...freshInUserStackFlashcard];
+
+      _loggerService.printInfo(header,
+          "getQuizFlashcards: getting session flashcard list success! ${flashcards.toString()}");
 
       return flashcards;
     } catch (e) {
@@ -624,6 +672,17 @@ class FirestoreService {
       //   return 10; // FIXME hardcoded change it later
       // }
       int limit = freshFlashcardListSnap.count;
+      int limitNewCard = 0;
+      if (limit == 0) {
+        var freshCardNew = await _decksCollectionReference
+            .doc(deckId)
+            .collection('flashcards')
+            .where('status', isEqualTo: 'fresh')
+            .count()
+            .get();
+
+        limitNewCard = freshCardNew.count;
+      }
 
       Deck currentDeck = await getDeckById(deckId);
 
@@ -639,11 +698,12 @@ class FirestoreService {
       // print(limit);
       _loggerService.printInfo(header,
           "checkFreshFetch: limit is $limit and duration is ${duration.inDays}");
-      if (limit == 0 && duration.inDays >= 1) return true;
-      if (duration.inDays >= 1)
+      if (limit == 0 && limitNewCard != 0) return true;
+      if (duration.inDays >= 1) {
         return true;
-      else
+      } else {
         return false;
+      }
     } catch (e) {}
   }
 
@@ -712,7 +772,7 @@ class FirestoreService {
   Future uploadImg(badgeImg) async {
     _loggerService.printInfo(header, "uploadImg: creating badge in firebase..");
 
-    final _firebaseStorage = FirebaseStorage.instance;
+    final firebaseStorage = FirebaseStorage.instance;
     String uniqueFileName = DateTime.now().millisecondsSinceEpoch.toString();
 
     // final _imagePicker = ImagePicker();

@@ -3,7 +3,6 @@ import 'package:fyp_ezymemory/app/app.router.dart';
 import 'package:fyp_ezymemory/services/auth_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'login_view.form.dart';
 
 class LoginViewModel extends FormViewModel {
   final _authService = locator<AuthService>();
@@ -40,7 +39,7 @@ class LoginValidators {
       return 'Email field must not be null';
     }
 
-    if (value!.isNotEmpty &&
+    if (value.isNotEmpty &&
         !value.contains(RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$'))) {
       return 'Please enter a valid email';
     }

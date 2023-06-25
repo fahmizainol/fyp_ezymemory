@@ -23,8 +23,8 @@ class AdminModerateView extends StackedView<AdminModerateViewModel> {
     return EMScaffold(
       appBar: EasySearchBar(
         // leading: Icon(Icons.abc),
-        title: Text('Moderate Content', style: kcAppBarText),
-        iconTheme: IconThemeData(color: Colors.white),
+        title: const Text('Moderate Content', style: kcAppBarText),
+        iconTheme: const IconThemeData(color: Colors.white),
         searchCursorColor: GFColors.WHITE,
         // foregroundColor: GFColors.DARK,
         searchBackgroundColor: GFColors.WHITE,
@@ -32,7 +32,7 @@ class AdminModerateView extends StackedView<AdminModerateViewModel> {
         backgroundColor: GFColors.DARK,
         // suggestions: ,
       ),
-      bottomNavigationBar: EMBottomBar(),
+      bottomNavigationBar: const EMBottomBar(),
 
       // backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(

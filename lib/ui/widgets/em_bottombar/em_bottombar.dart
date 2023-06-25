@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:getwidget/getwidget.dart';
 import 'package:stacked/stacked.dart';
 
 import 'em_bottombar_model.dart';

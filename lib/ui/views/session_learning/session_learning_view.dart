@@ -1,10 +1,7 @@
-import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:fyp_ezymemory/ui/common/ui_helpers.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
-import 'package:fyp_ezymemory/ui/widgets/em_bottombar/em_bottombar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_circular.dart';
-import 'package:fyp_ezymemory/ui/widgets/em_learning_bottombar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_scaffold.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:stacked/stacked.dart';
@@ -39,10 +36,10 @@ class SessionLearningView extends StackedView<SessionLearningViewModel> {
             : Row(
                 children: [
                   Text(viewModel.freshFlashcardsCount.toString(),
-                      style: TextStyle(color: GFColors.SUCCESS)),
+                      style: const TextStyle(color: GFColors.SUCCESS)),
                   horizontalSpaceSmall,
                   Text(viewModel.reviewFlashcardsCount.toString(),
-                      style: TextStyle(color: GFColors.DANGER)),
+                      style: const TextStyle(color: GFColors.DANGER)),
                   horizontalSpaceMedium,
                 ],
               )
@@ -57,7 +54,7 @@ class SessionLearningView extends StackedView<SessionLearningViewModel> {
                 child: Column(
                   children: [
                     Container(
-                      margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                      margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                       color: GFColors.WHITE,
                       width: 350,
                       height: 600,
@@ -71,7 +68,7 @@ class SessionLearningView extends StackedView<SessionLearningViewModel> {
                             : Column(
                                 // mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
-                                  Text('Question'),
+                                  const Text('Question'),
                                   verticalSpaceMassive,
                                   verticalSpaceMassive,
                                   Center(
@@ -111,7 +108,7 @@ class SessionLearningView extends StackedView<SessionLearningViewModel> {
                 child: Column(
                   children: [
                     Container(
-                      margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                      margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                       color: GFColors.WHITE,
                       width: 350,
                       height: 600,
@@ -125,7 +122,7 @@ class SessionLearningView extends StackedView<SessionLearningViewModel> {
                             : Column(
                                 // mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
-                                  Text('Answer'),
+                                  const Text('Answer'),
                                   verticalSpaceMassive,
                                   verticalSpaceMassive,
                                   // GFTypography(

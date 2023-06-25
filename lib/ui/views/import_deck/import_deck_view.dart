@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:fyp_ezymemory/ui/common/app_colors.dart';
 import 'package:fyp_ezymemory/ui/common/app_text.dart';
 import 'package:fyp_ezymemory/ui/common/ui_helpers.dart';
-import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_bottombar/em_bottombar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_circular.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_scaffold.dart';
@@ -24,8 +23,8 @@ class ImportDeckView extends StackedView<ImportDeckViewModel> {
     return EMScaffold(
       appBar: EasySearchBar(
         // leading: Icon(Icons.abc),
-        title: Text('Import Deck', style: kcAppBarText),
-        iconTheme: IconThemeData(color: Colors.white),
+        title: const Text('Import Deck', style: kcAppBarText),
+        iconTheme: const IconThemeData(color: Colors.white),
         searchCursorColor: GFColors.WHITE,
         // foregroundColor: GFColors.DARK,
         searchBackgroundColor: GFColors.WHITE,
@@ -33,7 +32,7 @@ class ImportDeckView extends StackedView<ImportDeckViewModel> {
         backgroundColor: GFColors.DARK,
         // suggestions: ,
       ),
-      bottomNavigationBar: EMBottomBar(),
+      bottomNavigationBar: const EMBottomBar(),
 
       // backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
@@ -97,7 +96,7 @@ class ImportDeckView extends StackedView<ImportDeckViewModel> {
                                               style: kcNormalText)),
                                           DataCell(IconButton(
                                             color: Colors.amber,
-                                            icon: Icon(Icons.add),
+                                            icon: const Icon(Icons.add),
                                             onPressed: () {
                                               viewModel.importDeck(viewModel
                                                   .fetchedDeckList![index]);

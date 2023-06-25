@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 // import 'package:fyp_ezymemory/ui/views/home/decklist_items.dart';
 import 'package:popover/popover.dart';
 
-import 'decklist_items.dart';
 
 class GesturePopover extends StatelessWidget {
   final Widget? child;
@@ -36,23 +33,23 @@ class GesturePopover extends StatelessWidget {
                       const Divider(),
                       InkWell(
                         onTap: toEditDeckView,
-                        child: Container(
+                        child: const SizedBox(
                           height: 20,
                           // color: Colors.amber[200],
-                          child: const Center(child: Text('Edit Deck')),
+                          child: Center(child: Text('Edit Deck')),
                         ),
                       ),
                       const Divider(),
-                      Container(
+                      const SizedBox(
                         height: 20,
                         // color: Colors.amber[300],
-                        child: const Center(child: Text('Entry C')),
+                        child: Center(child: Text('Entry C')),
                       ),
                       const Divider(),
-                      Container(
+                      const SizedBox(
                         height: 20,
                         // color: Colors.amber[300],
-                        child: const Center(child: Text('Entry C')),
+                        child: Center(child: Text('Entry C')),
                       ),
                     ],
                   ),
