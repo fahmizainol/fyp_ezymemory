@@ -31,6 +31,7 @@ import 'package:fyp_ezymemory/ui/views/admin_moderate/admin_moderate_view.dart';
 import 'package:fyp_ezymemory/ui/views/admin_create_badge/admin_create_badge_view.dart';
 import 'package:fyp_ezymemory/ui/views/admin_edit_badge/admin_edit_badge_view.dart';
 import 'package:fyp_ezymemory/ui/views/game_quiz/game_quiz_view.dart';
+import 'package:fyp_ezymemory/ui/views/game_matching/game_matching_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -56,6 +57,7 @@ import 'package:fyp_ezymemory/ui/views/game_quiz/game_quiz_view.dart';
     MaterialRoute(page: AdminCreateBadgeView),
     MaterialRoute(page: AdminEditBadgeView),
     MaterialRoute(page: GameQuizView),
+    MaterialRoute(page: GameMatchingView),
 // @stacked-route
   ],
   dependencies: [

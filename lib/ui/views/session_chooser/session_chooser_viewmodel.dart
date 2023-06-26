@@ -58,6 +58,10 @@ class SessionChooserViewModel extends FutureViewModel {
     _navigationService.navigateToGameQuizView(deckId: deckId);
   }
 
+  void toGameMatchingView() {
+    _navigationService.navigateToGameMatchingView(deckId: deckId);
+  }
+
   // @override
   // Future futureToRun() {
   //   // TODO: implement futureToRun

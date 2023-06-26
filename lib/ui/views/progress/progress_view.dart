@@ -69,7 +69,8 @@ class ProgressView extends StackedView<ProgressViewModel> {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    viewModel.fetchedUser!.currentPoints.toString(),
+                                    viewModel.fetchedUser!.currentPoints
+                                        .toString(),
                                     style: kcTitleText,
                                   ),
                                 ),

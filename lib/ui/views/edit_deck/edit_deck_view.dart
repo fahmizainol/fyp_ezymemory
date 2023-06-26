@@ -10,7 +10,6 @@ import 'package:fyp_ezymemory/ui/widgets/em_scaffold.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:stacked/stacked.dart';
 
-
 class EditDeckView extends StackedView<EditDeckViewModel> {
   final String deckId;
   EditDeckView(this.deckId, {Key? key}) : super(key: key);

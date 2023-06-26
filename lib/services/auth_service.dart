@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fyp_ezymemory/app/app.locator.dart';
 import 'package:fyp_ezymemory/services/logger_service.dart';
 
-
 // mapping, serialization, deseraliazation done in here.
 class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;

@@ -28,6 +28,8 @@ class GameQuizViewModel extends FutureViewModel {
   int reviewFlashcardsCount = 0;
   List<String>? ans;
   List<List<String>>? ansList;
+  int? points;
+  int correctAns = 0;
   // TabController? tabController  = TabController(length: 3, vsync);
 
   @override
@@ -81,10 +83,13 @@ class GameQuizViewModel extends FutureViewModel {
     for (var i = 0; i < flashcardsListCount; i++) {
       if (ans![i] == fetchedFlashcardsList![i].back) {
         print('correct');
+        correctAns += 1;
       } else {
         print('wrong');
       }
     }
+
+    print('${correctAns} out of ${flashcardsListCount}');
     // if (ans == fetchedFlashcardsList![flashcardsListCount].back) {
     //   print('corect');
     // } else {

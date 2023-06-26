@@ -973,6 +973,20 @@ class MockFirestoreService extends _i1.Mock implements _i12.FirestoreService {
         returnValueForMissingStub: _i8.Future<dynamic>.value(),
       ) as _i8.Future<dynamic>);
   @override
+  _i8.Future<dynamic> getQuizFlashcards(
+    String? deckId, {
+    int? freshLimit = 10,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getQuizFlashcards,
+          [deckId],
+          {#freshLimit: freshLimit},
+        ),
+        returnValue: _i8.Future<dynamic>.value(),
+        returnValueForMissingStub: _i8.Future<dynamic>.value(),
+      ) as _i8.Future<dynamic>);
+  @override
   _i8.Future<dynamic> getFlashcardsCountByDeckId(String? deckId) =>
       (super.noSuchMethod(
         Invocation.method(

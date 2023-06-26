@@ -97,7 +97,10 @@ class LeaderboardView extends StackedView<LeaderboardViewModel> {
                                                         color: GFColors.LIGHT),
                                                   )),
                                                   DataCell(Text(
-                                                      viewModel.fetchedUserList![index].username,
+                                                      viewModel
+                                                          .fetchedUserList![
+                                                              index]
+                                                          .username,
                                                       style: const TextStyle(
                                                           color:
                                                               GFColors.LIGHT))),

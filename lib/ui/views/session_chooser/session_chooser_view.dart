@@ -123,9 +123,18 @@ class SessionChooserView extends StackedView<SessionChooserViewModel> {
                                   GFButton(
                                     // color: Colors.,
                                     onPressed: () {
+                                      viewModel.toGameMatchingView();
+                                    },
+                                    text: 'MATCH-THE-CARD',
+                                    textStyle: kcNormalText,
+                                  ),
+                                  horizontalSpaceLarge,
+                                  GFButton(
+                                    // color: Colors.,
+                                    onPressed: () {
                                       viewModel.toGameQuizView();
                                     },
-                                    text: 'START PLAYING >',
+                                    text: 'QUIZ GAME',
                                     textStyle: kcNormalText,
                                   ),
                                 ],

@@ -34,77 +34,82 @@ class GameQuizView extends StackedView<GameQuizViewModel> {
               ? const EMCircular()
               : FormBuilder(
                   key: _formKey,
-                  // child: Column(
-                  // mainAxisSize: MainAxisSize.max,
-                  child: ListView.builder(
-                    // key: UniqueKey(),
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    itemCount: viewModel.fetchedFlashcardsList!.length,
-                    itemBuilder: (context, index) => Container(
-                      height: 400,
-                      width: 350,
-                      // child: Text('fff'),
-                      decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                        color: kcCardColor,
+                  child: Column(mainAxisSize: MainAxisSize.max, children: [
+                    Expanded(
+                      child: ListView.builder(
+                        // key: UniqueKey(),
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemCount: viewModel.fetchedFlashcardsList!.length,
+                        itemBuilder: (context, index) => Container(
+                          height: 400,
+                          width: 350,
+                          // child: Text('fff'),
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
+                            color: kcCardColor,
+                          ),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              // mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                verticalSpaceMedium,
+                                Text('QUESTION ${index + 1}:',
+                                    style: kcTitleText),
+                                Divider(color: GFColors.LIGHT),
+                                verticalSpaceMedium,
+                                Text(
+                                  viewModel.fetchedFlashcardsList![index].front,
+                                  style: kcTitleText,
+                                ),
+                                verticalSpaceLarge,
+                                FormBuilderRadioGroup(
+                                  key: UniqueKey(),
+                                  orientation: OptionsOrientation.vertical,
+                                  decoration: InputDecoration(
+                                      labelText: 'Choose one of the answers:',
+                                      labelStyle: kcNormalText),
+                                  name:
+                                      'ans', // FIXME: if 2 of the options have same words
+                                  options: viewModel.ansList![index]
+                                      // options: [
+                                      //   'viewModel.ansList![index]',
+                                      //   'fasdfasd',
+                                      //   'asdfasdfsd',
+                                      // ]
+                                      .map((ans) {
+                                    return FormBuilderFieldOption(
+                                      value: ans,
+                                      child: Text(
+                                        ans,
+                                        style: kcNormalText,
+                                      ),
+                                    );
+                                  }).toList(growable: false),
+                                  onChanged: (value) =>
+                                      viewModel.changeAnsValue(index, value),
+                                  // viewModel.changeAnsValue(value),
+                                  // options: [
+                                  //   FormBuilderFieldOption(value: value)
+                                  // ],
+                                ),
+                              ]),
+                        ),
                       ),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          // mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            verticalSpaceMedium,
-                            Text('QUESTION ${index + 1}:', style: kcTitleText),
-                            Divider(color: GFColors.LIGHT),
-                            verticalSpaceMedium,
-                            Text(
-                              viewModel.fetchedFlashcardsList![index].front,
-                              style: kcTitleText,
-                            ),
-                            verticalSpaceLarge,
-                            FormBuilderRadioGroup(
-                              key: UniqueKey(),
-                              orientation: OptionsOrientation.vertical,
-                              decoration: InputDecoration(
-                                  labelText: 'Choose one of the answers:',
-                                  labelStyle: kcNormalText),
-                              name:
-                                  'ans', // FIXME: if 2 of the options have same words
-                              // options: viewModel.ansList![index]
-                              options: [
-                                'viewModel.ansList![index]',
-                                'fasdfasd',
-                                'asdfasdfsd',
-                              ].map((ans) {
-                                return FormBuilderFieldOption(
-                                  value: ans,
-                                  child: Text(
-                                    ans,
-                                    style: kcNormalText,
-                                  ),
-                                );
-                              }).toList(growable: false),
-                              onChanged: (value) =>
-                                  viewModel.changeAnsValue(index, value),
-                              // viewModel.changeAnsValue(value),
-                              // options: [
-                              //   FormBuilderFieldOption(value: value)
-                              // ],
-                            ),
-                          ]),
                     ),
-                  ),
+                    GFButton(
+                      textColor: GFColors.DARK,
+                      color: GFColors.LIGHT,
+                      onPressed: () async {
+                        // Implement login functionality here
+                        viewModel.checkAns();
+                      },
+                      child: const Text('Submit Answer'),
+                    )
+                  ]),
                 ),
-          // GFButton(
-          //   textColor: GFColors.DARK,
-          //   color: GFColors.LIGHT,
-          //   onPressed: () async {
-          //     // Implement login functionality here
-          //     viewModel.checkAns();
-          //   },
-          //   child: const Text('Submit Answer'),
-          // )
+
           // ],
           // ),
         ),

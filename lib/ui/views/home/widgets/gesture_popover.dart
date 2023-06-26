@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 // import 'package:fyp_ezymemory/ui/views/home/decklist_items.dart';
 import 'package:popover/popover.dart';
 
-
 class GesturePopover extends StatelessWidget {
   final Widget? child;
   // final String deckId;
