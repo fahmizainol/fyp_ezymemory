@@ -95,10 +95,10 @@ class SessionLearningViewModel extends FutureViewModel {
       rebuildUi();
     } else {
       // add points to the user
-      await _pointService.addPoints(1);
+      await _pointService.addPoints(1, 300);
       _dialogService.showDialog(
           title:
-              'Congrats you have received 400pts for finishing the learning session for today!');
+              'Congrats you have received 300 points for finishing the learning session for today!');
     }
   }
 

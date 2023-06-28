@@ -35,6 +35,7 @@ class GameQuizView extends StackedView<GameQuizViewModel> {
               : FormBuilder(
                   key: _formKey,
                   child: Column(mainAxisSize: MainAxisSize.max, children: [
+                    // verticalSpaceMedium,
                     Expanded(
                       child: ListView.builder(
                         // key: UniqueKey(),
@@ -42,7 +43,8 @@ class GameQuizView extends StackedView<GameQuizViewModel> {
                         shrinkWrap: true,
                         itemCount: viewModel.fetchedFlashcardsList!.length,
                         itemBuilder: (context, index) => Container(
-                          height: 400,
+                          margin: EdgeInsets.all(5),
+                          height: 450,
                           width: 350,
                           // child: Text('fff'),
                           decoration: BoxDecoration(

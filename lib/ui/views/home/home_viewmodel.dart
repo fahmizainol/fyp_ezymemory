@@ -86,7 +86,7 @@ class HomeViewModel extends StreamViewModel {
 
   Future addPoints(int activity) async {
     // TODO: add logic for checking in
-    await _pointService.addPoints(activity);
+    await _pointService.addPoints(activity, 200);
   }
 
   Future<void> _isAndroidPermissionGranted() async {

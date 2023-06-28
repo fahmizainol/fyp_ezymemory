@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:fyp_ezymemory/models/Badge/Badge.dart';
 import 'package:fyp_ezymemory/models/Deck/Deck.dart';
 import 'package:fyp_ezymemory/models/Flashcard/Flashcard.dart';
+import 'package:fyp_ezymemory/models/UserStats/UserStats.dart';
 import 'package:fyp_ezymemory/services/auth_service.dart';
 import 'package:fyp_ezymemory/services/logger_service.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -22,6 +23,8 @@ class FirestoreService {
       FirebaseFirestore.instance.collection('decks');
   final CollectionReference _badgesCollectionReference =
       FirebaseFirestore.instance.collection('badges');
+  final CollectionReference _userStatsCollectionReference =
+      FirebaseFirestore.instance.collection('userStats');
   // final CollectionReference _flashcardsCollectionReference =
   //     FirebaseFirestore.instance.collection('decks').;
 
@@ -215,6 +218,7 @@ class FirestoreService {
 
       var userDeckListSnap = await _decksCollectionReference
           .where('user_id', isEqualTo: uid)
+          .orderBy('createDate', descending: true)
           .get();
 
       final List<Deck> userDecks = userDeckListSnap.docs.map((e) {
@@ -237,6 +241,8 @@ class FirestoreService {
       return e.toString();
     }
   }
+
+  // Future getUserDeckCount()
 
   Future importUserDeck(Deck importedDeck) async {
     try {
@@ -634,6 +640,54 @@ class FirestoreService {
     }
   }
 
+  Future getMatchFlashcards(String deckId, {int freshLimit = 6}) async {
+    try {
+      _loggerService.printInfo(
+          header, "getMatchFlashcards: getting flashcard list $deckId ...");
+
+      var freshFlashcardListSnap = await _decksCollectionReference
+          .doc(deckId)
+          .collection('flashcards')
+          // .orderBy('reviewTime', descending: false)
+          .limit(freshLimit)
+          .get();
+
+      await updateDeckLastFetchedTime(deckId);
+
+      final List<Flashcard> freshInUserStackFlashcard =
+          freshFlashcardListSnap.docs.map((e) {
+        Map<String, dynamic> data = e.data();
+        data["inUserStack"] = true;
+        updateFlashcardById(
+            inUserStack: true,
+            status: 'fresh',
+            deckId: deckId,
+            flashcardId: data["id"],
+            reviewTime: data["reviewTime"],
+            easeFactor: data["easeFactor"],
+            interval: data["interval"],
+            repetitions: data["repetitions"]);
+        Flashcard flashcardModel = Flashcard.fromJson(data);
+
+        return flashcardModel;
+      }).toList();
+
+      _loggerService.printInfo(header,
+          "getQuizFlashcards: getting fresh flashcard list success! ${freshInUserStackFlashcard.toString()}");
+
+      // combine the lists
+      final List<Flashcard> flashcards = [...freshInUserStackFlashcard];
+
+      _loggerService.printInfo(header,
+          "getQuizFlashcards: getting session flashcard list success! ${flashcards.toString()}");
+
+      return flashcards;
+    } catch (e) {
+      final List<Flashcard> emptyFlashcard = [];
+      return emptyFlashcard;
+    }
+  }
+
   Future getFlashcardsCountByDeckId(String deckId) async {
     try {
       var flashcardSnap = await _decksCollectionReference
@@ -766,7 +820,7 @@ class FirestoreService {
   }
 
   /// ===========================================================================
-  ///                            FLASHCARD
+  ///                            BADGHE
   /// ===========================================================================
 
   Future uploadImg(badgeImg) async {
@@ -898,5 +952,76 @@ class FirestoreService {
 
       return true;
     } catch (e) {}
+  }
+
+  /// ===========================================================================
+  ///                            USERSTATS
+  /// ===========================================================================
+
+  Future addBadgeToUser(String badgeId) async {
+    try {
+      var uid = await _authService.getCurrentUserId();
+      _loggerService.printInfo(
+          header, "addBadgeToUser: importing badge to user...");
+
+      Badge badge = await getBadgeById(badgeId);
+
+      var uuid = const Uuid();
+      final UserStats userStatsBadge = UserStats(
+          description: badge.description,
+          image: badge.image,
+          id: uuid.v4(),
+          name: badge.name,
+          uid: uid);
+
+      // set deck
+      _loggerService.printInfo(
+          header, "addBadgeToUser: saving the badge to userStats  ...");
+
+      await _userStatsCollectionReference
+          .doc(userStatsBadge.id)
+          .set(userStatsBadge.toJson());
+
+      return true;
+      // Need to create in User & Deck collection
+    } catch (e) {
+      if (e is PlatformException) {
+        _loggerService.printShout("addBadgeToUser: ${e.message}");
+        return false;
+      }
+      _loggerService.printShout("addBadgeToUser: ${e.toString()}");
+      return false;
+    }
+  }
+
+  Future getUserStatsList() async {
+    try {
+      var uid = await _authService.getCurrentUserId();
+      _loggerService.printInfo(
+          header, "getUserStatsList: getting user $uid userStats list...");
+
+      var userStatsListSnap = await _userStatsCollectionReference
+          .where('uid', isEqualTo: uid)
+          .get();
+
+      final List<UserStats> userStats = userStatsListSnap.docs.map((e) {
+        Map<String, dynamic> data = e.data() as Map<String, dynamic>;
+        UserStats userStatsModel = UserStats.fromJson(data);
+        return userStatsModel;
+      }).toList();
+
+      _loggerService.printInfo(
+          header, "getUserStatsList: ${userStats.toString()}...");
+      return userStats;
+      // var userDeckList = user.data["deckList"];
+    } catch (e) {
+      if (e is PlatformException) {
+        _loggerService.printShout("getUserStatsList: ${e.message}");
+        return e.message;
+        // throw e.message;
+      }
+      _loggerService.printShout("getUserStatsList: ${e.toString()}");
+      return e.toString();
+    }
   }
 }

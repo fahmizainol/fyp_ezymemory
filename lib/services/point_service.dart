@@ -8,20 +8,20 @@ class PointService {
 
   final header = ['point_service'];
 
-  Future addPoints(int activity) async {
-    double points = 0;
+  Future addPoints(int activity, double points) async {
+    // double points = 0;
     switch (activity) {
       case 0:
         _loggerService.printInfo(header, "addPoints: Sign In");
-        points = 200;
+        // points = 200;
         break;
       case 1:
         _loggerService.printInfo(header, "addPoints: Flashcard finished");
-        points = 400;
+        // points = 400;
         break;
       case 2:
         _loggerService.printInfo(header, "addPoints: Memory game finished");
-        points = 600;
+        // points = 600;
         break;
       default:
         points = 0;

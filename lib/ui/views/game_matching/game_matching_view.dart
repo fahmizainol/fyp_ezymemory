@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fyp_ezymemory/ui/common/app_text.dart';
 import 'package:fyp_ezymemory/ui/common/ui_helpers.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_bottombar/em_bottombar.dart';
@@ -32,6 +33,7 @@ class GameMatchingView extends StackedView<GameMatchingViewModel> {
                   : Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
+                        // Text('data'),
                         Expanded(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -60,10 +62,7 @@ class GameMatchingView extends StackedView<GameMatchingViewModel> {
                                     child: Center(
                                       child: Text(
                                         viewModel.questions![index][0],
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20.0,
-                                        ),
+                                        style: kcNormalText,
                                       ),
                                     ),
                                   ),
@@ -77,7 +76,26 @@ class GameMatchingView extends StackedView<GameMatchingViewModel> {
                             children: List.generate(
                                 viewModel.flashcardsListCount, (index) {
                               return Expanded(
-                                child: Container(),
+                                child: Container(
+                                    child: index == 0
+                                        ? Column(
+                                            children: [
+                                              Text(
+                                                'Score: ${viewModel.points}',
+                                                style: kcNormalText,
+                                              ),
+                                              viewModel.ansStatus != ''
+                                                  ? Text(
+                                                      '${viewModel.ansStatus}!',
+                                                      style: kcNormalText,
+                                                    )
+                                                  : Text(
+                                                      '',
+                                                      style: kcNormalText,
+                                                    )
+                                            ],
+                                          )
+                                        : Text('')),
                               );
                             }),
                           ),
@@ -111,10 +129,7 @@ class GameMatchingView extends StackedView<GameMatchingViewModel> {
                                     child: Center(
                                       child: Text(
                                         viewModel.ans![index][1],
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20.0,
-                                        ),
+                                        style: kcNormalText,
                                       ),
                                     ),
                                   ),

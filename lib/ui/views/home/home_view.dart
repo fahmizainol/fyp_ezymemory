@@ -44,15 +44,16 @@ class HomeView extends StackedView<HomeViewModel> {
                       ? const EMCircular()
                       : Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                              //TODO: make it scrollable to avoid overflow
-                              // mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                verticalSpaceSmall,
-                                Expanded(
-                                  flex: 5,
-                                  child: DataTable(
+                          child: SingleChildScrollView(
+                            child: Column(
+                                //TODO: make it scrollable to avoid overflow
+                                // mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  verticalSpaceSmall,
+                                  DataTable(
+                                    dataRowMinHeight: 25,
+                                    dataRowMaxHeight: 100,
                                     columns: const <DataColumn>[
                                       DataColumn(
                                         label: Expanded(
@@ -75,10 +76,40 @@ class HomeView extends StackedView<HomeViewModel> {
                                     rows: List<DataRow>.generate(
                                       viewModel.fetchedUserDeckListLength,
                                       (int index) => DataRow(
+                                        onLongPress: () {},
                                         cells: <DataCell>[
-                                          DataCell(Text(
-                                              '${viewModel.fetchedUserDeckList?[index].name}',
-                                              style: kcNormalText)),
+                                          DataCell(
+                                              onTap: () => viewModel
+                                                  .toSessionChooserView(
+                                                      viewModel
+                                                              .fetchedUserDeckList?[
+                                                                  index]
+                                                              .id ??
+                                                          "",
+                                                      viewModel
+                                                              .fetchedUserDeckList?[
+                                                                  index]
+                                                              .name ??
+                                                          ""),
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  verticalSpaceSmall,
+                                                  Text(
+                                                      '${viewModel.fetchedUserDeckList?[index].name}',
+                                                      style: kcNormalText),
+                                                  verticalSpaceSmall,
+                                                  Text(
+                                                      'Category: ${viewModel.fetchedUserDeckList?[index].category}',
+                                                      style: kcNormalText3),
+                                                  Text(
+                                                      'Date: ${viewModel.fetchedUserDeckList?[index].lastFetchedTime}',
+                                                      style: kcNormalText3),
+                                                ],
+                                              )),
                                           DataCell(
                                             PopupMenuButton<int>(
                                                 color: Colors.amber,
@@ -121,39 +152,37 @@ class HomeView extends StackedView<HomeViewModel> {
                                       ),
                                     ),
                                   ),
-                                ),
-                                // verticalSpaceMassive,
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    GFButton(
-                                      color: kcDarkGreyColor,
-                                      // onPressed: () async {
-                                      //   Navigator.pushNamed(context, Routes.importDeckView)
-                                      //       .then((_) => viewModel.initialise());
-                                      // },
-                                      onPressed: viewModel.toImportDeckView,
-                                      child: const Text(
-                                        'Import Deck +',
-                                        style: kcNormalText,
-                                      ),
-                                    ),
-                                    GFButton(
-                                      color: kcDarkGreyColor,
-                                      onPressed: viewModel.toCreateDeckView,
-                                      child: const Text(
-                                        'Create Deck +',
-                                        style: kcNormalText,
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ]),
+                                ]),
+                          ),
                         ),
                 ),
               ),
               verticalSpaceTiny,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GFButton(
+                    color: kcDarkGreyColor,
+                    // onPressed: () async {
+                    //   Navigator.pushNamed(context, Routes.importDeckView)
+                    //       .then((_) => viewModel.initialise());
+                    // },
+                    onPressed: viewModel.toImportDeckView,
+                    child: const Text(
+                      'Import Deck +',
+                      style: kcNormalText,
+                    ),
+                  ),
+                  GFButton(
+                    color: kcDarkGreyColor,
+                    onPressed: viewModel.toCreateDeckView,
+                    child: const Text(
+                      'Create Deck +',
+                      style: kcNormalText,
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         ),

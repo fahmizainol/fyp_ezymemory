@@ -24,8 +24,12 @@ class CreateFlashcardViewModel extends BaseViewModel {
     try {
       var response =
           await _firestoreService.createFlashcard(deckId, front, back);
+      front = '';
+      back = '';
+      rebuildUi();
       if (response) {
-        await _dialogService.showDialog(title: "Card saved successfully!");
+        await _dialogService.showDialog(
+            title: "Card saved successfully!", barrierDismissible: true);
         // _navigationService.back();
       }
     } catch (e) {}

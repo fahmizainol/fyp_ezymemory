@@ -109,15 +109,16 @@ class CreateDeckView extends StackedView<CreateDeckViewModel>
                 GFButton(
                   textColor: GFColors.DARK,
                   color: GFColors.LIGHT,
-                  onPressed: () {
+                  onPressed: () async {
                     // Implement login functionality here
                     // if (_formKey.currentState!.validate()) {
                     // print(_formKey.currentState.);
-                    viewModel.createNewDeck(deckNameController.text,
+                    await viewModel.createNewDeck(deckNameController.text,
                         viewModel.currentDropdownValue);
                     // } else {
                     // submitBtnClicked = true;
                     // }
+                    // _formKey.currentState!.reset();
                   },
                   child: const Text('Create Deck'),
                 )

@@ -18,6 +18,7 @@ class GameQuizViewModel extends FutureViewModel {
   final DialogService _dialogService = locator<DialogService>();
   final Sm2Service _sm2Service = locator<Sm2Service>();
   final PointService _pointService = locator<PointService>();
+  final NavigationService _navigationService = locator<NavigationService>();
 
   // final Sm sm = Sm();
 
@@ -28,7 +29,7 @@ class GameQuizViewModel extends FutureViewModel {
   int reviewFlashcardsCount = 0;
   List<String>? ans;
   List<List<String>>? ansList;
-  int? points;
+  double points = 0;
   int correctAns = 0;
   // TabController? tabController  = TabController(length: 3, vsync);
 
@@ -50,7 +51,7 @@ class GameQuizViewModel extends FutureViewModel {
       rebuildUi();
     } else {
       // add points to the user
-      await _pointService.addPoints(1);
+      await _pointService.addPoints(1, 300);
       _dialogService.showDialog(
           title:
               'Congrats you have received 400pts for finishing the learning session for today!');
@@ -61,12 +62,12 @@ class GameQuizViewModel extends FutureViewModel {
     final wordGen = WordGenerator();
     ans = List.generate(flashcardsListCount, (index) => '');
 
-    ansList = List.generate(flashcardsListCount, (index) {
+    ansList = List.generate(flashcardsListCount, (indexL) {
       Random random = Random();
       var randomInt = random.nextInt(4);
       return List.generate(4, (index) {
         if (index == randomInt) {
-          return fetchedFlashcardsList![index].back;
+          return fetchedFlashcardsList![indexL].back;
         } else {
           return wordGen.randomNoun();
         }
@@ -78,7 +79,7 @@ class GameQuizViewModel extends FutureViewModel {
   }
 
   // TODO: determine the right ans
-  void checkAns() {
+  void checkAns() async {
     // check if the value of the string inside the option equal to the back of the card
     for (var i = 0; i < flashcardsListCount; i++) {
       if (ans![i] == fetchedFlashcardsList![i].back) {
@@ -89,7 +90,25 @@ class GameQuizViewModel extends FutureViewModel {
       }
     }
 
-    print('${correctAns} out of ${flashcardsListCount}');
+    points = correctAns * 50;
+    await _pointService.addPoints(2, points);
+    await _dialogService.showDialog(
+        title: 'You have finished the quiz!',
+        description:
+            'You answered ${correctAns} out of ${flashcardsListCount} and received ${points}');
+
+    if (correctAns == flashcardsListCount) {
+      await _firestoreService
+          .addBadgeToUser('fdc80f7d-98e2-4b0e-be7a-15b1f26c0d0b');
+      await _dialogService.showDialog(
+          title: 'You have received the badge Trivia Whiz!',
+          description: 'For scoring perfect score in quiz!');
+    }
+
+    correctAns = 0;
+
+    // print('${correctAns} out of ${flashcardsListCount}');
+    _navigationService.back();
     // if (ans == fetchedFlashcardsList![flashcardsListCount].back) {
     //   print('corect');
     // } else {

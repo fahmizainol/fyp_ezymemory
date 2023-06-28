@@ -63,6 +63,8 @@ class ImportDeckView extends StackedView<ImportDeckViewModel> {
                                 children: [
                                   verticalSpaceSmall,
                                   DataTable(
+                                    dataRowMinHeight: 25,
+                                    dataRowMaxHeight: 100,
                                     columns: const <DataColumn>[
                                       DataColumn(
                                         label: Expanded(
@@ -91,9 +93,25 @@ class ImportDeckView extends StackedView<ImportDeckViewModel> {
                                         //   // Use default value for other states and odd rows.
                                         // }),
                                         cells: <DataCell>[
-                                          DataCell(Text(
-                                              '${viewModel.fetchedDeckList?[index].name}',
-                                              style: kcNormalText)),
+                                          DataCell(Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              verticalSpaceSmall,
+                                              Text(
+                                                  '${viewModel.fetchedDeckList?[index].name}',
+                                                  style: kcNormalText),
+                                              verticalSpaceSmall,
+                                              Text(
+                                                  'Category: ${viewModel.fetchedDeckList?[index].category}',
+                                                  style: kcNormalText3),
+                                              Text(
+                                                  'Date: ${viewModel.fetchedDeckList?[index].lastFetchedTime}',
+                                                  style: kcNormalText3),
+                                            ],
+                                          )),
                                           DataCell(IconButton(
                                             color: Colors.amber,
                                             icon: const Icon(Icons.add),

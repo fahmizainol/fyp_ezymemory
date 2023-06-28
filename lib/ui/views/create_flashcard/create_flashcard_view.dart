@@ -106,6 +106,7 @@ class CreateFlashcardView extends StackedView<CreateFlashcardViewModel> {
                                 deckId,
                                 viewModel.front.toString(),
                                 viewModel.back.toString());
+                            _formKey.currentState!.reset();
                           },
                           child: const Text('Save Card'),
                         )

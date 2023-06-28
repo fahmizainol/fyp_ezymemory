@@ -34,6 +34,11 @@ const TextStyle kcNormalText2 = TextStyle(
   fontSize: 10,
   fontWeight: FontWeight.bold,
 );
+const TextStyle kcNormalText3 = TextStyle(
+    color: Colors.white,
+    fontFamily: 'ZillaSlab',
+    fontSize: 10,
+    fontWeight: FontWeight.w200);
 
 const TextStyle kcNavigateText = TextStyle(
   color: Colors.blue,

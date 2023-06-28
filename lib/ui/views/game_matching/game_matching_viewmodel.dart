@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:collection/collection.dart';
@@ -19,6 +20,7 @@ class GameMatchingViewModel extends FutureViewModel {
   final DialogService _dialogService = locator<DialogService>();
   final Sm2Service _sm2Service = locator<Sm2Service>();
   final PointService _pointService = locator<PointService>();
+  final NavigationService _navigationService = locator<NavigationService>();
 
   // final Sm sm = Sm();
 
@@ -29,7 +31,7 @@ class GameMatchingViewModel extends FutureViewModel {
   List<List<String>>? questions;
   List<List<String>>? ans;
 
-  int? points;
+  double points = 0;
   int correctAns = 0;
 
   int? leftSelectedBoxIndex;
@@ -40,13 +42,16 @@ class GameMatchingViewModel extends FutureViewModel {
 
   List<bool>? matchedQuestions;
   List<bool>? matchedAns;
+
+  bool? showRes;
+  String ansStatus = '';
   // TODO: limit:5 , min:1
 
   @override
   Future futureToRun() => getFlashcardsList(deckId);
 
   Future getFlashcardsList(String deckId) async {
-    fetchedFlashcardsList = await _firestoreService.getQuizFlashcards(deckId);
+    fetchedFlashcardsList = await _firestoreService.getMatchFlashcards(deckId);
     rightFetchedFlashcardList = fetchedFlashcardsList;
 
     fetchedFlashcardsList!.shuffle();
@@ -113,26 +118,51 @@ class GameMatchingViewModel extends FutureViewModel {
     print(matchedQuestions.toString());
   }
 
-  void compareCards() {
+  void compareCards() async {
+    bool endGame;
+    endGame = matchedQuestions!.every((element) => element == true);
+
+    // print(endGame);
     if (leftSelectedBoxIndex != null && rightSelectedBoxIndex != null) {
       if (IterableEquality().equals(questions![leftSelectedBoxIndex ?? 0],
           ans![rightSelectedBoxIndex ?? 0])) {
         matchedQuestions![leftSelectedBoxIndex ?? 0] = true;
         matchedAns![rightSelectedBoxIndex ?? 0] = true;
-        print(matchedQuestions.toString());
-        _dialogService.showDialog(
-            barrierDismissible: true,
-            title: 'Correct!',
-            description: 'You have gained 50 points!');
+        endGame = matchedQuestions!.every((element) => element == true);
         leftSelectedBoxIndex = null;
         rightSelectedBoxIndex = null;
+        points += 50;
+        showRes = true;
+        ansStatus = 'Correct!';
+        rebuildUi();
+        Timer(Duration(seconds: 2), () {
+          ansStatus = '';
+          rebuildUi();
+        });
+        // return true;
       } else {
-        _dialogService.showDialog(barrierDismissible: true, title: 'Wrong!');
         leftSelectedBoxIndex = null;
         rightSelectedBoxIndex = null;
+        points -= 30;
+        showRes = true;
+        ansStatus = 'Wrong!';
+        rebuildUi();
+        Timer(Duration(seconds: 2), () {
+          ansStatus = '';
+          rebuildUi();
+        });
+        // return false;
       }
-      // leftSelectedBoxIndex = null;
-      // rightSelectedBoxIndex = null;
     }
+    if (endGame == true) {
+      await _pointService.addPoints(2, points);
+      await _dialogService.showDialog(
+          title: 'You have finished the game!',
+          description: 'You have received ${points} points!',
+          barrierDismissible: true);
+      _navigationService.back();
+    }
+
+    // return false;
   }
 }

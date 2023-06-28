@@ -7,9 +7,11 @@ import 'package:stacked_services/stacked_services.dart';
 class ImportDeckViewModel extends FutureViewModel {
   final FirestoreService _firestoreService = locator<FirestoreService>();
   final NavigationService _navigationService = locator<NavigationService>();
+  final DialogService _dialogService = locator<DialogService>();
 
   List<Deck>? fetchedDeckList;
   int fetchedDeckListLength = 0;
+  int importDeckCount = 0;
 
   @override
   Future futureToRun() => getDeckList();
@@ -21,6 +23,17 @@ class ImportDeckViewModel extends FutureViewModel {
 
   Future importDeck(Deck importedDeck) async {
     await _firestoreService.importUserDeck(importedDeck);
+    await _dialogService.showDialog(
+        title: 'You have successfully imported ${importedDeck.name}!');
+    importDeckCount += 1;
+
+    if (importDeckCount == 3) {
+      await _firestoreService
+          .addBadgeToUser('c98c7da5-b637-45c4-a502-ec79140e736b');
+      await _dialogService.showDialog(
+          title: 'You have received the badge Flashcard Explorer!',
+          description: 'For importing more than 2 decks!');
+    }
     // rebuildUi();
     // _navigationService.navigateTo(_navigationService.previousRoute);
     // _navigationService.popRepeated(1);

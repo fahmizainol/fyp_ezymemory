@@ -987,6 +987,20 @@ class MockFirestoreService extends _i1.Mock implements _i12.FirestoreService {
         returnValueForMissingStub: _i8.Future<dynamic>.value(),
       ) as _i8.Future<dynamic>);
   @override
+  _i8.Future<dynamic> getMatchFlashcards(
+    String? deckId, {
+    int? freshLimit = 6,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getMatchFlashcards,
+          [deckId],
+          {#freshLimit: freshLimit},
+        ),
+        returnValue: _i8.Future<dynamic>.value(),
+        returnValueForMissingStub: _i8.Future<dynamic>.value(),
+      ) as _i8.Future<dynamic>);
+  @override
   _i8.Future<dynamic> getFlashcardsCountByDeckId(String? deckId) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -1320,10 +1334,17 @@ class MockPointService extends _i1.Mock implements _i19.PointService {
         returnValueForMissingStub: <String>[],
       ) as List<String>);
   @override
-  _i8.Future<dynamic> addPoints(int? activity) => (super.noSuchMethod(
+  _i8.Future<dynamic> addPoints(
+    int? activity,
+    double? points,
+  ) =>
+      (super.noSuchMethod(
         Invocation.method(
           #addPoints,
-          [activity],
+          [
+            activity,
+            points,
+          ],
         ),
         returnValue: _i8.Future<dynamic>.value(),
         returnValueForMissingStub: _i8.Future<dynamic>.value(),

@@ -20,6 +20,7 @@ class CreateDeckViewModel extends BaseViewModel {
       var response = await _firestoreService.createDeck(deckName, category);
       if (response) {
         await _dialogService.showDialog(title: "Create Deck success!");
+        currentDropdownValue = "Others";
         // _navigationService.back();
         // _navigationService.popUntil((route) => false)
         _navigationService.navigateToHomeView();

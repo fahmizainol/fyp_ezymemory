@@ -35,7 +35,7 @@ class AdminCreateBadgeViewModel extends BaseViewModel {
         await _dialogService.showDialog(title: "Create Badge success!");
         // _navigationService.back();
         // _navigationService.popUntil((route) => false)
-        _navigationService.navigateToHomeAdminView();
+        _navigationService.navigateToAdminBadgesView();
       }
     } catch (e) {}
   }
