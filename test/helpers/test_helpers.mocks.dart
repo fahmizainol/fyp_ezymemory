@@ -1132,6 +1132,24 @@ class MockFirestoreService extends _i1.Mock implements _i12.FirestoreService {
         returnValue: _i8.Future<dynamic>.value(),
         returnValueForMissingStub: _i8.Future<dynamic>.value(),
       ) as _i8.Future<dynamic>);
+  @override
+  _i8.Future<dynamic> addBadgeToUser(String? badgeId) => (super.noSuchMethod(
+        Invocation.method(
+          #addBadgeToUser,
+          [badgeId],
+        ),
+        returnValue: _i8.Future<dynamic>.value(),
+        returnValueForMissingStub: _i8.Future<dynamic>.value(),
+      ) as _i8.Future<dynamic>);
+  @override
+  _i8.Future<dynamic> getUserStatsList() => (super.noSuchMethod(
+        Invocation.method(
+          #getUserStatsList,
+          [],
+        ),
+        returnValue: _i8.Future<dynamic>.value(),
+        returnValueForMissingStub: _i8.Future<dynamic>.value(),
+      ) as _i8.Future<dynamic>);
 }
 
 /// A class which mocks [LoggerService].

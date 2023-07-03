@@ -24,7 +24,6 @@ class AdminCreateBadgeView extends StackedView<AdminCreateBadgeViewModel> {
   ) {
     return EMScaffold(
       appBar: const EMAppBar(title: "Create Badge"),
-      bottomNavigationBar: const EMBottomBar(),
       body: SingleChildScrollView(
         child: FormBuilder(
           key: _formKey,

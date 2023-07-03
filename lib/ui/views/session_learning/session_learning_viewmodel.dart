@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fyp_ezymemory/app/app.locator.dart';
+import 'package:fyp_ezymemory/app/app.router.dart';
 import 'package:fyp_ezymemory/models/Flashcard/Flashcard.dart';
 import 'package:fyp_ezymemory/services/firestore_service.dart';
 import 'package:fyp_ezymemory/services/point_service.dart';
@@ -16,6 +17,7 @@ class SessionLearningViewModel extends FutureViewModel {
   final DialogService _dialogService = locator<DialogService>();
   final Sm2Service _sm2Service = locator<Sm2Service>();
   final PointService _pointService = locator<PointService>();
+  final NavigationService _navigationService = locator<NavigationService>();
 
   // final Sm sm = Sm();
 

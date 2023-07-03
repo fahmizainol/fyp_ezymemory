@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fyp_ezymemory/ui/common/app_colors.dart';
 import 'package:fyp_ezymemory/ui/common/app_text.dart';
 import 'package:fyp_ezymemory/ui/common/ui_helpers.dart';
+import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_bottombar/em_bottombar.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_circular.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_scaffold.dart';
@@ -21,18 +22,7 @@ class AdminModerateView extends StackedView<AdminModerateViewModel> {
     Widget? child,
   ) {
     return EMScaffold(
-      appBar: EasySearchBar(
-        // leading: Icon(Icons.abc),
-        title: const Text('Moderate Content', style: kcAppBarText),
-        iconTheme: const IconThemeData(color: Colors.white),
-        searchCursorColor: GFColors.WHITE,
-        // foregroundColor: GFColors.DARK,
-        searchBackgroundColor: GFColors.WHITE,
-        onSearch: (value) {},
-        backgroundColor: GFColors.DARK,
-        // suggestions: ,
-      ),
-      bottomNavigationBar: const EMBottomBar(),
+      appBar: EMAppBar(title: 'Moderate Content'),
 
       // backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
@@ -63,6 +53,8 @@ class AdminModerateView extends StackedView<AdminModerateViewModel> {
                                 children: [
                                   verticalSpaceSmall,
                                   DataTable(
+                                    dataRowMinHeight: 25,
+                                    dataRowMaxHeight: 100,
                                     columns: const <DataColumn>[
                                       DataColumn(
                                         label: Expanded(
@@ -85,15 +77,26 @@ class AdminModerateView extends StackedView<AdminModerateViewModel> {
                                     rows: List<DataRow>.generate(
                                       viewModel.fetchedDeckListLength,
                                       (int index) => DataRow(
-                                        // color: MaterialStateProperty.resolveWith<
-                                        //     Color?>((Set<MaterialState> states) {
-                                        //   return kcCardColor;
-                                        //   // Use default value for other states and odd rows.
-                                        // }),
                                         cells: <DataCell>[
-                                          DataCell(Text(
-                                              '${viewModel.fetchedDeckList?[index].name}',
-                                              style: kcNormalText)),
+                                          DataCell(Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              verticalSpaceSmall,
+                                              Text(
+                                                  '${viewModel.fetchedDeckList?[index].name}',
+                                                  style: kcNormalText),
+                                              verticalSpaceSmall,
+                                              Text(
+                                                  'Category: ${viewModel.fetchedDeckList?[index].category}',
+                                                  style: kcNormalText3),
+                                              Text(
+                                                  'Date: ${viewModel.fetchedDeckList?[index].lastFetchedTime}',
+                                                  style: kcNormalText3),
+                                            ],
+                                          )),
                                           DataCell(
                                             PopupMenuButton<int>(
                                                 color: Colors.amber,
@@ -123,6 +126,47 @@ class AdminModerateView extends StackedView<AdminModerateViewModel> {
                                         ],
                                       ),
                                     ),
+                                    // rows: List<DataRow>.generate(
+                                    //   viewModel.fetchedDeckListLength,
+                                    //   (int index) => DataRow(
+                                    //     // color: MaterialStateProperty.resolveWith<
+                                    //     //     Color?>((Set<MaterialState> states) {
+                                    //     //   return kcCardColor;
+                                    //     //   // Use default value for other states and odd rows.
+                                    //     // }),
+                                    //     cells: <DataCell>[
+                                    //       DataCell(Text(
+                                    //           '${viewModel.fetchedDeckList?[index].name}',
+                                    //           style: kcNormalText)),
+                                    //       DataCell(
+                                    //         PopupMenuButton<int>(
+                                    //             color: Colors.amber,
+                                    //             position:
+                                    //                 PopupMenuPosition.under,
+                                    //             onSelected: (int value) {
+                                    //               viewModel.popupMenuLogic(
+                                    //                   value,
+                                    //                   viewModel
+                                    //                           .fetchedDeckList?[
+                                    //                               index]
+                                    //                           .id ??
+                                    //                       "",
+                                    //                   viewModel
+                                    //                           .fetchedDeckList?[
+                                    //                               index]
+                                    //                           .name ??
+                                    //                       "");
+                                    //             },
+                                    //             itemBuilder: (context) => [
+                                    //                   const PopupMenuItem<int>(
+                                    //                       value: 0,
+                                    //                       child: Text(
+                                    //                           "Delete deck")),
+                                    //                 ]),
+                                    //       ),
+                                    //     ],
+                                    //   ),
+                                    // ),
                                   ),
                                   // verticalSpaceMassive,
                                 ]),

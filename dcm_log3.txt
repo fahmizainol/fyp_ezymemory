@@ -1,0 +1,154 @@
+[2K⠙ Analyzing...[2K[2K⠹ Analyzing 96 file(s)... 0.4s[2K⠸ Analyzing 96 file(s)... 2.0s[2K⠼ Analyzing 96 file(s)... 2.5s[2K⠴ Analyzing 96 file(s)... 2.5s[2K⠦ Analyzing 96 file(s)... 2.6s[2K⠧ Analyzing 96 file(s)... 2.8s[2K⠇ Analyzing 96 file(s)... 2.8s[2K⠏ Analyzing 96 file(s)... 2.9s[2K⠋ Analyzing 96 file(s)... 3.0s[2K⠙ Analyzing 96 file(s)... 3.1s[2K⠹ Analyzing 96 file(s)... 3.2s[2K⠸ Analyzing 96 file(s)... 3.2s[2K⠼ Analyzing 96 file(s)... 3.3s[2K⠴ Analyzing 96 file(s)... 3.4s[2K⠦ Analyzing 96 file(s)... 3.4s[2K⠧ Analyzing 96 file(s)... 3.5s[2K⠇ Analyzing 96 file(s)... 3.6s[2K⠏ Analyzing 96 file(s)... 3.7s[2K⠋ Analyzing 96 file(s)... 3.8s[2K⠙ Analyzing 96 file(s)... 3.8s[2K⠹ Analyzing 96 file(s)... 4.0s[2K⠸ Analyzing 96 file(s)... 4.0s[2K⠼ Analyzing 96 file(s)... 4.1s[2K⠴ Analyzing 96 file(s)... 4.2s[2K⠦ Analyzing 96 file(s)... 4.2s[2K✔ Analysis is completed. Preparing the results: 4.3s
+
+lib/app/app.router.dart:
+WARNING Long Parameter List. This method require 7 arguments.
+        at /home/kny/Documents/projects/fyp_ezymemory/lib/app/app.router.dart:820:3
+        long-parameter-list : https://dcm.dev/docs/anti-patterns/long-parameter-list
+
+WARNING Long Parameter List. This method require 7 arguments.
+        at /home/kny/Documents/projects/fyp_ezymemory/lib/app/app.router.dart:839:3
+        long-parameter-list : https://dcm.dev/docs/anti-patterns/long-parameter-list
+
+WARNING Long Parameter List. This method require 7 arguments.
+        at /home/kny/Documents/projects/fyp_ezymemory/lib/app/app.router.dart:1165:3
+        long-parameter-list : https://dcm.dev/docs/anti-patterns/long-parameter-list
+
+WARNING Long Parameter List. This method require 7 arguments.
+        at /home/kny/Documents/projects/fyp_ezymemory/lib/app/app.router.dart:1184:3
+        long-parameter-list : https://dcm.dev/docs/anti-patterns/long-parameter-list
+
+
+lib/services/firestore_service.dart:
+STYLE   Block is empty. Empty blocks are often indicators of missing code.
+        at /home/kny/Documents/projects/fyp_ezymemory/lib/services/firestore_service.dart:363:55
+        no-empty-block : https://dcm.dev/docs/rules/common/no-empty-block
+
+STYLE   Prefer conditional expression.
+        at /home/kny/Documents/projects/fyp_ezymemory/lib/services/firestore_service.dart:756:7
+        prefer-conditional-expressions : https://dcm.dev/docs/rules/common/prefer-conditional-expressions
+
+WARNING Long Parameter List. This method require 8 arguments.
+        at /home/kny/Documents/projects/fyp_ezymemory/lib/services/firestore_service.dart:764:3
+        long-parameter-list : https://dcm.dev/docs/anti-patterns/long-parameter-list
+
+
+lib/ui/views/counter/counter_viewmodel.dart:
+STYLE   Block is empty. Empty blocks are often indicators of missing code.
+        at /home/kny/Documents/projects/fyp_ezymemory/lib/ui/views/counter/counter_viewmodel.dart:50:23
+        no-empty-block : https://dcm.dev/docs/rules/common/no-empty-block
+
+
+lib/ui/views/home/home_view.dart:
+WARNING Long method. This method contains 161 lines with code.
+        at /home/kny/Documents/projects/fyp_ezymemory/lib/ui/views/home/home_view.dart:18:3
+        long-method : https://dcm.dev/docs/anti-patterns/long-method
+
+STYLE   Block is empty. Empty blocks are often indicators of missing code.
+        at /home/kny/Documents/projects/fyp_ezymemory/lib/ui/views/home/home_view.dart:79:57
+        no-empty-block : https://dcm.dev/docs/rules/common/no-empty-block
+
+
+lib/ui/views/login/login_view.dart:
+WARNING Long method. This method contains 104 lines with code.
+        at /home/kny/Documents/projects/fyp_ezymemory/lib/ui/views/login/login_view.dart:27:3
+        long-method : https://dcm.dev/docs/anti-patterns/long-method
+
+
+lib/ui/views/edit_deck/edit_deck_view.dart:
+WARNING Long method. This method contains 116 lines with code.
+        at /home/kny/Documents/projects/fyp_ezymemory/lib/ui/views/edit_deck/edit_deck_view.dart:21:3
+        long-method : https://dcm.dev/docs/anti-patterns/long-method
+
+
+lib/ui/views/import_deck/import_deck_view.dart:
+STYLE   Block is empty. Empty blocks are often indicators of missing code.
+        at /home/kny/Documents/projects/fyp_ezymemory/lib/ui/views/import_deck/import_deck_view.dart:31:27
+        no-empty-block : https://dcm.dev/docs/rules/common/no-empty-block
+
+
+lib/ui/views/progress/progress_view.dart:
+WARNING Long method. This method contains 154 lines with code.
+        at /home/kny/Documents/projects/fyp_ezymemory/lib/ui/views/progress/progress_view.dart:20:3
+        long-method : https://dcm.dev/docs/anti-patterns/long-method
+
+
+lib/ui/views/progress/progress_viewmodel.dart:
+STYLE   Comparing boolean values to boolean literals is unnecessary, as those expressions will result in booleans too. Just use the boolean values directly or negate them.
+        at /home/kny/Documents/projects/fyp_ezymemory/lib/ui/views/progress/progress_viewmodel.dart:35:46
+        no-boolean-literal-compare : https://dcm.dev/docs/rules/common/no-boolean-literal-compare
+
+
+lib/ui/views/register/register_view.dart:
+WARNING Long method. This method contains 140 lines with code.
+        at /home/kny/Documents/projects/fyp_ezymemory/lib/ui/views/register/register_view.dart:39:3
+        long-method : https://dcm.dev/docs/anti-patterns/long-method
+
+
+lib/ui/views/session_chooser/session_chooser_view.dart:
+WARNING Long method. This method contains 119 lines with code.
+        at /home/kny/Documents/projects/fyp_ezymemory/lib/ui/views/session_chooser/session_chooser_view.dart:19:3
+        long-method : https://dcm.dev/docs/anti-patterns/long-method
+
+
+lib/ui/views/session_learning/session_learning_view.dart:
+WARNING Long method. This method contains 148 lines with code.
+        at /home/kny/Documents/projects/fyp_ezymemory/lib/ui/views/session_learning/session_learning_view.dart:16:3
+        long-method : https://dcm.dev/docs/anti-patterns/long-method
+
+STYLE   Comparing boolean values to boolean literals is unnecessary, as those expressions will result in booleans too. Just use the boolean values directly or negate them.
+        at /home/kny/Documents/projects/fyp_ezymemory/lib/ui/views/session_learning/session_learning_view.dart:107:26
+        no-boolean-literal-compare : https://dcm.dev/docs/rules/common/no-boolean-literal-compare
+
+
+lib/ui/views/admin_badges/admin_badges_view.dart:
+WARNING Long method. This method contains 130 lines with code.
+        at /home/kny/Documents/projects/fyp_ezymemory/lib/ui/views/admin_badges/admin_badges_view.dart:21:3
+        long-method : https://dcm.dev/docs/anti-patterns/long-method
+
+
+lib/ui/views/admin_moderate/admin_moderate_view.dart:
+WARNING Long method. This method contains 110 lines with code.
+        at /home/kny/Documents/projects/fyp_ezymemory/lib/ui/views/admin_moderate/admin_moderate_view.dart:19:3
+        long-method : https://dcm.dev/docs/anti-patterns/long-method
+
+
+lib/ui/views/admin_create_badge/admin_create_badge_viewmodel.dart:
+STYLE   Block is empty. Empty blocks are often indicators of missing code.
+        at /home/kny/Documents/projects/fyp_ezymemory/lib/ui/views/admin_create_badge/admin_create_badge_viewmodel.dart:43:30
+        no-empty-block : https://dcm.dev/docs/rules/common/no-empty-block
+
+
+lib/ui/views/game_quiz/game_quiz_viewmodel.dart:
+STYLE   Prefer conditional expression.
+        at /home/kny/Documents/projects/fyp_ezymemory/lib/ui/views/game_quiz/game_quiz_viewmodel.dart:67:9
+        prefer-conditional-expressions : https://dcm.dev/docs/rules/common/prefer-conditional-expressions
+
+STYLE   Block is empty. Empty blocks are often indicators of missing code.
+        at /home/kny/Documents/projects/fyp_ezymemory/lib/ui/views/game_quiz/game_quiz_viewmodel.dart:84:14
+        no-empty-block : https://dcm.dev/docs/rules/common/no-empty-block
+
+STYLE   Block is empty. Empty blocks are often indicators of missing code.
+        at /home/kny/Documents/projects/fyp_ezymemory/lib/ui/views/game_quiz/game_quiz_viewmodel.dart:107:23
+        no-empty-block : https://dcm.dev/docs/rules/common/no-empty-block
+
+
+lib/ui/views/game_matching/game_matching_viewmodel.dart:
+STYLE   Comparing boolean values to boolean literals is unnecessary, as those expressions will result in booleans too. Just use the boolean values directly or negate them.
+        at /home/kny/Documents/projects/fyp_ezymemory/lib/ui/views/game_matching/game_matching_viewmodel.dart:123:52
+        no-boolean-literal-compare : https://dcm.dev/docs/rules/common/no-boolean-literal-compare
+
+STYLE   Comparing boolean values to boolean literals is unnecessary, as those expressions will result in booleans too. Just use the boolean values directly or negate them.
+        at /home/kny/Documents/projects/fyp_ezymemory/lib/ui/views/game_matching/game_matching_viewmodel.dart:131:56
+        no-boolean-literal-compare : https://dcm.dev/docs/rules/common/no-boolean-literal-compare
+
+STYLE   Comparing boolean values to boolean literals is unnecessary, as those expressions will result in booleans too. Just use the boolean values directly or negate them.
+        at /home/kny/Documents/projects/fyp_ezymemory/lib/ui/views/game_matching/game_matching_viewmodel.dart:157:9
+        no-boolean-literal-compare : https://dcm.dev/docs/rules/common/no-boolean-literal-compare
+
+
+lib/ui/views/game_matching/game_matching_view.dart:
+WARNING Long method. This method contains 122 lines with code.
+        at /home/kny/Documents/projects/fyp_ezymemory/lib/ui/views/game_matching/game_matching_view.dart:17:3
+        long-method : https://dcm.dev/docs/anti-patterns/long-method
+
+

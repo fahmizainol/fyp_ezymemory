@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
               bodyColor: Colors.black,
             ),
       ),
+      debugShowCheckedModeBanner: false,
       initialRoute: Routes.startupView,
       onGenerateRoute: StackedRouter().onGenerateRoute,
       navigatorKey: StackedService.navigatorKey,

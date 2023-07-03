@@ -43,7 +43,7 @@ class GameQuizView extends StackedView<GameQuizViewModel> {
                         shrinkWrap: true,
                         itemCount: viewModel.fetchedFlashcardsList!.length,
                         itemBuilder: (context, index) => Container(
-                          margin: EdgeInsets.all(5),
+                          margin: const EdgeInsets.all(5),
                           height: 450,
                           width: 350,
                           // child: Text('fff'),
@@ -59,7 +59,7 @@ class GameQuizView extends StackedView<GameQuizViewModel> {
                                 verticalSpaceMedium,
                                 Text('QUESTION ${index + 1}:',
                                     style: kcTitleText),
-                                Divider(color: GFColors.LIGHT),
+                                const Divider(color: GFColors.LIGHT),
                                 verticalSpaceMedium,
                                 Text(
                                   viewModel.fetchedFlashcardsList![index].front,
@@ -69,18 +69,11 @@ class GameQuizView extends StackedView<GameQuizViewModel> {
                                 FormBuilderRadioGroup(
                                   key: UniqueKey(),
                                   orientation: OptionsOrientation.vertical,
-                                  decoration: InputDecoration(
+                                  decoration: const InputDecoration(
                                       labelText: 'Choose one of the answers:',
                                       labelStyle: kcNormalText),
-                                  name:
-                                      'ans', // FIXME: if 2 of the options have same words
-                                  options: viewModel.ansList![index]
-                                      // options: [
-                                      //   'viewModel.ansList![index]',
-                                      //   'fasdfasd',
-                                      //   'asdfasdfsd',
-                                      // ]
-                                      .map((ans) {
+                                  name: 'ans',
+                                  options: viewModel.ansList![index].map((ans) {
                                     return FormBuilderFieldOption(
                                       value: ans,
                                       child: Text(
@@ -91,10 +84,6 @@ class GameQuizView extends StackedView<GameQuizViewModel> {
                                   }).toList(growable: false),
                                   onChanged: (value) =>
                                       viewModel.changeAnsValue(index, value),
-                                  // viewModel.changeAnsValue(value),
-                                  // options: [
-                                  //   FormBuilderFieldOption(value: value)
-                                  // ],
                                 ),
                               ]),
                         ),

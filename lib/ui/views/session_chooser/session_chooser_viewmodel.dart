@@ -51,7 +51,15 @@ class SessionChooserViewModel extends FutureViewModel {
   }
 
   void toSessionLearningView(String deckId) {
-    _navigationService.navigateToSessionLearningView(deckId: deckId);
+    if (freshFlashcardsCount != 0 || reviewFlashcardsCount != 0) {
+      _navigationService
+          .navigateToSessionLearningView(deckId: deckId)
+          .then((value) => initialise());
+    } else {
+      _dialogService.showDialog(
+          title: 'You have finished the session for today',
+          description: 'Come back again tomorrow!');
+    }
   }
 
   void toGameQuizView() {

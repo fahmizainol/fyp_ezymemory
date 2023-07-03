@@ -40,8 +40,6 @@ class GameQuizViewModel extends FutureViewModel {
     fetchedFlashcardsList = await _firestoreService.getQuizFlashcards(deckId);
     flashcardsListCount = fetchedFlashcardsList!.length;
     constructAnsList();
-
-    // TODO: create a list of words from the back side of the cards
   }
 
   Future nextCard() async {
@@ -71,7 +69,6 @@ class GameQuizViewModel extends FutureViewModel {
         } else {
           return wordGen.randomNoun();
         }
-        // return fetchedFlashcardsList![0].back;
       });
     });
 
@@ -83,11 +80,8 @@ class GameQuizViewModel extends FutureViewModel {
     // check if the value of the string inside the option equal to the back of the card
     for (var i = 0; i < flashcardsListCount; i++) {
       if (ans![i] == fetchedFlashcardsList![i].back) {
-        print('correct');
         correctAns += 1;
-      } else {
-        print('wrong');
-      }
+      } else {}
     }
 
     points = correctAns * 50;
@@ -107,13 +101,7 @@ class GameQuizViewModel extends FutureViewModel {
 
     correctAns = 0;
 
-    // print('${correctAns} out of ${flashcardsListCount}');
     _navigationService.back();
-    // if (ans == fetchedFlashcardsList![flashcardsListCount].back) {
-    //   print('corect');
-    // } else {
-    //   print('wrong');
-    // }
   }
 
   void quizTemplate() {}

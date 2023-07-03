@@ -58,8 +58,6 @@ class GameMatchingViewModel extends FutureViewModel {
     rightFetchedFlashcardList!.shuffle();
     flashcardsListCount = fetchedFlashcardsList!.length;
     constructCards();
-
-    // TODO: create a list of words from the back side of the cards
   }
 
   void changeLeftSelectedBoxIndex(value) {

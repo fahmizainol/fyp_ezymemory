@@ -1,0 +1,45 @@
+Computing fixes in fyp_ezymemory (dry run)...
+
+28 proposed fixes in 9 files.
+
+lib/ui/views/admin_badges/admin_badges_view.dart
+  prefer_const_constructors - 1 fix
+  unused_import - 2 fixes
+
+lib/ui/views/admin_create_badge/admin_create_badge_view.dart
+  unused_import - 1 fix
+
+lib/ui/views/admin_edit_badge/admin_edit_badge_view.dart
+  unused_import - 1 fix
+
+lib/ui/views/admin_moderate/admin_moderate_view.dart
+  prefer_const_constructors - 1 fix
+  unused_import - 3 fixes
+
+lib/ui/views/game_matching/game_matching_view.dart
+  prefer_const_constructors - 5 fixes
+  unused_import - 2 fixes
+
+lib/ui/views/game_matching/game_matching_viewmodel.dart
+  prefer_const_constructors - 3 fixes
+  unnecessary_brace_in_string_interps - 1 fix
+  unused_import - 2 fixes
+
+lib/ui/views/game_quiz/game_quiz_view.dart
+  unused_import - 1 fix
+
+lib/ui/views/game_quiz/game_quiz_viewmodel.dart
+  unnecessary_brace_in_string_interps - 3 fixes
+
+lib/ui/views/progress/progress_view.dart
+  unnecessary_string_interpolations - 1 fix
+  unused_import - 1 fix
+
+To fix an individual diagnostic, run one of:
+  dart fix --apply --code=prefer_const_constructors 
+  dart fix --apply --code=unnecessary_brace_in_string_interps 
+  dart fix --apply --code=unnecessary_string_interpolations 
+  dart fix --apply --code=unused_import 
+
+To fix all diagnostics, run:
+  dart fix --apply 
