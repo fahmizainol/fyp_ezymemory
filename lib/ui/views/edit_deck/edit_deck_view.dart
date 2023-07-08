@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:fyp_ezymemory/ui/common/app_text.dart';
 import 'package:fyp_ezymemory/ui/common/ui_helpers.dart';
 import 'package:fyp_ezymemory/ui/views/edit_deck/edit_deck_viewmodel.dart';
@@ -29,9 +30,7 @@ class EditDeckView extends StackedView<EditDeckViewModel> {
       body: SingleChildScrollView(
         child: FormBuilder(
           key: _formKey,
-          autovalidateMode: submitBtnClicked
-              ? AutovalidateMode.onUserInteraction
-              : AutovalidateMode.disabled,
+          autovalidateMode: AutovalidateMode.always,
           child: viewModel.isBusy
               ? const EMCircular()
               : SafeArea(
@@ -63,7 +62,7 @@ class EditDeckView extends StackedView<EditDeckViewModel> {
                           name: 'deckName',
                           initialValue: viewModel.deckName,
                           onChanged: (val) => viewModel.changeDeckName(val),
-                          // validator: CreateDeckValidators.validateDeckName,
+                          validator: FormBuilderValidators.required(),
                         ),
                         verticalSpaceMedium,
                         FormBuilderDropdown<String>(

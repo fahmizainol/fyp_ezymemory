@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:fyp_ezymemory/ui/common/ui_helpers.dart';
 import 'package:fyp_ezymemory/ui/views/create_deck/create_deck_view.form.dart';
 import 'package:fyp_ezymemory/ui/widgets/em_appbar.dart';
@@ -33,11 +34,9 @@ class CreateDeckView extends StackedView<CreateDeckViewModel>
       appBar: const EMAppBar(title: "Create Deck"),
       bottomNavigationBar: const EMBottomBar(),
       body: SingleChildScrollView(
-        child: Form(
+        child: FormBuilder(
           key: _formKey,
-          autovalidateMode: submitBtnClicked
-              ? AutovalidateMode.onUserInteraction
-              : AutovalidateMode.disabled,
+          autovalidateMode: AutovalidateMode.always,
           child: Padding(
             padding: const EdgeInsets.all(15.0),
             child: Column(
@@ -64,7 +63,7 @@ class CreateDeckView extends StackedView<CreateDeckViewModel>
                     //     : const Icon(Icons.check, color: Colors.green),
                   ),
                   name: 'deckName',
-                  // validator: CreateDeckValidators.validateDeckName,
+                  validator: FormBuilderValidators.required(),
                 ),
                 verticalSpaceMedium,
                 FormBuilderDropdown<String>(

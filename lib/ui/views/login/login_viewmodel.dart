@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fyp_ezymemory/app/app.locator.dart';
 import 'package:fyp_ezymemory/app/app.router.dart';
 import 'package:fyp_ezymemory/services/auth_service.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -26,6 +28,11 @@ class LoginViewModel extends FormViewModel {
       return e.toString();
       // print('error');
     }
+  }
+
+  Future googleSignIn() async {
+    await _authService.googleSignIn();
+    _navigationService.navigateToHomeView();
   }
 
   void toRegisterView() {

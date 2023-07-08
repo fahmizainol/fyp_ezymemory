@@ -19,17 +19,6 @@ class SessionLearningView extends StackedView<SessionLearningViewModel> {
     Widget? child,
   ) {
     return EMScaffold(
-      floatingButton: PopupMenuButton<int>(
-          position: PopupMenuPosition.over,
-          onSelected: (int value) {
-            viewModel.debugMenuLogic(value);
-          },
-          itemBuilder: (context) => [
-                const PopupMenuItem<int>(
-                    value: 0, child: Text("[D] Reset SM2 stats")),
-                // const PopupMenuItem<int>(
-                //     value: 0, child: Text("[D] Reset SM2 stats")),
-              ]),
       appBar: EMAppBar(title: "Learning Session", actions: [
         viewModel.isBusy
             ? const EMCircular()
@@ -54,14 +43,14 @@ class SessionLearningView extends StackedView<SessionLearningViewModel> {
                 child: Column(
                   children: [
                     Container(
-                      margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                      margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                       color: GFColors.WHITE,
                       width: 350,
-                      height: 600,
+                      height: 575,
                       child: Card(
                         elevation: 0.0,
                         margin: const EdgeInsets.only(
-                            left: 0.0, right: 0.0, top: 16.0, bottom: 16.0),
+                            left: 0.0, right: 0.0, top: 8.0, bottom: 8.0),
                         color: const Color(0x00000000),
                         child: viewModel.isBusy
                             ? const EMCircular()
@@ -108,14 +97,14 @@ class SessionLearningView extends StackedView<SessionLearningViewModel> {
                 child: Column(
                   children: [
                     Container(
-                      margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                      margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                       color: GFColors.WHITE,
                       width: 350,
-                      height: 600,
+                      height: 575,
                       child: Card(
                         elevation: 0.0,
                         margin: const EdgeInsets.only(
-                            left: 0.0, right: 0.0, top: 16.0, bottom: 16.0),
+                            left: 0.0, right: 0.0, top: 16.0, bottom: 8.0),
                         color: const Color(0x00000000),
                         child: viewModel.isBusy
                             ? const EMCircular()

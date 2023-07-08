@@ -67,7 +67,6 @@ class GameQuizView extends StackedView<GameQuizViewModel> {
                                 ),
                                 verticalSpaceLarge,
                                 FormBuilderRadioGroup(
-                                  key: UniqueKey(),
                                   orientation: OptionsOrientation.vertical,
                                   decoration: const InputDecoration(
                                       labelText: 'Choose one of the answers:',

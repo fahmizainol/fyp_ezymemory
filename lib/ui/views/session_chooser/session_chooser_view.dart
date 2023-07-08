@@ -29,7 +29,7 @@ class SessionChooserView extends StackedView<SessionChooserViewModel> {
       // backgroundColor: GFColors.DARK,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
           child: Column(
             // mainAxisSize: MainAxisSize.max,
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -63,7 +63,7 @@ class SessionChooserView extends StackedView<SessionChooserViewModel> {
                           Expanded(
                             flex: 1,
                             child: Text(
-                              'Last session: Yesterday \nPending cards: ${viewModel.freshFlashcardsCount} \nReview cards: ${viewModel.reviewFlashcardsCount}',
+                              'Learn the deck by using the power of Flashcard! \n  \nPending cards: ${viewModel.freshFlashcardsCount} \nReview cards: ${viewModel.reviewFlashcardsCount}',
                               style: kcNormalText,
                             ),
                           ),

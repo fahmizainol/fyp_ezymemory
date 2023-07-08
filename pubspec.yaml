@@ -66,10 +66,15 @@ dependencies:
   syncfusion_flutter_charts: ^21.2.4
   dart_code_metrics: ^5.7.5
   flutter_launcher_icons: ^0.13.1
+  form_builder_validators: ^9.0.0
+  google_sign_in: ^6.1.4
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+dependency_overrides:
+  intl: any
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -82,6 +87,13 @@ dev_dependencies:
   stacked_generator: ^1.0.0
   mockito: ^5.3.2
   json_serializable: ^6.6.2
+
+flutter_launcher_icons:
+  #  image_path: "assets/images/icon-128x128.png"
+  image_path_android: "images/image1.png"
+  image_path_ios: "images/image1.png"
+  android: true # can specify file name here e.g. "ic_launcher"
+  ios: true # can specify file name here e.g. "My-Launcher-Icon"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
