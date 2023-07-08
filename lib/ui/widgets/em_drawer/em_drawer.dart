@@ -20,16 +20,20 @@ class EMDrawer extends StackedView<EMDrawerModel> {
       padding: EdgeInsets.zero,
       children: <Widget>[
         const UserAccountsDrawerHeader(
-          decoration: BoxDecoration(color: GFColors.DARK),
-          accountName: Text("Abhishek Mishra"),
-          accountEmail: Text("abhishekm977@gmail.com"),
-          currentAccountPicture: CircleAvatar(
-            backgroundColor: Colors.orange,
-            child: Text(
-              "A",
-              style: TextStyle(fontSize: 40.0),
-            ),
-          ),
+          // decoration: BoxDecoration(color: GFColors.DARK),
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('images/sidebar.jpg'), fit: BoxFit.cover)),
+
+          accountName: Text(""),
+          accountEmail: Text(""),
+          // currentAccountPicture: CircleAvatar(
+          //   backgroundColor: Colors.orange,
+          //   child: Text(
+          //     "",
+          //     style: TextStyle(fontSize: 40.0),
+          //   ),
+          // ),
         ),
         ListTile(
           leading: const Icon(Icons.home),
@@ -58,7 +62,7 @@ class EMDrawer extends StackedView<EMDrawerModel> {
             style: kcNormalTextBlack,
           ),
           onTap: () {
-            Navigator.pop(context);
+            viewModel.signOut();
           },
         ),
       ],

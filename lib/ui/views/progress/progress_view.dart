@@ -29,7 +29,7 @@ class ProgressView extends StackedView<ProgressViewModel> {
       // backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
           child: Column(
             // mainAxisSize: MainAxisSize.max,
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -38,7 +38,7 @@ class ProgressView extends StackedView<ProgressViewModel> {
                 flex: 1,
                 child: Container(
                   width: 350,
-                  height: 50,
+                  height: 150,
                   // child: Text('fff'),
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
