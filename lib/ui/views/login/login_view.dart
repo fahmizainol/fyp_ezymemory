@@ -122,15 +122,6 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
                 ),
 
                 Center(
-                  child: GFButton(
-                      onPressed: () {
-                        viewModel.googleSignIn();
-                      },
-                      color: Colors.amber,
-                      text: 'SIGN IN WITH GOOGLE',
-                      textStyle: kcNormalText2),
-                ),
-                Center(
                   child: RichText(
                     text: TextSpan(children: [
                       const TextSpan(

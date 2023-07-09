@@ -31,6 +31,9 @@ class GameQuizViewModel extends FutureViewModel {
   List<List<String>>? ansList;
   double points = 0;
   int correctAns = 0;
+  int index = 0;
+
+  bool finished = false;
   // TabController? tabController  = TabController(length: 3, vsync);
 
   @override
@@ -43,16 +46,12 @@ class GameQuizViewModel extends FutureViewModel {
   }
 
   Future nextCard() async {
-    if (flashcardsListCount < (fetchedFlashcardsList!.length - 1)) {
-      flashcardsListCount++;
-      frontVisible = true;
+    if (index < (fetchedFlashcardsList!.length - 1)) {
+      index++;
       rebuildUi();
     } else {
-      // add points to the user
-      await _pointService.addPoints(1, 300);
-      _dialogService.showDialog(
-          title:
-              'Congrats you have received 400pts for finishing the learning session for today!');
+      finished = true;
+      checkAns();
     }
   }
 

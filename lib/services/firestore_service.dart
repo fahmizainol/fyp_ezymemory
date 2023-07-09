@@ -130,6 +130,32 @@ class FirestoreService {
     } catch (e) {}
   }
 
+  Future checkSignIn() async {
+    try {
+      var uid = await _authService.getCurrentUserId();
+
+      final User user = await getUser(uid);
+
+      print(user.checkInToday);
+
+      if (user.checkInToday == true) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {}
+  }
+
+  Future updateCheckIn() async {
+    try {
+      var uid = await _authService.getCurrentUserId();
+
+      final User user = await getUser(uid);
+
+      await _usersCollectionReference.doc(uid).update({"checkInToday": true});
+    } catch (e) {}
+  }
+
   /// ===========================================================================
   ///                            DECK
   /// ===========================================================================

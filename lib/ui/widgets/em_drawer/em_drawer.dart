@@ -65,6 +65,16 @@ class EMDrawer extends StackedView<EMDrawerModel> {
             viewModel.signOut();
           },
         ),
+        ListTile(
+          leading: const Icon(Icons.check_circle),
+          title: const Text(
+            "Check In",
+            style: kcNormalTextBlack,
+          ),
+          onTap: () {
+            viewModel.checkIn();
+          },
+        ),
       ],
     ));
   }

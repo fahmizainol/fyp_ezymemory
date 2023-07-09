@@ -13,6 +13,7 @@ class EMDrawerModel extends BaseViewModel {
   final AuthService _authService = locator<AuthService>();
   final LoggerService _loggerService = locator<LoggerService>();
   final PointService _pointService = locator<PointService>();
+  final DialogService _dialogService = locator<DialogService>();
 
   static int selectedIndex = 1;
   static int prevIndex = 0;
@@ -46,6 +47,24 @@ class EMDrawerModel extends BaseViewModel {
 
     await _navigationService.navigateToLoginView();
     dispose();
+  }
+
+  Future checkIn() async {
+    var res = await _firestoreService.checkSignIn();
+
+    if (res == false) {
+      await _firestoreService.updateCheckIn();
+      await _firestoreService.updatePoints(200);
+      _dialogService.showDialog(
+          barrierDismissible: true,
+          title: 'You have received 200 points',
+          description: 'Make sure to check in again tomorrow!');
+    } else {
+      _dialogService.showDialog(
+          barrierDismissible: true,
+          title: 'You have already checked in today',
+          description: 'Please come again tomorrow');
+    }
   }
 
   void changeIndex(int index) {
